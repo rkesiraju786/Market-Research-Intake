@@ -230,13 +230,18 @@ export default function ConsultingQuestionnaire({
                           value={data.problemStatement}
                           onChange={(e) => handleTextInputChange(e.target.value)}
                         />
-                        <Button 
-                          onClick={goToNextStep} 
-                          disabled={!data.problemStatement.trim()}
-                          className="mt-2"
+                        <motion.div
+                          whileTap={{ scale: 0.97 }}
+                          transition={{ duration: 0.1 }}
                         >
-                          Continue <ChevronRight className="h-4 w-4 ml-1" />
-                        </Button>
+                          <Button 
+                            onClick={goToNextStep} 
+                            disabled={!data.problemStatement.trim()}
+                            className="mt-2"
+                          >
+                            Continue <ChevronRight className="h-4 w-4 ml-1" />
+                          </Button>
+                        </motion.div>
                       </div>
                     ) : (
                       <div className="space-y-3">
@@ -246,22 +251,82 @@ export default function ConsultingQuestionnaire({
                           value={data.primaryPurpose}
                           onValueChange={handlePurposeSelect}
                         >
-                          <div className="flex items-center space-x-2">
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="attract-retain" id="attract-retain" />
-                            <Label htmlFor="attract-retain">Attract / Retain talent</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                            <Label htmlFor="attract-retain">
+                              Attract / Retain talent
+                              {data.primaryPurpose === "attract-retain" && (
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
+                              )}
+                            </Label>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="location-competitor" id="location-competitor" />
-                            <Label htmlFor="location-competitor">Location Strategy / Competitor Analysis</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                            <Label htmlFor="location-competitor">
+                              Location Strategy / Competitor Analysis
+                              {data.primaryPurpose === "location-competitor" && (
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
+                              )}
+                            </Label>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="employer-branding" id="employer-branding" />
-                            <Label htmlFor="employer-branding">Employer Branding</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                            <Label htmlFor="employer-branding">
+                              Employer Branding
+                              {data.primaryPurpose === "employer-branding" && (
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
+                              )}
+                            </Label>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="diversity" id="diversity" />
-                            <Label htmlFor="diversity">Diversity</Label>
-                          </div>
+                            <Label htmlFor="diversity">
+                              Diversity
+                              {data.primaryPurpose === "diversity" && (
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
+                              )}
+                            </Label>
+                          </motion.div>
                         </RadioGroup>
                       </div>
                     )}
@@ -396,10 +461,14 @@ export default function ConsultingQuestionnaire({
                       
                       <Button 
                         onClick={handleSubmitFinalForm} 
-                        disabled={!date}
+                        disabled={!date || isSubmitting}
                         className="mt-4"
                       >
-                        Continue <ChevronRight className="h-4 w-4 ml-1" />
+                        {isSubmitting ? (
+                          <>Processing <Spinner size="sm" className="ml-2" /></>
+                        ) : (
+                          <>Continue <ChevronRight className="h-4 w-4 ml-1" /></>
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -421,20 +490,25 @@ export default function ConsultingQuestionnaire({
               <p className="mt-1 text-xs text-gray-500">
                 Schedule a consultation call with one of our experts.
               </p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-2"
-                onClick={() => {
-                  toast({
-                    title: "Schedule Consultation",
-                    description: "Redirecting to scheduling page...",
-                  });
-                }}
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.1 }}
               >
-                <Clock className="h-3 w-3 mr-1" />
-                Schedule a Consultation
-              </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2"
+                  onClick={() => {
+                    toast({
+                      title: "Schedule Consultation",
+                      description: "Redirecting to scheduling page...",
+                    });
+                  }}
+                >
+                  <Clock className="h-3 w-3 mr-1" />
+                  Schedule a Consultation
+                </Button>
+              </motion.div>
             </div>
           </div>
         </CardFooter>
