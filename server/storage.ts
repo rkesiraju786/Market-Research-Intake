@@ -1,3 +1,5 @@
+import { db } from './db';
+import { eq } from 'drizzle-orm';
 import { 
   users, 
   type User, 
@@ -35,109 +37,97 @@ export interface IStorage {
   getAllAppointments(): Promise<Appointment[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private workforceRequests: Map<number, WorkforceRequest>;
-  private consultingRequests: Map<number, ConsultingRequest>;
-  private appointments: Map<number, Appointment>;
-  
-  private userCurrentId: number;
-  private workforceRequestCurrentId: number;
-  private consultingRequestCurrentId: number;
-  private appointmentCurrentId: number;
-
-  constructor() {
-    this.users = new Map();
-    this.workforceRequests = new Map();
-    this.consultingRequests = new Map();
-    this.appointments = new Map();
-    
-    this.userCurrentId = 1;
-    this.workforceRequestCurrentId = 1;
-    this.consultingRequestCurrentId = 1;
-    this.appointmentCurrentId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   // User methods
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.userCurrentId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
   
   // Workforce request methods
   async createWorkforceRequest(insertRequest: InsertWorkforceRequest): Promise<WorkforceRequest> {
-    const id = this.workforceRequestCurrentId++;
-    const now = new Date();
-    const request: WorkforceRequest = { 
-      ...insertRequest, 
-      id,
-      createdAt: now
-    };
-    this.workforceRequests.set(id, request);
+    const [request] = await db
+      .insert(workforceRequests)
+      .values({ 
+        ...insertRequest, 
+        createdAt: new Date() 
+      })
+      .returning();
     return request;
   }
   
   async getWorkforceRequest(id: number): Promise<WorkforceRequest | undefined> {
-    return this.workforceRequests.get(id);
+    const [request] = await db
+      .select()
+      .from(workforceRequests)
+      .where(eq(workforceRequests.id, id));
+    return request || undefined;
   }
   
   async getAllWorkforceRequests(): Promise<WorkforceRequest[]> {
-    return Array.from(this.workforceRequests.values());
+    return await db.select().from(workforceRequests);
   }
   
   // Consulting request methods
   async createConsultingRequest(insertRequest: InsertConsultingRequest): Promise<ConsultingRequest> {
-    const id = this.consultingRequestCurrentId++;
-    const now = new Date();
-    const request: ConsultingRequest = { 
-      ...insertRequest, 
-      id,
-      createdAt: now
-    };
-    this.consultingRequests.set(id, request);
+    const [request] = await db
+      .insert(consultingRequests)
+      .values({ 
+        ...insertRequest, 
+        createdAt: new Date() 
+      })
+      .returning();
     return request;
   }
   
   async getConsultingRequest(id: number): Promise<ConsultingRequest | undefined> {
-    return this.consultingRequests.get(id);
+    const [request] = await db
+      .select()
+      .from(consultingRequests)
+      .where(eq(consultingRequests.id, id));
+    return request || undefined;
   }
   
   async getAllConsultingRequests(): Promise<ConsultingRequest[]> {
-    return Array.from(this.consultingRequests.values());
+    return await db.select().from(consultingRequests);
   }
   
   // Appointment methods
   async createAppointment(insertAppointment: InsertAppointment): Promise<Appointment> {
-    const id = this.appointmentCurrentId++;
-    const now = new Date();
-    const appointment: Appointment = { 
-      ...insertAppointment, 
-      id,
-      createdAt: now
-    };
-    this.appointments.set(id, appointment);
+    const [appointment] = await db
+      .insert(appointments)
+      .values({ 
+        ...insertAppointment, 
+        createdAt: new Date() 
+      })
+      .returning();
     return appointment;
   }
   
   async getAppointment(id: number): Promise<Appointment | undefined> {
-    return this.appointments.get(id);
+    const [appointment] = await db
+      .select()
+      .from(appointments)
+      .where(eq(appointments.id, id));
+    return appointment || undefined;
   }
   
   async getAllAppointments(): Promise<Appointment[]> {
-    return Array.from(this.appointments.values());
+    return await db.select().from(appointments);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
