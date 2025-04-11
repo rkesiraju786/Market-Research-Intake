@@ -25,6 +25,9 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AnimatedContainer } from "@/components/ui/animated-container";
+import { Spinner } from "@/components/ui/spinner";
+import { Pulse } from "@/components/ui/pulse";
 import { cn } from "@/lib/utils";
 
 interface ConsultingQuestionnaireProps {
@@ -101,7 +104,13 @@ export default function ConsultingQuestionnaire({
       data.talentType && 
       data.deadline
     ) {
-      onComplete(data);
+      setIsSubmitting(true);
+      
+      // Simulate a short delay to show loading state
+      setTimeout(() => {
+        onComplete(data);
+        setIsSubmitting(false);
+      }, 800);
     } else {
       toast({
         title: "Missing Information",
@@ -126,9 +135,11 @@ export default function ConsultingQuestionnaire({
     exit: { opacity: 0, y: -20 }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-6">
+      <AnimatedContainer animation="fadeInDown" delay={0.1} className="mb-6">
         <Button
           variant="ghost"
           className="inline-flex items-center text-gray-600 hover:text-gray-900"
@@ -137,15 +148,21 @@ export default function ConsultingQuestionnaire({
           <ArrowLeft className="h-5 w-5 mr-1" />
           Back to selection
         </Button>
-      </div>
+      </AnimatedContainer>
 
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="text-2xl">{reportType} Consulting Project</CardTitle>
-          <CardDescription>
-            Let's work together to understand your specific needs for this consulting project.
-          </CardDescription>
-        </CardHeader>
+      <AnimatedContainer animation="fadeInUp" delay={0.2}>
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-2xl flex items-center">
+              {reportType} Consulting Project 
+              {currentStep === 3 && data.deadline === "expedited" && (
+                <Pulse color="warning" size="sm" className="ml-2" />
+              )}
+            </CardTitle>
+            <CardDescription>
+              Let's work together to understand your specific needs for this consulting project.
+            </CardDescription>
+          </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="flex justify-between mb-4">
@@ -422,6 +439,7 @@ export default function ConsultingQuestionnaire({
           </div>
         </CardFooter>
       </Card>
+      </AnimatedContainer>
     </div>
   );
 }
