@@ -230,7 +230,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">Select an option</SelectItem>
+                          <SelectItem value="placeholder" disabled>Select an option</SelectItem>
                           <SelectItem value="data">Data</SelectItem>
                           <SelectItem value="insights">Insights</SelectItem>
                           <SelectItem value="consulting">Consulting support</SelectItem>

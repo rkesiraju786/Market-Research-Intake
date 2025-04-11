@@ -236,7 +236,7 @@ export default function WorkforceReports({ onBack }: WorkforceReportsProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="">Select a report type</SelectItem>
+                      <SelectItem value="placeholder" disabled>Select a report type</SelectItem>
                       {standardReportTypes.map((report) => (
                         <SelectItem key={report.id} value={report.id}>
                           {report.title}
