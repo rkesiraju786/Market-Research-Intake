@@ -5,6 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export type HoverDetails = {
+  definition: string;
+  useCases: string[];
+};
+
+export type ExtendedReport = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  hoverDetails?: HoverDetails;
+  variants?: Record<string, any>;
+};
+
 export const formatDate = (date: Date): string => {
   return date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -13,7 +27,7 @@ export const formatDate = (date: Date): string => {
   });
 };
 
-export const standardReportTypes = [
+export const standardReportTypes: ExtendedReport[] = [
   {
     id: "strategic-sourcing",
     title: "Strategic Sourcing",
@@ -85,42 +99,98 @@ export const standardReportTypes = [
     title: "Location Analysis",
     description: "Evaluate labor markets across different geographic locations for expansion planning.",
     icon: "map-pin",
+    hoverDetails: {
+      definition: "A detailed assessment of talent markets across multiple locations to support site selection, expansion planning, and distributed workforce strategies.",
+      useCases: [
+        "Evaluating new office or facility locations based on talent availability",
+        "Comparing talent costs across different markets",
+        "Planning geographic expansion with talent as a primary factor"
+      ]
+    },
   },
   {
     id: "competitor-analysis",
     title: "Competitor Analysis",
     description: "Benchmark against competitors' talent acquisition and retention strategies.",
     icon: "line-chart",
+    hoverDetails: {
+      definition: "An in-depth comparison of your organization's talent strategies against key competitors, identifying competitive advantages and areas for improvement.",
+      useCases: [
+        "Benchmarking compensation and benefits packages to remain competitive",
+        "Understanding competitor hiring patterns and talent sources",
+        "Developing strategies to attract talent from competitors"
+      ]
+    },
   },
   {
     id: "evp-analysis",
     title: "EVP Analysis",
     description: "Evaluate and optimize your employee value proposition for target talent segments.",
     icon: "dollar-sign",
+    hoverDetails: {
+      definition: "A comprehensive assessment of your Employee Value Proposition (EVP) against market expectations and competitor offerings to attract and retain key talent.",
+      useCases: [
+        "Developing targeted EVP strategies for different talent segments",
+        "Identifying the most valued benefits and perks for specific roles",
+        "Optimizing total compensation packages to improve hiring outcomes"
+      ]
+    },
   },
   {
     id: "diversity-analysis",
     title: "Diversity Analysis",
     description: "Assess diversity metrics and identify opportunities for inclusive hiring practices.",
     icon: "users",
+    hoverDetails: {
+      definition: "A detailed analysis of workforce diversity metrics and labor market demographics to support inclusive hiring and build a more diverse talent pipeline.",
+      useCases: [
+        "Setting realistic diversity hiring goals based on market availability",
+        "Identifying untapped diverse talent pools in your industry",
+        "Supporting DEI initiatives with data-driven strategies"
+      ]
+    },
   },
   {
     id: "job-posting-analysis",
     title: "Job Posting Analysis",
     description: "Optimize job descriptions and posting strategies based on market response data.",
     icon: "clipboard",
+    hoverDetails: {
+      definition: "A comprehensive analysis of job posting performance, including engagement metrics, conversion rates, and content optimization recommendations.",
+      useCases: [
+        "Improving job posting conversion rates with data-backed language changes",
+        "Optimizing job distribution channels for maximum visibility",
+        "Benchmarking posting performance against industry standards"
+      ]
+    },
   },
   {
     id: "hourly-wage-analysis",
     title: "Hourly Wage Analysis",
     description: "Comprehensive wage data for hourly workers across industries and regions.",
     icon: "dollar-sign",
+    hoverDetails: {
+      definition: "Detailed analysis of hourly wage trends, compensation bands, and benefits packages for front-line and hourly workers across various industries.",
+      useCases: [
+        "Setting competitive wage rates for hourly positions",
+        "Developing region-specific compensation strategies",
+        "Planning for minimum wage increases and labor cost changes"
+      ]
+    },
   },
   {
     id: "talent-trends",
     title: "Talent Trends Report",
     description: "Analysis of emerging skills, career paths, and workforce mobility patterns.",
     icon: "trending-up",
+    hoverDetails: {
+      definition: "A forward-looking analysis of talent market trends, including emerging skills, changing career paths, and evolving candidate expectations.",
+      useCases: [
+        "Proactively planning for future talent needs and skill gaps",
+        "Understanding how career paths are evolving in your industry",
+        "Developing skills-based hiring and development strategies"
+      ]
+    },
   },
 ];
 

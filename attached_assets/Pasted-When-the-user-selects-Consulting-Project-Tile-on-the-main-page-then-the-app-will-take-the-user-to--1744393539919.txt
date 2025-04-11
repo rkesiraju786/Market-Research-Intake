@@ -1,0 +1,30 @@
+When the user selects Consulting Project Tile, on the main page, then the app will take the user to a new screen.
+It has the definition of Consulting Projects, Uses cases, timelines, benefits, uses cases and also displays all possible 8 Reports that we can deliver.
+Ex- Strategic Sourcing, Location Analysis, Competitor Analysis, EVP , Diversity, Job Posting, Hourly wage worker Analysis
+
+When the user hover their mouse on each of the tiles on the workforce Report page. For Ex> When the hover the mouse on the Staregic sourcing Tile, then the UI shoyuld display the basic Definition of the Strategic Souring in the context of talent retain and attarct  suppl, demand, Salary and diversity. The UI shoyold also dispaly 3  top uses cases that thei resaerch report could be used to. 
+
+
+When the click on the Strategic Sourcing  Reports,
+The app shouyld take the user to a new screen and then should start with a AI Conversational based Q& A
+
+The app should display first question as -
+what problem are you trying to solve? ( This answer should be a Text box, where user will type.)
+Or 
+          The UI will provide Or and ask the user to select something from a multiple choice
+what is the primary purpose of this study?
+The options are - Attract / Retain talent, Location Strategy / Competitor Analysis, Employer Branding, Diversity
+
+The UI should allow the user to type the answer or sleect a multiple choice question.
+
+Once user answer the question, the UI prmpt another question in a versitical transition way 
+what kind of talent are you looking for?Options are - professional Roles, Front-line roles, Senior Roles, Highly nice Roles
+
+Once the user answers the question, it will prompt another question.
+
+Do you have a deadline for this consulting project
+the options shall be - Delievry in 4-6 weeks , Expedited delivery (Have a hard deadline)
+
+If the user answers the hard deadline, the UI will ask the user to pick a any future date. the UI also displays that there will a cost associated for the fast delivery.
+
+the UI also provide at the botom of the screen -  same Schedule a consultation feature that is displayed on the main screen here. So that user can select and schedule a call.
