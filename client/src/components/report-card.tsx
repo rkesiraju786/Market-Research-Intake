@@ -17,6 +17,22 @@ import {
 } from "@/components/ui/hover-card";
 import { standardReportTypes } from "@/lib/utils";
 
+// Define types for hover details
+type HoverDetails = {
+  definition: string;
+  useCases: string[];
+};
+
+// Update our extended report type
+type ExtendedReport = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  hoverDetails?: HoverDetails;
+  variants?: Record<string, any>;
+};
+
 interface ReportCardProps {
   id: string;
   title: string;
@@ -48,8 +64,8 @@ export default function ReportCard({ id, title, description, icon, onSelect }: R
   };
 
   // Find the report details from standardReportTypes
-  const reportDetails = standardReportTypes.find(report => report.id === id);
-  const hasHoverDetails = reportDetails && 'hoverDetails' in reportDetails;
+  const reportDetails = standardReportTypes.find(report => report.id === id) as ExtendedReport | undefined;
+  const hasHoverDetails = reportDetails && reportDetails.hoverDetails !== undefined;
 
   return (
     <HoverCard openDelay={300} closeDelay={100}>
@@ -75,7 +91,7 @@ export default function ReportCard({ id, title, description, icon, onSelect }: R
         </div>
       </HoverCardTrigger>
       
-      {hasHoverDetails && reportDetails && 'hoverDetails' in reportDetails && (
+      {hasHoverDetails && reportDetails?.hoverDetails && (
         <HoverCardContent className="w-80 p-4">
           <div className="space-y-3">
             <h4 className="text-sm font-semibold">{title}</h4>
@@ -86,7 +102,7 @@ export default function ReportCard({ id, title, description, icon, onSelect }: R
             <div className="pt-2">
               <h5 className="text-xs font-medium text-gray-900 mb-1">Top Use Cases:</h5>
               <ul className="text-xs text-gray-600 space-y-1">
-                {reportDetails.hoverDetails.useCases.map((useCase, index) => (
+                {reportDetails.hoverDetails.useCases && reportDetails.hoverDetails.useCases.map((useCase, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-primary-600 mr-1">•</span>
                     <span>{useCase}</span>

@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,9 @@ import { apiRequest } from "@/lib/queryClient";
 
 interface WorkforceReportsProps {
   onBack: () => void;
+  onReportSelect?: (reportId: string) => void;
+  selectedReport?: string | null;
+  selectedVariant?: string | null;
 }
 
 const formSchema = z.object({
@@ -27,8 +30,16 @@ const formSchema = z.object({
   requirements: z.string().optional(),
 });
 
-export default function WorkforceReports({ onBack }: WorkforceReportsProps) {
-  const [selectedReport, setSelectedReport] = useState<string | null>(null);
+export default function WorkforceReports({ 
+  onBack, 
+  onReportSelect, 
+  selectedReport: propSelectedReport, 
+  selectedVariant 
+}: WorkforceReportsProps) {
+  // Use either the prop selectedReport or local state
+  const [localSelectedReport, setLocalSelectedReport] = useState<string | null>(null);
+  const selectedReport = propSelectedReport || localSelectedReport;
+  
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -39,10 +50,24 @@ export default function WorkforceReports({ onBack }: WorkforceReportsProps) {
       contactName: "",
       email: "",
       phone: "",
-      reportType: "",
+      reportType: selectedReport || "",
       requirements: "",
     },
   });
+
+  // Update form when selectedReport or selectedVariant changes
+  useEffect(() => {
+    if (selectedReport) {
+      form.setValue("reportType", selectedReport);
+      
+      // If there's a specific variant selected, add it to requirements
+      if (selectedVariant) {
+        form.setValue("requirements", 
+          `Selected variant: ${selectedVariant}\n${form.getValues("requirements") || ""}`
+        );
+      }
+    }
+  }, [form, selectedReport, selectedVariant]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setSubmitting(true);
@@ -70,8 +95,14 @@ export default function WorkforceReports({ onBack }: WorkforceReportsProps) {
   };
 
   const handleReportSelect = (id: string) => {
-    setSelectedReport(id);
-    form.setValue("reportType", id);
+    // If we have an external handler, use that
+    if (onReportSelect) {
+      onReportSelect(id);
+    } else {
+      // Otherwise use local state
+      setLocalSelectedReport(id);
+      form.setValue("reportType", id);
+    }
   };
 
   return (
