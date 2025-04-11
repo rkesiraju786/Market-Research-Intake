@@ -19,6 +19,66 @@ export const standardReportTypes = [
     title: "Strategic Sourcing",
     description: "Analyze talent pools and sourcing channels to optimize recruitment strategies.",
     icon: "clipboard-list",
+    hoverDetails: {
+      definition: "A comprehensive analysis of talent supply, demand, salary, and diversity data to help organizations make informed decisions about where and how to recruit talent.",
+      useCases: [
+        "Identifying untapped talent pools to meet hiring goals",
+        "Optimizing recruiting budget allocation based on market data",
+        "Supporting location strategy decisions with empirical workforce data"
+      ]
+    },
+    variants: {
+      basic: {
+        title: "Strategic Sourcing",
+        definition: "A foundational talent market analysis that provides key metrics on talent availability, competition, and costs.",
+        benefits: [
+          "Identify potential talent pools",
+          "Understand talent supply vs. demand dynamics",
+          "Make data-driven recruiting decisions"
+        ],
+        useCases: [
+          "Planning recruitment campaigns",
+          "Justifying budget allocations",
+          "Identifying hiring challenges"
+        ],
+        contents: [
+          "Talent Supply",
+          "Talent Demand",
+          "Talent Supply-Demand Ratio",
+          "Talent Cost (Median)",
+          "Top Competitors Housing and Hiring Talent",
+          "Top Titles",
+          "Top Skills"
+        ],
+        sampleReportUrl: "/sample-reports/strategic-sourcing-basic.pdf"
+      },
+      plus: {
+        title: "Strategic Sourcing Plus",
+        definition: "An advanced talent market analysis with expanded metrics and deeper insights into talent demographics and costs.",
+        benefits: [
+          "All benefits of the basic version",
+          "More granular cost analysis",
+          "Diversity insights for inclusive hiring",
+          "Alternative location recommendations"
+        ],
+        useCases: [
+          "DEI initiative planning",
+          "Cross-market talent strategy",
+          "Detailed compensation structuring",
+          "Experience-based recruiting plans"
+        ],
+        contents: [
+          "Everything in Basic version",
+          "Alternate Location Identification",
+          "Talent Supply by Experience",
+          "Talent Cost by Percentile (25th, 50th, 90th)",
+          "Talent Demand by Experience (TN covered countries only)",
+          "Talent Supply by Industry",
+          "Diversity"
+        ],
+        sampleReportUrl: "/sample-reports/strategic-sourcing-plus.pdf"
+      }
+    }
   },
   {
     id: "location-analysis",

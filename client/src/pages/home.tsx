@@ -5,13 +5,32 @@ import ReportTypeCard from "@/components/report-type-card";
 import WorkforceReports from "@/components/workforce-reports";
 import ConsultingReports from "@/components/consulting-reports";
 import ScheduleCall from "@/components/schedule-call";
+import StrategicSourcingDetail from "@/components/strategic-sourcing-detail";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock } from "lucide-react";
 
-type Section = "selection" | "workforce" | "consulting" | "schedule";
+type Section = "selection" | "workforce" | "consulting" | "schedule" | "strategic-sourcing-detail";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("selection");
+  const [selectedReportType, setSelectedReportType] = useState<string | null>(null);
+  const [selectedReportVariant, setSelectedReportVariant] = useState<string | null>(null);
+
+  const handleWorkforceReportSelect = (reportId: string) => {
+    if (reportId === "strategic-sourcing") {
+      setActiveSection("strategic-sourcing-detail");
+    } else {
+      // For other reports, just set the selected report type
+      setSelectedReportType(reportId);
+    }
+  };
+
+  const handleStrategicSourcingSubmit = (reportType: string, variant: string) => {
+    // Set the selected report type and variant, then go back to the workforce reports page
+    setSelectedReportType(reportType);
+    setSelectedReportVariant(variant);
+    setActiveSection("workforce");
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -72,7 +91,20 @@ export default function Home() {
 
         {/* Workforce Reports Section */}
         {activeSection === "workforce" && (
-          <WorkforceReports onBack={() => setActiveSection("selection")} />
+          <WorkforceReports 
+            onBack={() => setActiveSection("selection")} 
+            onReportSelect={handleWorkforceReportSelect}
+            selectedReport={selectedReportType}
+            selectedVariant={selectedReportVariant}
+          />
+        )}
+
+        {/* Strategic Sourcing Detail Section */}
+        {activeSection === "strategic-sourcing-detail" && (
+          <StrategicSourcingDetail 
+            onBack={() => setActiveSection("workforce")}
+            onSubmit={handleStrategicSourcingSubmit}
+          />
         )}
 
         {/* Consulting Reports Section */}
