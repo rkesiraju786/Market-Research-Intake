@@ -1,0 +1,28 @@
+I want to build a client Intake form for placing requests for a Labor Market Based Research Reports.
+The UI should have two panel options
+Workforce Reports
+Consulting Reports
+The panel is Workforce Reports - It has the definition of standard reports, Uses cases and also displays all possible 8 Reports that we can deliver.
+Ex- Strategic Sourcing, Location Analysis, Competitor Analysis, EVP , Diversity, Job Posting, Hourly wage worker Analysis
+
+The standard Reports pane also displays and communicate client that it takes up to 2 weeks to get the report delivery. the cost ranges is between X&Y and it's a self-service portal and client can view, download, share the reports by themselves.
+
+
+
+Consulting Reports - Custom tailored average is four to six weeks, much longer.It is a complex report that has parameters that are not included in standard or are outside of. The client should be aware that they are more expensive and take longer time up to 4 weeks.
+Also the servive usually end up with a consulting service. When the user select this panel, then UI should be more of a conversational driven UI asking questions like
+Tell me about your problem stattement
+What is the problem you are solving it today
+Give them high level category and capture as much information as possible.
+
+
+Also add a scheduler feature at the bottom of the selection cards - The text for the scheduler is 
+Not sure which report fits your needs? Book a call with a representative.
+When the user click on the book a call, the UI should list the below questions and collect answers from the user
+Please describe the business or talent need or challenge you are seeking to address (please share the context that’s leading to this request vs the solution you’re seeking).
+What type of support are you seeking?  E.g., data, insights, consulting support?
+What are the key questions you would like us to address as part of that solution?
+What are the decisions/outcomes this will inform?
+Is there a timeline that we will need to meet when delivering our solution?
+
+Then the UI should display a calendar with available timeslots from the Team’s calendar so that the user can book some time.
