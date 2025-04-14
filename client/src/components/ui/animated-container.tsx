@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { motion, MotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 import React from "react";
 
 type AnimationVariant = 
@@ -9,16 +9,13 @@ type AnimationVariant =
   | "fadeInLeft" 
   | "fadeInRight" 
   | "scaleIn" 
-  | "scaleInFast" 
-  | "staggerItem";
+  | "scaleInFast";
 
-interface AnimatedContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AnimatedContainerProps {
   children: React.ReactNode;
   animation?: AnimationVariant;
   delay?: number;
   className?: string;
-  motionProps?: MotionProps;
-  as?: React.ElementType;
 }
 
 export function AnimatedContainer({
@@ -26,115 +23,100 @@ export function AnimatedContainer({
   animation = "fadeIn",
   delay = 0,
   className,
-  motionProps,
-  as = "div",
-  ...props
 }: AnimatedContainerProps) {
-  const MotionComponent = motion[as as keyof typeof motion] || motion.div;
-
-  const variants = {
-    fadeIn: {
-      hidden: { opacity: 0 },
-      visible: { 
-        opacity: 1, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    fadeInUp: {
-      hidden: { opacity: 0, y: 20 },
-      visible: { 
-        opacity: 1, 
-        y: 0, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    fadeInDown: {
-      hidden: { opacity: 0, y: -20 },
-      visible: { 
-        opacity: 1, 
-        y: 0, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    fadeInLeft: {
-      hidden: { opacity: 0, x: -20 },
-      visible: { 
-        opacity: 1, 
-        x: 0, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    fadeInRight: {
-      hidden: { opacity: 0, x: 20 },
-      visible: { 
-        opacity: 1, 
-        x: 0, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    scaleIn: {
-      hidden: { opacity: 0, scale: 0.9 },
-      visible: { 
-        opacity: 1, 
-        scale: 1, 
-        transition: { duration: 0.5, delay } 
-      }
-    },
-    scaleInFast: {
-      hidden: { opacity: 0, scale: 0.95 },
-      visible: { 
-        opacity: 1, 
-        scale: 1, 
-        transition: { duration: 0.3, delay } 
-      }
-    },
-    staggerItem: {
-      hidden: { opacity: 0, y: 10 },
-      visible: { 
-        opacity: 1, 
-        y: 0, 
+  let animationProps = {};
+  
+  switch (animation) {
+    case "fadeIn":
+      animationProps = {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "fadeInUp":
+      animationProps = {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "fadeInDown":
+      animationProps = {
+        initial: { opacity: 0, y: -20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "fadeInLeft":
+      animationProps = {
+        initial: { opacity: 0, x: -20 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "fadeInRight":
+      animationProps = {
+        initial: { opacity: 0, x: 20 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "scaleIn":
+      animationProps = {
+        initial: { opacity: 0, scale: 0.9 },
+        animate: { opacity: 1, scale: 1 },
+        transition: { duration: 0.5, delay }
+      };
+      break;
+    case "scaleInFast":
+      animationProps = {
+        initial: { opacity: 0, scale: 0.95 },
+        animate: { opacity: 1, scale: 1 },
         transition: { duration: 0.3, delay }
-      }
-    }
-  };
+      };
+      break;
+    default:
+      animationProps = {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.5, delay }
+      };
+  }
 
   return (
-    <MotionComponent
-      initial="hidden"
-      animate="visible"
-      variants={variants[animation]}
-      className={cn(className)}
-      {...motionProps}
-      {...props}
+    <motion.div
+      className={className}
+      {...animationProps}
     >
       {children}
-    </MotionComponent>
+    </motion.div>
   );
 }
 
 export function AnimatedList({
   children,
-  staggerDelay = 0.1,
-  ...props
-}: AnimatedContainerProps & { staggerDelay?: number }) {
-  const MotionComponent = motion.div;
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: staggerDelay,
-      },
-    },
-  };
-
+  className,
+  delay = 0.1
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
   return (
-    <MotionComponent
+    <motion.div
+      className={className}
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
-      {...props}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: delay,
+          },
+        },
+      }}
     >
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) return child;
@@ -144,6 +126,6 @@ export function AnimatedList({
           className: cn('motion-stagger-item', child.props.className),
         });
       })}
-    </MotionComponent>
+    </motion.div>
   );
 }
