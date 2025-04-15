@@ -1,24 +1,27 @@
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+// HTML content to serve
+const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Labor Market Research</title>
+  <title>Super Basic Button Test</title>
   <style>
     body { 
       font-family: Arial, sans-serif; 
       max-width: 800px; 
       margin: 0 auto; 
       padding: 20px; 
-      background-color: #f5f5f5;
     }
     .container {
-      background-color: white;
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 20px;
       margin-top: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .hidden { 
       display: none; 
@@ -27,29 +30,16 @@
       background-color: #4285f4;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 15px;
       border-radius: 4px;
       cursor: pointer;
       margin: 10px 0;
-      font-size: 16px;
-      width: 100%;
     }
     .back-btn {
       background-color: #f1f1f1;
       color: #333;
-      margin-bottom: 20px;
     }
     h1, h2 {
-      color: #333;
-    }
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-    .card h3 {
-      margin-top: 0;
       color: #333;
     }
   </style>
@@ -68,23 +58,10 @@
     <h2>Workforce Reports</h2>
     <p>Here are the available workforce reports:</p>
     <button class="back-btn" onclick="goToPage('main-page')">Back to Main</button>
-    
-    <div class="card">
+    <div>
       <h3>Strategic Sourcing</h3>
       <p>Identify optimal locations for expanding your workforce.</p>
       <button onclick="alert('Selected Strategic Sourcing')">Select This Report</button>
-    </div>
-    
-    <div class="card">
-      <h3>Compensation & Benefits</h3>
-      <p>Analyze compensation trends and benefits packages for specific roles.</p>
-      <button onclick="alert('Selected Compensation & Benefits')">Select This Report</button>
-    </div>
-    
-    <div class="card">
-      <h3>Talent Market Analysis</h3>
-      <p>Review talent availability, skills gap analysis, and workforce trends.</p>
-      <button onclick="alert('Selected Talent Market Analysis')">Select This Report</button>
     </div>
   </div>
   
@@ -92,23 +69,10 @@
     <h2>Consulting Reports</h2>
     <p>Here are the available consulting projects:</p>
     <button class="back-btn" onclick="goToPage('main-page')">Back to Main</button>
-    
-    <div class="card">
+    <div>
       <h3>Custom Research</h3>
       <p>Tailored analysis for your specific business needs.</p>
       <button onclick="alert('Selected Custom Research')">Select This Project</button>
-    </div>
-    
-    <div class="card">
-      <h3>Market Analysis</h3>
-      <p>Comprehensive evaluation of labor market conditions.</p>
-      <button onclick="alert('Selected Market Analysis')">Select This Project</button>
-    </div>
-    
-    <div class="card">
-      <h3>Competitive Intelligence</h3>
-      <p>Insights into competitor workforce strategies.</p>
-      <button onclick="alert('Selected Competitive Intelligence')">Select This Project</button>
     </div>
   </div>
 
@@ -121,10 +85,18 @@
       
       // Show selected page
       document.getElementById(pageId).classList.remove('hidden');
-      
-      // Scroll to top
-      window.scrollTo(0, 0);
     }
   </script>
 </body>
 </html>
+`;
+
+// Serve the HTML content
+app.get('/', (req, res) => {
+  res.send(htmlContent);
+});
+
+// Start the server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Simple HTML server running at http://localhost:${PORT}`);
+});
