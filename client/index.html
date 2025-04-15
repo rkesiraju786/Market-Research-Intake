@@ -1,13 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labor Market Research Reports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      width: 450px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: white;
+    }
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    p {
+      color: #666;
+      line-height: 1.5;
+    }
+    .button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4285f4;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .back-button {
+      background-color: transparent;
+      border: 1px solid #ddd;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .section {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Labor Market Research Reports</h1>
+    
+    <div id="main-section" class="section active">
+      <h2 style="text-align: center; margin-bottom: 20px;">Select Report Type</h2>
+      <div class="card-container">
+        <div class="card">
+          <h2>Workforce Reports</h2>
+          <p>Standardized reports with comprehensive labor market data and analysis. Delivery within 2 weeks at standard pricing.</p>
+          <button class="button" onclick="showSection('workforce-section')">Select Workforce Reports</button>
+        </div>
+        
+        <div class="card">
+          <h2>Consulting Reports</h2>
+          <p>Custom-tailored research and analysis for complex business challenges. Delivery within 4-6 weeks with premium pricing.</p>
+          <button class="button" onclick="showSection('consulting-section')">Select Consulting Reports</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="workforce-section" class="section">
+      <button class="button back-button" onclick="showSection('main-section')">Back to Selection</button>
+      <h2>Workforce Report Types</h2>
+      <div class="card-container">
+        <div class="card">
+          <h2>Compensation & Benefits</h2>
+          <p>Analyze compensation trends and benefits packages for specific roles.</p>
+          <button class="button" onclick="alert('Selected Compensation & Benefits Report')">Select Report</button>
+        </div>
+        
+        <div class="card">
+          <h2>Talent Market Analysis</h2>
+          <p>Review talent availability, skills gap analysis, and workforce trends.</p>
+          <button class="button" onclick="alert('Selected Talent Market Analysis Report')">Select Report</button>
+        </div>
+        
+        <div class="card">
+          <h2>Strategic Sourcing</h2>
+          <p>Identify optimal locations for expanding your workforce.</p>
+          <button class="button" onclick="alert('Selected Strategic Sourcing Report')">Select Report</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="consulting-section" class="section">
+      <button class="button back-button" onclick="showSection('main-section')">Back to Selection</button>
+      <h2>Consulting Project Types</h2>
+      <div class="card-container">
+        <div class="card">
+          <h2>Custom Research</h2>
+          <p>Tailored analysis for your specific business needs.</p>
+          <button class="button" onclick="alert('Selected Custom Research Project')">Select Project</button>
+        </div>
+        
+        <div class="card">
+          <h2>Market Analysis</h2>
+          <p>Comprehensive evaluation of labor market conditions.</p>
+          <button class="button" onclick="alert('Selected Market Analysis Project')">Select Project</button>
+        </div>
+        
+        <div class="card">
+          <h2>Competitive Intelligence</h2>
+          <p>Insights into competitor workforce strategies.</p>
+          <button class="button" onclick="alert('Selected Competitive Intelligence Project')">Select Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show the selected section
+      document.getElementById(sectionId).classList.add('active');
+    }
+  </script>
+</body>
 </html>

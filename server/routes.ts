@@ -6,7 +6,12 @@ import { insertWorkforceRequestSchema, insertConsultingRequestSchema, insertAppo
 import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Serve the static HTML file
+  // Serve the static HTML file directly at the root
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'client/index.html'));
+  });
+  
+  // Original static route
   app.get('/static', (req, res) => {
     res.sendFile(path.join(process.cwd(), 'client/static.html'));
   });
