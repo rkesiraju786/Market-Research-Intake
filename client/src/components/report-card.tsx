@@ -1,22 +1,9 @@
-import { useState } from "react";
+import React from "react";
+import { BookOpen, FileText, BarChart4, PieChart, Map, Users, Layers, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { 
-  BarChart2, 
-  Clipboard, 
-  ClipboardList, 
-  DollarSign, 
-  LineChart, 
-  MapPin, 
-  TrendingUp, 
-  Users
-} from "lucide-react";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import { standardReportTypes, ExtendedReport, HoverDetails } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { ExtendedReport } from "@/lib/utils";
 
 interface ReportCardProps {
   id: string;
@@ -24,41 +11,49 @@ interface ReportCardProps {
   description: string;
   icon: string;
   onSelect: (id: string) => void;
+  reportDetails?: ExtendedReport;
 }
 
-export default function ReportCard({ id, title, description, icon, onSelect }: ReportCardProps) {
+export default function ReportCard({ 
+  id, 
+  title, 
+  description, 
+  icon, 
+  onSelect,
+  reportDetails
+}: ReportCardProps) {
   const getIcon = () => {
+    const iconProps = { className: "h-8 w-8" };
+    
     switch (icon) {
-      case "clipboard-list":
-        return <ClipboardList className="h-8 w-8" />;
-      case "map-pin":
-        return <MapPin className="h-8 w-8" />;
-      case "line-chart":
-        return <LineChart className="h-8 w-8" />;
-      case "dollar-sign":
-        return <DollarSign className="h-8 w-8" />;
+      case "book":
+        return <BookOpen {...iconProps} />;
+      case "file":
+        return <FileText {...iconProps} />;
+      case "barChart":
+        return <BarChart4 {...iconProps} />;
+      case "pieChart":
+        return <PieChart {...iconProps} />;
+      case "map":
+        return <Map {...iconProps} />;
       case "users":
-        return <Users className="h-8 w-8" />;
-      case "clipboard":
-        return <Clipboard className="h-8 w-8" />;
-      case "trending-up":
-        return <TrendingUp className="h-8 w-8" />;
+        return <Users {...iconProps} />;
+      case "layers":
+        return <Layers {...iconProps} />;
+      case "lineChart":
+        return <LineChart {...iconProps} />;
       default:
-        return <BarChart2 className="h-8 w-8" />;
+        return <FileText {...iconProps} />;
     }
   };
 
-  // Find the report details from standardReportTypes
-  const reportDetails = standardReportTypes.find(report => report.id === id) as ExtendedReport | undefined;
   const hasHoverDetails = reportDetails && reportDetails.hoverDetails !== undefined;
-
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <HoverCard openDelay={300} closeDelay={100}>
       <HoverCardTrigger asChild>
-        <div
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md transition-all hover:border-primary-300 hover:-translate-y-1"
+        <div 
+          className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md hover:border-primary-300 transition-all"
           onClick={() => onSelect(id)}
         >
           <div className="flex flex-col h-full">
@@ -69,7 +64,7 @@ export default function ReportCard({ id, title, description, icon, onSelect }: R
             <p className="text-sm text-gray-600 flex-grow">{description}</p>
             <Button 
               variant="outline" 
-              className="mt-4 w-full bg-primary-50 text-primary-600 border-primary-200 hover:bg-primary-100 active:scale-95 transition-transform"
+              className="mt-4 w-full bg-primary-50 text-primary-600 border-primary-200 hover:bg-primary-100"
               onClick={(e) => {
                 e.stopPropagation();
                 onSelect(id);

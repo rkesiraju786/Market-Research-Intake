@@ -12,7 +12,6 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
-import { AnimatePresence, motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
@@ -119,18 +118,11 @@ export default function ConsultingQuestionnaire({
     setInputMethod(prev => prev === "text" ? "choice" : "text");
   };
 
-  // Animation variants
-  const variants = {
-    enter: { opacity: 0, y: 20 },
-    center: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 }
-  };
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-6 animate-fadeIn">
+      <div className="mb-6">
         <Button
           variant="ghost"
           className="inline-flex items-center text-gray-600 hover:text-gray-900"
@@ -141,7 +133,7 @@ export default function ConsultingQuestionnaire({
         </Button>
       </div>
 
-      <div className="animate-fadeInUp">
+      <div>
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center">
@@ -184,243 +176,209 @@ export default function ConsultingQuestionnaire({
                 ))}
               </div>
 
-              <AnimatePresence mode="wait">
-                {/* Step 1: Problem Statement */}
-                {currentStep === 0 && (
-                  <motion.div
-                    key="step1"
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">What problem are you trying to solve?</h3>
-                      <p className="text-sm text-gray-500">
-                        Please describe the challenge or opportunity you're facing.
-                      </p>
-                      
-                      <div className="flex justify-end mb-2">
+              {/* Step 1: Problem Statement */}
+              {currentStep === 0 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-medium">What problem are you trying to solve?</h3>
+                    <p className="text-sm text-gray-500">
+                      Please describe the challenge or opportunity you're facing.
+                    </p>
+                    
+                    <div className="flex justify-end mb-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={toggleInputMethod}
+                        className="text-xs"
+                      >
+                        Switch to {inputMethod === "text" ? "Multiple Choice" : "Text Input"}
+                      </Button>
+                    </div>
+
+                    {inputMethod === "text" ? (
+                      <div className="space-y-2">
+                        <Textarea 
+                          placeholder="Describe your problem or goal..."
+                          className="min-h-[100px]"
+                          value={data.problemStatement}
+                          onChange={(e) => handleTextInputChange(e.target.value)}
+                        />
                         <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={toggleInputMethod}
-                          className="text-xs"
+                          onClick={goToNextStep} 
+                          disabled={!data.problemStatement.trim()}
+                          className="mt-2"
                         >
-                          Switch to {inputMethod === "text" ? "Multiple Choice" : "Text Input"}
+                          Continue <ChevronRight className="h-4 w-4 ml-1" />
                         </Button>
                       </div>
-
-                      {inputMethod === "text" ? (
-                        <div className="space-y-2">
-                          <Textarea 
-                            placeholder="Describe your problem or goal..."
-                            className="min-h-[100px]"
-                            value={data.problemStatement}
-                            onChange={(e) => handleTextInputChange(e.target.value)}
-                          />
-                          <Button 
-                            onClick={goToNextStep} 
-                            disabled={!data.problemStatement.trim()}
-                            className="mt-2"
-                          >
-                            Continue <ChevronRight className="h-4 w-4 ml-1" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          <h4 className="text-sm font-medium">What is the primary purpose of this study?</h4>
-                          <RadioGroup 
-                            className="space-y-2"
-                            value={data.primaryPurpose}
-                            onValueChange={handlePurposeSelect}
-                          >
-                            <div className="flex items-center space-x-2 hover:translate-x-2 transition-transform">
-                              <RadioGroupItem value="attract-retain" id="attract-retain" />
-                              <Label htmlFor="attract-retain">
-                                Attract / Retain talent
-                                {data.primaryPurpose === "attract-retain" && (
-                                  <span className="ml-2 text-primary-600 text-sm">✓</span>
-                                )}
-                              </Label>
-                            </div>
-                            <div className="flex items-center space-x-2 hover:translate-x-2 transition-transform">
-                              <RadioGroupItem value="location-competitor" id="location-competitor" />
-                              <Label htmlFor="location-competitor">
-                                Location Strategy / Competitor Analysis
-                                {data.primaryPurpose === "location-competitor" && (
-                                  <span className="ml-2 text-primary-600 text-sm">✓</span>
-                                )}
-                              </Label>
-                            </div>
-                            <div className="flex items-center space-x-2 hover:translate-x-2 transition-transform">
-                              <RadioGroupItem value="employer-branding" id="employer-branding" />
-                              <Label htmlFor="employer-branding">
-                                Employer Branding
-                                {data.primaryPurpose === "employer-branding" && (
-                                  <span className="ml-2 text-primary-600 text-sm">✓</span>
-                                )}
-                              </Label>
-                            </div>
-                            <div className="flex items-center space-x-2 hover:translate-x-2 transition-transform">
-                              <RadioGroupItem value="diversity" id="diversity" />
-                              <Label htmlFor="diversity">
-                                Diversity
-                                {data.primaryPurpose === "diversity" && (
-                                  <span className="ml-2 text-primary-600 text-sm">✓</span>
-                                )}
-                              </Label>
-                            </div>
-                          </RadioGroup>
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Step 2: Talent Type */}
-                {currentStep === 1 && (
-                  <motion.div
-                    key="step2"
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">What kind of talent are you looking for?</h3>
-                      <p className="text-sm text-gray-500">
-                        Select the type of roles you're focusing on.
-                      </p>
-                      
-                      <RadioGroup 
-                        className="space-y-3 mt-4"
-                        value={data.talentType}
-                        onValueChange={handleTalentTypeSelect}
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="professional" id="professional" />
-                          <Label htmlFor="professional">Professional Roles</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="frontline" id="frontline" />
-                          <Label htmlFor="frontline">Front-line Roles</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="senior" id="senior" />
-                          <Label htmlFor="senior">Senior Roles</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="niche" id="niche" />
-                          <Label htmlFor="niche">Highly Niche Roles</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Step 3: Deadline */}
-                {currentStep === 2 && (
-                  <motion.div
-                    key="step3"
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">Do you have a deadline for this consulting project?</h3>
-                      <p className="text-sm text-gray-500">
-                        Let us know your timeframe requirements.
-                      </p>
-                      
-                      <RadioGroup 
-                        className="space-y-3 mt-4"
-                        value={data.deadline}
-                        onValueChange={handleDeadlineSelect}
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="standard" id="standard" />
-                          <Label htmlFor="standard">Delivery in 4-6 weeks (Standard)</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="expedited" id="expedited" />
-                          <Label htmlFor="expedited">Expedited delivery (Hard deadline)</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Step 4: Date Selection (only for expedited) */}
-                {currentStep === 3 && data.deadline === "expedited" && (
-                  <motion.div
-                    key="step4"
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    variants={variants}
-                    transition={{ duration: 0.3 }}
-                    className="space-y-4"
-                  >
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">Select your deadline date</h3>
-                      <p className="text-sm text-gray-500">
-                        Please note that expedited delivery will incur additional costs.
-                      </p>
-                      
-                      <div className="flex flex-col items-center mt-4">
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full justify-start text-left font-normal",
-                                !date && "text-muted-foreground"
+                    ) : (
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-medium">What is the primary purpose of this study?</h4>
+                        <RadioGroup 
+                          className="space-y-2"
+                          value={data.primaryPurpose}
+                          onValueChange={handlePurposeSelect}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="attract-retain" id="attract-retain" />
+                            <Label htmlFor="attract-retain">
+                              Attract / Retain talent
+                              {data.primaryPurpose === "attract-retain" && (
+                                <span className="ml-2 text-primary-600 text-sm">✓</span>
                               )}
-                            >
-                              <Calendar className="mr-2 h-4 w-4" />
-                              {date ? format(date, "PPP") : <span>Select a date</span>}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <CalendarComponent
-                              mode="single"
-                              selected={date}
-                              onSelect={handleDateSelect}
-                              initialFocus
-                              disabled={(date) => date < new Date()}
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        
-                        <div className="bg-amber-50 border border-amber-200 rounded-md p-3 mt-4 text-sm text-amber-800">
-                          <p className="font-medium">Expedited Service Fee</p>
-                          <p>An additional fee will be applied for expedited delivery requests.</p>
-                        </div>
-                        
-                        <Button 
-                          onClick={handleSubmitFinalForm} 
-                          disabled={!date || isSubmitting}
-                          className="mt-4"
-                        >
-                          {isSubmitting ? (
-                            <>Processing <Spinner size="sm" className="ml-2" /></>
-                          ) : (
-                            <>Continue <ChevronRight className="h-4 w-4 ml-1" /></>
-                          )}
-                        </Button>
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="location-competitor" id="location-competitor" />
+                            <Label htmlFor="location-competitor">
+                              Location Strategy / Competitor Analysis
+                              {data.primaryPurpose === "location-competitor" && (
+                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                              )}
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="employer-branding" id="employer-branding" />
+                            <Label htmlFor="employer-branding">
+                              Employer Branding
+                              {data.primaryPurpose === "employer-branding" && (
+                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                              )}
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="diversity" id="diversity" />
+                            <Label htmlFor="diversity">
+                              Diversity
+                              {data.primaryPurpose === "diversity" && (
+                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                              )}
+                            </Label>
+                          </div>
+                        </RadioGroup>
                       </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2: Talent Type */}
+              {currentStep === 1 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-medium">What kind of talent are you looking for?</h3>
+                    <p className="text-sm text-gray-500">
+                      Select the type of roles you're focusing on.
+                    </p>
+                    
+                    <RadioGroup 
+                      className="space-y-3 mt-4"
+                      value={data.talentType}
+                      onValueChange={handleTalentTypeSelect}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="professional" id="professional" />
+                        <Label htmlFor="professional">Professional Roles</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="frontline" id="frontline" />
+                        <Label htmlFor="frontline">Front-line Roles</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="senior" id="senior" />
+                        <Label htmlFor="senior">Senior Roles</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="niche" id="niche" />
+                        <Label htmlFor="niche">Highly Niche Roles</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Deadline */}
+              {currentStep === 2 && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-medium">Do you have a deadline for this consulting project?</h3>
+                    <p className="text-sm text-gray-500">
+                      Let us know your timeframe requirements.
+                    </p>
+                    
+                    <RadioGroup 
+                      className="space-y-3 mt-4"
+                      value={data.deadline}
+                      onValueChange={handleDeadlineSelect}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="standard" id="standard" />
+                        <Label htmlFor="standard">Delivery in 4-6 weeks (Standard)</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="expedited" id="expedited" />
+                        <Label htmlFor="expedited">Expedited delivery (Hard deadline)</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4: Date Selection (only for expedited) */}
+              {currentStep === 3 && data.deadline === "expedited" && (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-medium">Select your deadline date</h3>
+                    <p className="text-sm text-gray-500">
+                      Please note that expedited delivery will incur additional costs.
+                    </p>
+                    
+                    <div className="flex flex-col items-center mt-4">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full justify-start text-left font-normal",
+                              !date && "text-muted-foreground"
+                            )}
+                          >
+                            <Calendar className="mr-2 h-4 w-4" />
+                            {date ? format(date, "PPP") : <span>Select a date</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <CalendarComponent
+                            mode="single"
+                            selected={date}
+                            onSelect={handleDateSelect}
+                            initialFocus
+                            disabled={(date) => date < new Date()}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      
+                      <div className="bg-amber-50 border border-amber-200 rounded-md p-3 mt-4 text-sm text-amber-800">
+                        <p className="font-medium">Expedited Service Fee</p>
+                        <p>An additional fee will be applied for expedited delivery requests.</p>
+                      </div>
+                      
+                      <Button 
+                        onClick={handleSubmitFinalForm} 
+                        disabled={!date || isSubmitting}
+                        className="mt-4"
+                      >
+                        {isSubmitting ? (
+                          <>Processing <Spinner size="sm" className="ml-2" /></>
+                        ) : (
+                          <>Continue <ChevronRight className="h-4 w-4 ml-1" /></>
+                        )}
+                      </Button>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
           <CardFooter className="flex justify-between border-t border-gray-100 pt-4">
