@@ -173,21 +173,66 @@ export default function HomeButtons() {
           </p>
           
           <div style={{ 
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-            gap: '25px',
-            marginBottom: '40px'
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            gap: '30px',
+            marginBottom: '40px',
+            maxWidth: '1100px',
+            margin: '0 auto 40px'
           }}>
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '12px',
-              padding: '30px',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-            }}>
-              <h3 style={{ fontSize: '22px', marginBottom: '15px', color: '#333' }}>Workforce Reports</h3>
-              <p style={{ marginBottom: '20px', color: '#666', lineHeight: '1.6' }}>
+            <div 
+              style={{
+                flex: 1,
+                border: '1px solid #ddd',
+                borderRadius: '12px',
+                padding: '30px',
+                backgroundColor: 'white',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+              }}
+            >
+              <div style={{
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '6px',
+                background: 'linear-gradient(90deg, #4285f4, #34a853)'
+              }}></div>
+              
+              <div style={{ 
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '20px'
+              }}>
+                <div style={{ 
+                  backgroundColor: '#EBF2FF',
+                  borderRadius: '50%',
+                  width: '50px',
+                  height: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: '15px'
+                }}>
+                  <span style={{ fontSize: '24px' }}>📊</span>
+                </div>
+                <h3 style={{ fontSize: '24px', color: '#333', marginBottom: 0 }}>Workforce Reports</h3>
+              </div>
+              
+              <p style={{ marginBottom: '25px', color: '#666', lineHeight: '1.6' }}>
                 Standardized reports with comprehensive labor market data and analysis. 
                 <br /><br />
                 <strong>Delivery:</strong> Within 2 weeks
@@ -196,35 +241,98 @@ export default function HomeButtons() {
                 <br />
                 <strong>Access:</strong> Self-service portal where you can view, download, and share reports.
               </p>
+              
+              <ul style={{ marginBottom: '25px', paddingLeft: '25px' }}>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Compensation & Benefits Analysis</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Talent Market Analysis</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Strategic Sourcing Reports</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>+ 5 more report types</li>
+              </ul>
+              
               <button 
                 onClick={() => setActiveSection('workforce')}
                 style={{
                   background: gradientPrimary,
                   color: 'white',
                   border: 'none',
-                  padding: '14px 20px',
+                  padding: '16px 20px',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   width: '100%',
                   fontSize: '16px',
                   fontWeight: 'bold',
-                  boxShadow: '0 4px 10px rgba(66, 133, 244, 0.3)'
+                  boxShadow: '0 4px 10px rgba(66, 133, 244, 0.3)',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 15px rgba(66, 133, 244, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 10px rgba(66, 133, 244, 0.3)';
                 }}
               >
-                Select Workforce Reports
+                <span style={{ marginRight: '10px' }}>Select Workforce Reports</span>
+                <span style={{ fontSize: '20px' }}>→</span>
               </button>
             </div>
             
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '12px',
-              padding: '30px',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-            }}>
-              <h3 style={{ fontSize: '22px', marginBottom: '15px', color: '#333' }}>Consulting Projects</h3>
-              <p style={{ marginBottom: '20px', color: '#666', lineHeight: '1.6' }}>
+            <div 
+              style={{
+                flex: 1,
+                border: '1px solid #ddd',
+                borderRadius: '12px',
+                padding: '30px',
+                backgroundColor: 'white',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)';
+                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+              }}
+            >
+              <div style={{
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '6px',
+                background: 'linear-gradient(90deg, #9C27B0, #EA4335)'
+              }}></div>
+              
+              <div style={{ 
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '20px'
+              }}>
+                <div style={{ 
+                  backgroundColor: '#F9E6FF',
+                  borderRadius: '50%',
+                  width: '50px',
+                  height: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: '15px'
+                }}>
+                  <span style={{ fontSize: '24px' }}>🔍</span>
+                </div>
+                <h3 style={{ fontSize: '24px', color: '#333', marginBottom: 0 }}>Consulting Projects</h3>
+              </div>
+              
+              <p style={{ marginBottom: '25px', color: '#666', lineHeight: '1.6' }}>
                 Custom-tailored research and analysis for complex business challenges.
                 <br /><br />
                 <strong>Delivery:</strong> 4-6 weeks (may be longer for complex projects)
@@ -233,22 +341,43 @@ export default function HomeButtons() {
                 <br />
                 <strong>Service:</strong> Includes consulting support for implementation
               </p>
+              
+              <ul style={{ marginBottom: '25px', paddingLeft: '25px' }}>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Custom Research Solutions</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Market & Competitor Analysis</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Tailored Talent Strategies</li>
+                <li style={{ marginBottom: '10px', color: '#555' }}>Executive Consultation Options</li>
+              </ul>
+              
               <button 
                 onClick={() => setActiveSection('consulting')}
                 style={{
-                  background: gradientPrimary,
+                  background: 'linear-gradient(90deg, #9C27B0, #EA4335)',
                   color: 'white',
                   border: 'none',
-                  padding: '14px 20px',
+                  padding: '16px 20px',
                   borderRadius: '6px',
                   cursor: 'pointer',
                   width: '100%',
                   fontSize: '16px',
                   fontWeight: 'bold',
-                  boxShadow: '0 4px 10px rgba(66, 133, 244, 0.3)'
+                  boxShadow: '0 4px 10px rgba(156, 39, 176, 0.3)',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 15px rgba(156, 39, 176, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 10px rgba(156, 39, 176, 0.3)';
                 }}
               >
-                Select Consulting Projects
+                <span style={{ marginRight: '10px' }}>Select Consulting Projects</span>
+                <span style={{ fontSize: '20px' }}>→</span>
               </button>
             </div>
           </div>
@@ -256,51 +385,146 @@ export default function HomeButtons() {
           {/* Schedule Call Option */}
           <div style={{
             backgroundColor: 'white',
-            padding: '25px',
+            padding: '30px',
             borderRadius: '12px',
             border: '1px solid #ddd',
             marginTop: '30px',
             boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-            display: 'flex',
-            alignItems: 'flex-start',
             maxWidth: '800px',
-            margin: '0 auto'
-          }}>
+            margin: '0 auto',
+            position: 'relative',
+            overflow: 'hidden',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            transform: 'translateY(0)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+          }}
+          >
+            {/* Animated gradient border */}
             <div style={{
-              backgroundColor: '#EBF2FF',
-              borderRadius: '50%',
-              width: '40px',
-              height: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginRight: '15px',
-              flexShrink: 0
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: 'linear-gradient(90deg, #4285f4, #34a853, #fbbc05, #ea4335, #4285f4)',
+              backgroundSize: '400% 100%',
+              animation: 'gradientMove 3s linear infinite',
             }}>
-              <span style={{ fontSize: '20px', color: blue }}>📅</span>
+              <style>
+                {`
+                @keyframes gradientMove {
+                  0% { background-position: 0% 0; }
+                  100% { background-position: 100% 0; }
+                }
+                `}
+              </style>
             </div>
-            <div style={{ flex: 1 }}>
-              <h3 style={{ fontSize: '20px', marginBottom: '10px', color: '#333' }}>
-                Not sure which report fits your needs?
-              </h3>
-              <p style={{ marginBottom: '15px', color: '#666', lineHeight: '1.5' }}>
-                Book a call with a representative to discuss your specific requirements.
-              </p>
-              <button 
-                onClick={() => setActiveSection('schedule')}
-                style={{
-                  backgroundColor: 'transparent',
-                  color: blue,
-                  border: '1px solid ' + blue,
-                  padding: '12px 20px',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontSize: '16px',
+            
+            <div style={{
+              display: 'flex',
+              alignItems: 'flex-start'
+            }}>
+              <div style={{
+                backgroundColor: '#EBF2FF',
+                borderRadius: '50%',
+                width: '60px',
+                height: '60px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: '20px',
+                flexShrink: 0,
+                boxShadow: '0 4px 10px rgba(66, 133, 244, 0.2)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <span style={{ fontSize: '30px' }}>📅</span>
+                
+                {/* Animated pulse effect */}
+                <div style={{
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  right: '0',
+                  bottom: '0',
+                  borderRadius: '50%',
+                  border: '3px solid rgba(66, 133, 244, 0.4)',
+                  animation: 'pulse 1.5s infinite',
+                }}>
+                  <style>
+                    {`
+                    @keyframes pulse {
+                      0% { transform: scale(1); opacity: 1; }
+                      100% { transform: scale(1.4); opacity: 0; }
+                    }
+                    `}
+                  </style>
+                </div>
+              </div>
+              
+              <div style={{ flex: 1 }}>
+                <h3 style={{ 
+                  fontSize: '22px', 
+                  marginBottom: '12px', 
+                  color: '#333',
                   fontWeight: 'bold'
-                }}
-              >
-                Schedule a Consultation
-              </button>
+                }}>
+                  Not sure which report fits your needs?
+                </h3>
+                <p style={{ marginBottom: '20px', color: '#666', lineHeight: '1.6' }}>
+                  Book a call with a representative to discuss your specific requirements.
+                  Our experts will help you find the perfect research solution for your business challenges.
+                </p>
+                <button 
+                  onClick={() => setActiveSection('schedule')}
+                  style={{
+                    backgroundColor: 'white',
+                    background: 'linear-gradient(90deg, #4285f4, #34a853)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '14px 24px',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    boxShadow: '0 4px 10px rgba(66, 133, 244, 0.2)',
+                    transition: 'all 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 15px rgba(66, 133, 244, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 10px rgba(66, 133, 244, 0.2)';
+                  }}
+                >
+                  <span style={{ marginRight: '10px' }}>Schedule a Consultation</span>
+                  <span style={{ 
+                    fontSize: '18px',
+                    animation: 'bounce 1s infinite alternate'
+                  }}>
+                    <style>
+                      {`
+                      @keyframes bounce {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(3px); }
+                      }
+                      `}
+                    </style>
+                    →
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -350,40 +574,173 @@ export default function HomeButtons() {
                   backgroundColor: 'white',
                   position: 'relative',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                  transition: 'all 0.3s ease',
+                  transform: hoveredReport === report.id ? 'translateY(-8px)' : 'translateY(0)',
+                  overflow: 'hidden'
                 }}
-                onMouseEnter={() => setHoveredReport(report.id)}
-                onMouseLeave={() => setHoveredReport(null)}
+                onMouseEnter={(e) => {
+                  setHoveredReport(report.id);
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  setHoveredReport(null);
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)';
+                }}
               >
-                <h3 style={{ fontSize: '20px', marginBottom: '12px', color: '#333' }}>{report.title}</h3>
+                {/* Colored top border */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '5px',
+                  background: gradientPrimary,
+                }}></div>
+                
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginTop: '10px',
+                  marginBottom: '15px'
+                }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '8px',
+                    backgroundColor: '#EBF2FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: '15px'
+                  }}>
+                    <span style={{fontSize: '24px'}}>
+                      {report.id === 'strategic-sourcing' && '🎯'}
+                      {report.id === 'location-analysis' && '📍'}
+                      {report.id === 'competitor-analysis' && '📊'}
+                      {report.id === 'evp-analysis' && '💲'}
+                      {report.id === 'diversity-analysis' && '👥'}
+                      {report.id === 'job-posting-analysis' && '📝'}
+                      {report.id === 'hourly-wage-analysis' && '💰'}
+                      {report.id === 'talent-trends' && '📈'}
+                    </span>
+                  </div>
+                  <h3 style={{ 
+                    fontSize: '22px', 
+                    fontWeight: 'bold',
+                    color: '#333', 
+                    marginBottom: 0 
+                  }}>{report.title}</h3>
+                </div>
+                
                 <p style={{ marginBottom: '25px', color: '#666', lineHeight: '1.5' }}>{report.description}</p>
                 
                 {hoveredReport === report.id && report.hoverDetails && (
-                  <div style={{ 
-                    marginBottom: '20px',
-                    padding: '20px',
-                    backgroundColor: '#f8f9fa',
-                    borderRadius: '8px',
-                    border: '1px solid #eee',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
-                  }}>
-                    <h4 style={{ fontSize: '16px', marginBottom: '10px', color: '#333' }}>What is this?</h4>
-                    <p style={{ fontSize: '14px', marginBottom: '15px', color: '#555', lineHeight: '1.5' }}>
+                  <div 
+                    style={{ 
+                      marginBottom: '20px',
+                      padding: '20px',
+                      backgroundColor: '#f8f9fa',
+                      borderRadius: '8px',
+                      border: '1px solid #eee',
+                      boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
+                      animation: 'fadeIn 0.3s ease-in',
+                      opacity: 1
+                    }}
+                  >
+                    <style>
+                      {`
+                      @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                      }
+                      `}
+                    </style>
+                    
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px'
+                    }}>
+                      <div style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        backgroundColor: '#4285f4',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: '10px',
+                        color: 'white',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                      }}>?</div>
+                      <h4 style={{ 
+                        fontSize: '16px', 
+                        margin: 0,
+                        color: '#333', 
+                        fontWeight: 'bold' 
+                      }}>What is this?</h4>
+                    </div>
+                    
+                    <p style={{ 
+                      fontSize: '14px', 
+                      marginBottom: '15px', 
+                      color: '#555', 
+                      lineHeight: '1.5' 
+                    }}>
                       {report.hoverDetails.definition}
                     </p>
                     
-                    <h4 style={{ fontSize: '16px', marginBottom: '10px', color: '#333' }}>Common Use Cases:</h4>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginBottom: '12px'
+                    }}>
+                      <div style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        backgroundColor: '#34a853',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: '10px',
+                        color: 'white',
+                        fontSize: '14px'
+                      }}>✓</div>
+                      <h4 style={{ 
+                        fontSize: '16px', 
+                        margin: 0,
+                        color: '#333',
+                        fontWeight: 'bold'
+                      }}>Common Use Cases:</h4>
+                    </div>
+                    
                     <ul style={{ 
-                      paddingLeft: '20px',
-                      marginBottom: '5px'
+                      paddingLeft: '35px',
+                      marginBottom: '5px',
+                      listStyle: 'none'
                     }}>
                       {report.hoverDetails.useCases.map((useCase, i) => (
                         <li key={i} style={{ 
                           fontSize: '14px',
-                          marginBottom: '8px',
+                          marginBottom: '10px',
                           color: '#555',
-                          lineHeight: '1.4'
+                          lineHeight: '1.4',
+                          position: 'relative'
                         }}>
+                          <div style={{
+                            position: 'absolute',
+                            left: '-20px',
+                            top: '3px',
+                            width: '14px',
+                            height: '14px',
+                            borderRadius: '50%',
+                            border: '2px solid #34a853',
+                            backgroundColor: '#f8f9fa'
+                          }}></div>
                           {useCase}
                         </li>
                       ))}
@@ -391,23 +748,42 @@ export default function HomeButtons() {
                   </div>
                 )}
                 
-                <button
-                  onClick={() => handleWorkforceReportSelect(report.id)}
-                  style={{
-                    background: gradientPrimary,
-                    color: 'white',
-                    border: 'none',
-                    padding: '12px 15px',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    width: '100%',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    boxShadow: '0 4px 10px rgba(66, 133, 244, 0.2)'
-                  }}
-                >
-                  Select This Report
-                </button>
+                <div style={{
+                  display: 'flex',
+                  marginTop: '20px',
+                  alignItems: 'center',
+                }}>
+                  <button
+                    onClick={() => handleWorkforceReportSelect(report.id)}
+                    style={{
+                      background: gradientPrimary,
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 15px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      width: '100%',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      boxShadow: '0 4px 10px rgba(66, 133, 244, 0.2)',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 15px rgba(66, 133, 244, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 10px rgba(66, 133, 244, 0.2)';
+                    }}
+                  >
+                    <span style={{ marginRight: '8px' }}>Select This Report</span>
+                    <span style={{ fontSize: '18px' }}>→</span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -480,19 +856,43 @@ export default function HomeButtons() {
           </p>
           
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+            display: 'flex',
+            flexDirection: 'row',
             gap: '30px',
-            marginBottom: '40px'
+            marginBottom: '40px',
+            maxWidth: '1100px',
+            margin: '0 auto 40px'
           }}>
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '12px',
-              padding: '30px',
-              backgroundColor: 'white',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-            }}>
+            <div 
+              style={{
+                flex: 1,
+                border: '1px solid #ddd',
+                borderRadius: '12px',
+                padding: '30px',
+                backgroundColor: 'white',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+              }}
+            >
+              {/* Colored top border */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '5px',
+                background: gradientPrimary,
+              }}>
               <h3 style={{ fontSize: '24px', marginBottom: '15px', color: '#333' }}>Strategic Sourcing</h3>
               <p style={{ marginBottom: '20px', color: '#666', lineHeight: '1.6' }}>
                 A foundational talent market analysis that provides key metrics on talent availability, competition, and costs.
