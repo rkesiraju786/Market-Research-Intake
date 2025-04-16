@@ -3,11 +3,52 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Brand Colors */
+    --electric-burple: 70, 0, 255; /* #4600FF */
+    --neuron-navy: 19, 0, 86; /* #130056 */
+    --synapse-silver: 129, 134, 180; /* #8186B4 */
+    --luminous-lavender: 204, 207, 255; /* #CCCFFF */
+    --impulse-orange: 255, 66, 25; /* #FF4219 */
+    --peach: 255, 199, 186; /* #FFC7BA */
+    
+    /* Apply brand colors to UI elements */
+    --card-border-color: rgb(var(--luminous-lavender));
+    --card-hover-border-color: rgb(var(--electric-burple));
+    --section-bg-color: rgba(var(--luminous-lavender), 0.2);
+    --notification-bg-color: rgba(var(--peach), 0.3);
+    --success-color: rgb(var(--electric-burple));
+    --error-color: rgb(var(--impulse-orange));
+    --nav-bg-color: rgb(var(--neuron-navy));
+    --nav-text-color: rgb(var(--luminous-lavender));
+  }
+
   * {
     @apply border-border;
   }
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-image: linear-gradient(to bottom, rgba(204, 207, 255, 0.1), rgba(204, 207, 255, 0.05));
+    background-attachment: fixed;
+  }
+  
+  /* Custom styles for cards and components */
+  .brand-card {
+    @apply border-2 rounded-xl shadow-md transition-all duration-300;
+    border-color: var(--card-border-color);
+  }
+  
+  .brand-card:hover {
+    @apply shadow-lg;
+    border-color: var(--card-hover-border-color);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-heading {
+    @apply font-bold;
+    background: linear-gradient(90deg, #4600FF, #130056);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }

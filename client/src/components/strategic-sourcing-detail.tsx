@@ -58,14 +58,14 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <AnimatedContainer animation="fadeIn">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Strategic Sourcing Reports</h2>
-          <p className="text-gray-600 mb-4 max-w-3xl">
+          <h2 className="gradient-heading text-3xl mb-3">Strategic Sourcing Reports</h2>
+          <p className="text-[#8186B4] mb-4 max-w-3xl">
             {reportDetails.hoverDetails?.definition || "A comprehensive analysis of talent supply, demand, salary, and diversity data to help organizations make informed decisions."}
           </p>
 
-          <div className="bg-primary-50 rounded-lg p-4 border border-primary-100 mb-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Available Variants</h3>
-            <p className="text-sm text-gray-600">
+          <div style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)' }} className="rounded-lg p-4 border border-[#CCCFFF] mb-6">
+            <h3 className="text-lg font-medium text-[#130056] mb-2">Available Variants</h3>
+            <p className="text-sm text-[#8186B4]">
               Select the appropriate report variant based on your recruitment needs and data requirements.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
           <div className="grid md:grid-cols-2 gap-6">
             {/* We're using grid cells with equal heights, and specific styling to ensure alignment */}
             <div className="flex flex-col h-full">
-              <Card className={`border flex flex-col h-full ${selectedVariant === "basic" ? "border-primary-500 ring-2 ring-primary-200" : "border-gray-200"}`}>
+              <Card className={`border-2 flex flex-col h-full shadow-md transition-all duration-300 ${selectedVariant === "basic" ? "border-[#4600FF] ring-2 ring-[#CCCFFF]" : "border-[#CCCFFF]"}`}>
                 <CardHeader className="pb-3">
                   <CardTitle>{basic.title}</CardTitle>
                   <CardDescription className="mt-2">
@@ -81,15 +81,15 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 {/* Cost and Timeline Banner */}
-                <div className="mx-6 -mt-1 mb-3 bg-primary-50 rounded-md p-3 border border-primary-100">
+                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)', border: '1px solid #CCCFFF' }}>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 text-primary-500 mr-1" />
-                      <span className="text-sm font-medium">50 credits</span>
+                      <DollarSign className="h-4 w-4 text-[#4600FF] mr-1" />
+                      <span className="text-sm font-medium text-[#130056]">50 credits</span>
                     </div>
                     <div className="flex items-center">
-                      <Clock className="h-4 w-4 text-primary-500 mr-1" />
-                      <span className="text-sm font-medium">2 weeks</span>
+                      <Clock className="h-4 w-4 text-[#4600FF] mr-1" />
+                      <span className="text-sm font-medium text-[#130056]">2 weeks</span>
                     </div>
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
 
             {/* Plus Version Card */}
             <div className="flex flex-col h-full">
-              <Card className={`border flex flex-col h-full ${selectedVariant === "plus" ? "border-primary-500 ring-2 ring-primary-200" : "border-gray-200"}`}>
+              <Card className={`border-2 flex flex-col h-full shadow-md transition-all duration-300 ${selectedVariant === "plus" ? "border-[#4600FF] ring-2 ring-[#CCCFFF]" : "border-[#CCCFFF]"}`}>
                 <CardHeader className="pb-3">
                   <CardTitle>{plus.title}</CardTitle>
                   <CardDescription className="mt-2">
@@ -204,15 +204,15 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 {/* Cost and Timeline Banner */}
-                <div className="mx-6 -mt-1 mb-3 bg-primary-50 rounded-md p-3 border border-primary-100">
+                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)', border: '1px solid #CCCFFF' }}>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <DollarSign className="h-4 w-4 text-primary-500 mr-1" />
-                      <span className="text-sm font-medium">75 credits</span>
+                      <DollarSign className="h-4 w-4 text-[#4600FF] mr-1" />
+                      <span className="text-sm font-medium text-[#130056]">75 credits</span>
                     </div>
                     <div className="flex items-center">
-                      <Clock className="h-4 w-4 text-primary-500 mr-1" />
-                      <span className="text-sm font-medium">2 weeks</span>
+                      <Clock className="h-4 w-4 text-[#4600FF] mr-1" />
+                      <span className="text-sm font-medium text-[#130056]">2 weeks</span>
                     </div>
                   </div>
                 </div>
