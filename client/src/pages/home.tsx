@@ -62,29 +62,7 @@ export default function Home() {
                 />
               </div>
 
-              {/* Schedule Call Option */}
-              <div className="mt-8 bg-gray-50 rounded-lg border border-gray-200 p-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Calendar className="h-6 w-6 text-gray-500" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-lg font-medium text-gray-900">
-                      Not sure which report fits your needs?
-                    </h3>
-                    <p className="mt-1 text-gray-500">
-                      Book a call with a representative to discuss your specific requirements.
-                    </p>
-                    <Button
-                      variant="outline"
-                      className="mt-3"
-                      onClick={() => setActiveSection("schedule")}
-                    >
-                      Schedule a Consultation
-                    </Button>
-                  </div>
-                </div>
-              </div>
+
             </section>
           </>
         )}

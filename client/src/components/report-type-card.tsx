@@ -60,7 +60,7 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
             <Lightbulb className="h-6 w-6 text-secondary-600" />
           </div>
           <div className="ml-4">
-            <h3 className="text-xl font-semibold text-gray-900">Consulting Reports</h3>
+            <h3 className="text-xl font-semibold text-gray-900">Consulting Projects</h3>
             <p className="mt-1 text-gray-600">Custom-tailored research and analysis for complex business challenges.</p>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
       </div>
       <div className="px-6 pb-6">
         <Button variant="outline" className="w-full bg-secondary-50 text-secondary-600 border-secondary-200 hover:bg-secondary-100">
-          Select Consulting Reports
+          Select Consulting Projects
         </Button>
       </div>
     </div>
