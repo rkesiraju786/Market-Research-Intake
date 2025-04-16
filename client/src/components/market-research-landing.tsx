@@ -20,14 +20,14 @@ function StepCard({ number, title, description, position, icon }: StepCardProps)
     "bottom-right": "right-[140px] bottom-[220px]",
   };
 
-  const containerClasses = {
+  const containerClasses: Record<string, string> = {
     "1": "border-l-4 border-l-[#FF4219]",
     "2": "border-l-4 border-l-[#4600FF]",
     "3": "border-l-4 border-l-[#00B2FF]",
     "4": "border-l-4 border-l-[#4600FF]",
   };
 
-  const circleClasses = {
+  const circleClasses: Record<string, string> = {
     "1": "bg-[#FF4219]",
     "2": "bg-[#4600FF]",
     "3": "bg-[#00B2FF]",
