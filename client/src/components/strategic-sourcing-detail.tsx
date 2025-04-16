@@ -48,7 +48,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
       <div className="mb-6">
         <Button
           variant="ghost"
-          className="inline-flex items-center text-gray-600 hover:text-gray-900"
+          className="inline-flex items-center text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20"
           onClick={onBack}
         >
           <ArrowLeft className="h-5 w-5 mr-1" />
@@ -56,7 +56,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-2 border-[#CCCFFF]">
         <AnimatedContainer animation="fadeIn">
           <h2 className="gradient-heading text-3xl mb-3">Strategic Sourcing Reports</h2>
           <p className="text-[#8186B4] mb-4 max-w-3xl">
@@ -96,78 +96,78 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                 <CardContent className="flex-1">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Key Benefits</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Key Benefits</h4>
                       <ul className="text-sm space-y-2">
                         {basic.benefits.map((benefit: string, index: number) => (
                           <li key={index} className="flex items-start">
-                            <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                            <span>{benefit}</span>
+                            <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                            <span className="text-[#8186B4]">{benefit}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Top Use Cases</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Top Use Cases</h4>
                       <ul className="text-sm space-y-2">
                         {basic.useCases.map((useCase: string, index: number) => (
                           <li key={index} className="flex items-start">
-                            <span className="text-primary-500 mr-2">•</span>
-                            <span>{useCase}</span>
+                            <span className="text-[#4600FF] mr-2">•</span>
+                            <span className="text-[#8186B4]">{useCase}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Report Contents</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Report Contents</h4>
                       <ul className="text-sm space-y-2">
                         {/* Common contents that appear in both versions */}
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Supply</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Supply</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Demand</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Demand</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Supply-Demand Ratio</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Supply-Demand Ratio</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Cost (Median)</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Cost (Median)</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Competitors Housing and Hiring Talent</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Competitors Housing and Hiring Talent</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Titles</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Titles</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Skills</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Skills</span>
                         </li>
                         
                         {/* Plus-only features with X mark to show not included */}
-                        <li className="flex items-start opacity-50">
-                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Alternate Location Identification</span>
+                        <li className="flex items-start opacity-60">
+                          <X className="h-4 w-4 text-[#FF4219] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Alternate Location Identification</span>
                         </li>
-                        <li className="flex items-start opacity-50">
-                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Supply by Experience</span>
+                        <li className="flex items-start opacity-60">
+                          <X className="h-4 w-4 text-[#FF4219] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Supply by Experience</span>
                         </li>
-                        <li className="flex items-start opacity-50">
-                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Cost by Percentile (25th, 50th, 90th)</span>
+                        <li className="flex items-start opacity-60">
+                          <X className="h-4 w-4 text-[#FF4219] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Cost by Percentile (25th, 50th, 90th)</span>
                         </li>
-                        <li className="flex items-start opacity-50">
-                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Diversity</span>
+                        <li className="flex items-start opacity-60">
+                          <X className="h-4 w-4 text-[#FF4219] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Diversity</span>
                         </li>
                       </ul>
                     </div>
@@ -177,14 +177,14 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                 <CardFooter className="flex flex-col space-y-2 mt-auto pt-4 border-t">
                   <Button 
                     variant="outline" 
-                    className="w-full" 
+                    className="w-full border-[#4600FF] text-[#4600FF] hover:bg-[#CCCFFF]/20" 
                     onClick={() => handleViewExample("basic")}
                   >
                     <ExternalLink className="h-4 w-4 mr-2" />
                     View Example
                   </Button>
                   <Button 
-                    className="w-full"
+                    className="w-full bg-[#4600FF] hover:bg-[#130056]"
                     onClick={() => handleSelectReport("basic")}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -219,78 +219,78 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                 <CardContent className="flex-1">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Key Benefits</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Key Benefits</h4>
                       <ul className="text-sm space-y-2">
                         {plus.benefits.map((benefit: string, index: number) => (
                           <li key={index} className="flex items-start">
-                            <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                            <span>{benefit}</span>
+                            <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                            <span className="text-[#8186B4]">{benefit}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Top Use Cases</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Top Use Cases</h4>
                       <ul className="text-sm space-y-2">
                         {plus.useCases.map((useCase: string, index: number) => (
                           <li key={index} className="flex items-start">
-                            <span className="text-primary-500 mr-2">•</span>
-                            <span>{useCase}</span>
+                            <span className="text-[#4600FF] mr-2">•</span>
+                            <span className="text-[#8186B4]">{useCase}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Report Contents</h4>
+                      <h4 className="text-sm font-medium text-[#130056] mb-3 h-[20px]">Report Contents</h4>
                       <ul className="text-sm space-y-2">
                         {/* Basic features included in Plus */}
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Supply</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Supply</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Demand</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Demand</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Supply-Demand Ratio</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Supply-Demand Ratio</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Talent Cost (Median)</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Talent Cost (Median)</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Competitors Housing and Hiring Talent</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Competitors Housing and Hiring Talent</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Titles</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Titles</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>Top Skills</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#8186B4]">Top Skills</span>
                         </li>
                         
                         {/* Plus-only features with additional checkmarks */}
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="font-semibold">Alternate Location Identification</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#130056] font-semibold">Alternate Location Identification</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="font-semibold">Talent Supply by Experience</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#130056] font-semibold">Talent Supply by Experience</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="font-semibold">Talent Cost by Percentile (25th, 50th, 90th)</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#130056] font-semibold">Talent Cost by Percentile (25th, 50th, 90th)</span>
                         </li>
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="font-semibold">Diversity</span>
+                          <CheckCircle className="h-4 w-4 text-[#4600FF] mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="text-[#130056] font-semibold">Diversity</span>
                         </li>
                       </ul>
                     </div>
@@ -300,14 +300,14 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                 <CardFooter className="flex flex-col space-y-2 mt-auto pt-4 border-t">
                   <Button 
                     variant="outline" 
-                    className="w-full" 
+                    className="w-full border-[#4600FF] text-[#4600FF] hover:bg-[#CCCFFF]/20" 
                     onClick={() => handleViewExample("plus")}
                   >
                     <ExternalLink className="h-4 w-4 mr-2" />
                     View Example
                   </Button>
                   <Button 
-                    className="w-full"
+                    className="w-full bg-[#4600FF] hover:bg-[#130056]"
                     onClick={() => handleSelectReport("plus")}
                   >
                     <Download className="h-4 w-4 mr-2" />
