@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ReportTypeCard from "@/components/report-type-card";
@@ -15,6 +15,23 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("selection");
   const [selectedReportType, setSelectedReportType] = useState<string | null>(null);
   const [selectedReportVariant, setSelectedReportVariant] = useState<string | null>(null);
+
+  // Set up event listener for navigation from components
+  useEffect(() => {
+    const handleNavigation = (event: CustomEvent) => {
+      if (event.detail && event.detail.section) {
+        setActiveSection(event.detail.section as Section);
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('navigate', handleNavigation as EventListener);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('navigate', handleNavigation as EventListener);
+    };
+  }, []);
 
   const handleWorkforceReportSelect = (reportId: string) => {
     if (reportId === "strategic-sourcing") {

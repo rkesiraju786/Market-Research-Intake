@@ -110,7 +110,7 @@ export default function WorkforceReports({
       <div className="mb-6">
         <Button
           variant="ghost"
-          className="inline-flex items-center text-gray-600 hover:text-gray-900"
+          className="inline-flex items-center text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20"
           onClick={onBack}
         >
           <ArrowLeft className="h-5 w-5 mr-1" />
@@ -118,54 +118,54 @@ export default function WorkforceReports({
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Workforce Reports</h2>
-        <p className="text-gray-600 mb-4">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border-2 border-[#CCCFFF]">
+        <h2 className="text-3xl font-bold gradient-heading mb-2">Workforce Reports</h2>
+        <p className="text-[#8186B4] mb-4">
           Our standardized reports provide comprehensive labor market data and
           analysis to help you make informed workforce decisions.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="flex items-start p-4 bg-gray-50 rounded-lg">
-            <div className="flex-shrink-0 text-primary-600">
+          <div className="flex items-start p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
+            <div className="flex-shrink-0 text-[#4600FF]">
               <Clipboard className="h-6 w-6" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-gray-900">Standardized Format</h3>
-              <p className="mt-1 text-xs text-gray-500">
+              <h3 className="text-sm font-medium text-[#130056]">Standardized Format</h3>
+              <p className="mt-1 text-xs text-[#8186B4]">
                 Pre-defined metrics and analysis formats for consistent reporting
               </p>
             </div>
           </div>
-          <div className="flex items-start p-4 bg-gray-50 rounded-lg">
-            <div className="flex-shrink-0 text-primary-600">
+          <div className="flex items-start p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
+            <div className="flex-shrink-0 text-[#4600FF]">
               <Clock className="h-6 w-6" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-gray-900">Quick Turnaround</h3>
-              <p className="mt-1 text-xs text-gray-500">
+              <h3 className="text-sm font-medium text-[#130056]">Quick Turnaround</h3>
+              <p className="mt-1 text-xs text-[#8186B4]">
                 Reports delivered within 2 weeks of request submission
               </p>
             </div>
           </div>
-          <div className="flex items-start p-4 bg-gray-50 rounded-lg">
-            <div className="flex-shrink-0 text-primary-600">
+          <div className="flex items-start p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
+            <div className="flex-shrink-0 text-[#4600FF]">
               <DollarSign className="h-6 w-6" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-gray-900">Cost-Effective</h3>
-              <p className="mt-1 text-xs text-gray-500">
+              <h3 className="text-sm font-medium text-[#130056]">Cost-Effective</h3>
+              <p className="mt-1 text-xs text-[#8186B4]">
                 Predictable pricing based on report type
               </p>
             </div>
           </div>
-          <div className="flex items-start p-4 bg-gray-50 rounded-lg">
-            <div className="flex-shrink-0 text-primary-600">
+          <div className="flex items-start p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
+            <div className="flex-shrink-0 text-[#4600FF]">
               <Download className="h-6 w-6" />
             </div>
             <div className="ml-3">
-              <h3 className="text-sm font-medium text-gray-900">Self-Service Access</h3>
-              <p className="mt-1 text-xs text-gray-500">
+              <h3 className="text-sm font-medium text-[#130056]">Self-Service Access</h3>
+              <p className="mt-1 text-xs text-[#8186B4]">
                 View, download, and share reports through our portal
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function WorkforceReports({
         </div>
       </div>
 
-      <h3 className="text-xl font-semibold text-gray-900 mb-4">Available Report Types</h3>
+      <h3 className="text-xl font-semibold text-[#130056] mb-4">Available Report Types</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {standardReportTypes.map((report) => (
           <ReportCard
@@ -188,30 +188,37 @@ export default function WorkforceReports({
       </div>
 
       {/* Schedule Call Option - Moved to bottom */}
-      <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 mt-8">
+      <div className="bg-[#F8F9FE] rounded-lg border border-[#CCCFFF] shadow-sm p-6 mt-8">
         <div className="flex items-start">
           <div className="flex-shrink-0">
-            <Calendar className="h-6 w-6 text-gray-500" />
+            <Calendar className="h-6 w-6 text-[#4600FF]" />
           </div>
           <div className="ml-3">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-[#130056]">
               Not sure which report fits your needs?
             </h3>
-            <p className="mt-1 text-gray-500">
+            <p className="mt-1 text-[#8186B4]">
               Book a call with a representative to discuss your specific requirements.
             </p>
             <Button
-              variant="outline"
-              className="mt-3"
+              className="mt-3 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white"
               onClick={() => {
-                // Use the useToast hook to show a message
-                toast({
-                  title: "Schedule Consultation",
-                  description: "Redirecting to scheduling page...",
-                });
-                
-                // You might want to handle this differently based on your navigation flow
-                // For example, navigate to the scheduling page
+                // Navigate to the scheduling section
+                if (typeof onBack === 'function') {
+                  // First go back to selection
+                  onBack();
+                  
+                  // Then use setTimeout to allow the state to update before trying
+                  // to navigate to the schedule section
+                  setTimeout(() => {
+                    // Since we don't have direct access to setActiveSection,
+                    // we'll use a custom event
+                    const navigateEvent = new CustomEvent('navigate', {
+                      detail: { section: 'schedule' }
+                    });
+                    window.dispatchEvent(navigateEvent);
+                  }, 50);
+                }
               }}
             >
               Schedule a Consultation
