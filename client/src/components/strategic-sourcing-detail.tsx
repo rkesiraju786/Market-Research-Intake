@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, CheckCircle, Download, ExternalLink } from "lucide-react";
+import { ArrowLeft, CheckCircle, Download, ExternalLink, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { standardReportTypes } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,10 +81,10 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Key Benefits</h4>
-                      <ul className="text-sm space-y-1">
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Key Benefits</h4>
+                      <ul className="text-sm space-y-2">
                         {basic.benefits.map((benefit: string, index: number) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
@@ -95,9 +95,9 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Top Use Cases</h4>
-                      <ul className="text-sm space-y-1">
-                        {basic.useCases.map((useCase, index) => (
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Top Use Cases</h4>
+                      <ul className="text-sm space-y-2">
+                        {basic.useCases.map((useCase: string, index: number) => (
                           <li key={index} className="flex items-start">
                             <span className="text-primary-500 mr-2">•</span>
                             <span>{useCase}</span>
@@ -107,14 +107,55 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Report Contents</h4>
-                      <ul className="text-sm space-y-1">
-                        {basic.contents.map((content, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-primary-500 mr-2">•</span>
-                            <span>{content}</span>
-                          </li>
-                        ))}
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Report Contents</h4>
+                      <ul className="text-sm space-y-2">
+                        {/* Common contents that appear in both versions */}
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Supply</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Demand</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Supply-Demand Ratio</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Cost (Median)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Competitors Housing and Hiring Talent</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Titles</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Skills</span>
+                        </li>
+                        
+                        {/* Plus-only features with X mark to show not included */}
+                        <li className="flex items-start opacity-50">
+                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Alternate Location Identification</span>
+                        </li>
+                        <li className="flex items-start opacity-50">
+                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Supply by Experience</span>
+                        </li>
+                        <li className="flex items-start opacity-50">
+                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Cost by Percentile (25th, 50th, 90th)</span>
+                        </li>
+                        <li className="flex items-start opacity-50">
+                          <X className="h-4 w-4 text-red-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Diversity</span>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -150,11 +191,11 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1">
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Key Benefits</h4>
-                      <ul className="text-sm space-y-1">
-                        {plus.benefits.map((benefit, index) => (
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Key Benefits</h4>
+                      <ul className="text-sm space-y-2">
+                        {plus.benefits.map((benefit: string, index: number) => (
                           <li key={index} className="flex items-start">
                             <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
                             <span>{benefit}</span>
@@ -164,9 +205,9 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Top Use Cases</h4>
-                      <ul className="text-sm space-y-1">
-                        {plus.useCases.map((useCase, index) => (
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Top Use Cases</h4>
+                      <ul className="text-sm space-y-2">
+                        {plus.useCases.map((useCase: string, index: number) => (
                           <li key={index} className="flex items-start">
                             <span className="text-primary-500 mr-2">•</span>
                             <span>{useCase}</span>
@@ -176,14 +217,55 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     </div>
                     
                     <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-2">Report Contents</h4>
-                      <ul className="text-sm space-y-1">
-                        {plus.contents.map((content, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-primary-500 mr-2">•</span>
-                            <span>{content}</span>
-                          </li>
-                        ))}
+                      <h4 className="text-sm font-medium text-gray-900 mb-3 h-[20px]">Report Contents</h4>
+                      <ul className="text-sm space-y-2">
+                        {/* Basic features included in Plus */}
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Supply</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Demand</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Supply-Demand Ratio</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Talent Cost (Median)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Competitors Housing and Hiring Talent</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Titles</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Top Skills</span>
+                        </li>
+                        
+                        {/* Plus-only features with additional checkmarks */}
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="font-semibold">Alternate Location Identification</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="font-semibold">Talent Supply by Experience</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="font-semibold">Talent Cost by Percentile (25th, 50th, 90th)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-primary-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span className="font-semibold">Diversity</span>
+                        </li>
                       </ul>
                     </div>
                   </div>
