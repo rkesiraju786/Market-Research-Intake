@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, CheckCircle, Download, ExternalLink, X } from "lucide-react";
+import { ArrowLeft, CheckCircle, Clock, DollarSign, Download, ExternalLink, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { standardReportTypes } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,6 +80,19 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     {basic.definition}
                   </CardDescription>
                 </CardHeader>
+                {/* Cost and Timeline Banner */}
+                <div className="mx-6 -mt-1 mb-3 bg-primary-50 rounded-md p-3 border border-primary-100">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                      <DollarSign className="h-4 w-4 text-primary-500 mr-1" />
+                      <span className="text-sm font-medium">50 credits</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 text-primary-500 mr-1" />
+                      <span className="text-sm font-medium">2 weeks</span>
+                    </div>
+                  </div>
+                </div>
                 <CardContent className="flex-1">
                   <div className="space-y-6">
                     <div>
@@ -190,6 +203,19 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     {plus.definition}
                   </CardDescription>
                 </CardHeader>
+                {/* Cost and Timeline Banner */}
+                <div className="mx-6 -mt-1 mb-3 bg-primary-50 rounded-md p-3 border border-primary-100">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                      <DollarSign className="h-4 w-4 text-primary-500 mr-1" />
+                      <span className="text-sm font-medium">75 credits</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock className="h-4 w-4 text-primary-500 mr-1" />
+                      <span className="text-sm font-medium">2 weeks</span>
+                    </div>
+                  </div>
+                </div>
                 <CardContent className="flex-1">
                   <div className="space-y-6">
                     <div>
