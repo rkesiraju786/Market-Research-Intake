@@ -171,7 +171,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
       <div className="mb-6">
         <Button
           variant="ghost"
-          className="inline-flex items-center text-gray-600 hover:text-gray-900"
+          className="inline-flex items-center text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20"
           onClick={onBack}
         >
           <ArrowLeft className="h-5 w-5 mr-1" />
@@ -179,9 +179,9 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Schedule a Consultation</h2>
-        <p className="text-gray-600 mb-6">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8 border-2 border-[#CCCFFF]">
+        <h2 className="text-3xl font-bold gradient-heading mb-2">Schedule a Consultation</h2>
+        <p className="text-[#8186B4] mb-6">
           Not sure which report fits your needs? Our research experts can help
           identify the right solution for your business challenges.
         </p>
@@ -189,7 +189,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
         <div className="space-y-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-[#FCFCFE] p-4 rounded-lg border border-[#CCCFFF]">
                 <FormField
                   control={form.control}
                   name="businessNeed"
@@ -211,7 +211,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                 />
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-[#FCFCFE] p-4 rounded-lg border border-[#CCCFFF]">
                 <FormField
                   control={form.control}
                   name="supportNeeded"
@@ -243,7 +243,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                 />
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-[#FCFCFE] p-4 rounded-lg border border-[#CCCFFF]">
                 <FormField
                   control={form.control}
                   name="keyQuestions"
@@ -265,7 +265,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                 />
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-[#FCFCFE] p-4 rounded-lg border border-[#CCCFFF]">
                 <FormField
                   control={form.control}
                   name="decisionsOutcomes"
@@ -287,7 +287,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                 />
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-[#FCFCFE] p-4 rounded-lg border border-[#CCCFFF]">
                 <FormField
                   control={form.control}
                   name="timeline"
@@ -369,18 +369,18 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   Select a date and time for your consultation:
                 </p>
 
-                <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
-                  <div className="border-b border-gray-200 px-4 py-3 flex justify-between items-center">
-                    <Button variant="ghost" onClick={prevMonth} size="icon">
+                <div className="bg-white border border-[#CCCFFF] rounded-lg shadow-sm">
+                  <div className="border-b border-[#CCCFFF] px-4 py-3 flex justify-between items-center bg-[#F8F9FE]">
+                    <Button variant="ghost" onClick={prevMonth} size="icon" className="text-[#4600FF] hover:bg-[#CCCFFF]/20">
                       <ChevronLeft className="h-5 w-5" />
                     </Button>
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-[#130056]">
                       {currentMonth.toLocaleDateString("default", {
                         month: "long",
                         year: "numeric",
                       })}
                     </h3>
-                    <Button variant="ghost" onClick={nextMonth} size="icon">
+                    <Button variant="ghost" onClick={nextMonth} size="icon" className="text-[#4600FF] hover:bg-[#CCCFFF]/20">
                       <ChevronRight className="h-5 w-5" />
                     </Button>
                   </div>
