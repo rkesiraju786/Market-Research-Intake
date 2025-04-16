@@ -19,7 +19,7 @@ export default function Header() {
             <Button variant="ghost" className="text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20">
               Help
             </Button>
-            <Button className="ml-3 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white">Sign In</Button>
+            <Button className="ml-3 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white">Log Out</Button>
           </div>
         </div>
       </div>
