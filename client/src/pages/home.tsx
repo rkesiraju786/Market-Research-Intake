@@ -62,7 +62,15 @@ export default function Home() {
                 />
               </div>
 
-
+              <div className="mt-8">
+                <Button 
+                  onClick={() => setActiveSection("schedule")}
+                  className="flex items-center gap-2 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Schedule a Consultation
+                </Button>
+              </div>
             </section>
           </>
         )}
