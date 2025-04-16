@@ -63,7 +63,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
             {reportDetails.hoverDetails?.definition || "A comprehensive analysis of talent supply, demand, salary, and diversity data to help organizations make informed decisions."}
           </p>
 
-          <div style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)' }} className="rounded-lg p-4 border border-[#CCCFFF] mb-6">
+          <div style={{ backgroundColor: 'rgba(204, 207, 255, 0.05)' }} className="rounded-lg p-4 border border-[#CCCFFF] mb-6">
             <h3 className="text-lg font-medium text-[#130056] mb-2">Available Variants</h3>
             <p className="text-sm text-[#8186B4]">
               Select the appropriate report variant based on your recruitment needs and data requirements.
@@ -81,7 +81,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 {/* Cost and Timeline Banner */}
-                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)', border: '1px solid #CCCFFF' }}>
+                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.05)', border: '1px solid #CCCFFF' }}>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <DollarSign className="h-4 w-4 text-[#4600FF] mr-1" />
@@ -204,7 +204,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                   </CardDescription>
                 </CardHeader>
                 {/* Cost and Timeline Banner */}
-                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.2)', border: '1px solid #CCCFFF' }}>
+                <div className="mx-6 -mt-1 mb-3 rounded-md p-3" style={{ backgroundColor: 'rgba(204, 207, 255, 0.05)', border: '1px solid #CCCFFF' }}>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <DollarSign className="h-4 w-4 text-[#4600FF] mr-1" />
