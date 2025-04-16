@@ -315,7 +315,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="companyName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Company Name</FormLabel>
+                      <FormLabel className="text-[#130056]">Company Name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -328,7 +328,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="contactName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contact Name</FormLabel>
+                      <FormLabel className="text-[#130056]">Contact Name</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -341,7 +341,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email Address</FormLabel>
+                      <FormLabel className="text-[#130056]">Email Address</FormLabel>
                       <FormControl>
                         <Input type="email" {...field} />
                       </FormControl>
@@ -354,7 +354,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
+                      <FormLabel className="text-[#130056]">Phone Number</FormLabel>
                       <FormControl>
                         <Input type="tel" {...field} />
                       </FormControl>
@@ -365,7 +365,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
               </div>
 
               <div>
-                <p className="text-gray-700 font-medium mb-3">
+                <p className="text-[#130056] font-medium mb-3">
                   Select a date and time for your consultation:
                 </p>
 
