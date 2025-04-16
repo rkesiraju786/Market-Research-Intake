@@ -7,7 +7,7 @@ import ConsultingReports from "@/components/consulting-reports";
 import ScheduleCall from "@/components/schedule-call";
 import StrategicSourcingDetail from "@/components/strategic-sourcing-detail";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 
 type Section = "selection" | "workforce" | "consulting" | "schedule" | "strategic-sourcing-detail";
 
@@ -57,10 +57,10 @@ export default function Home() {
         {activeSection === "selection" && (
           <>
             <section className="mb-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold gradient-heading mb-4">
                 Request Labor Market Research Reports
               </h2>
-              <p className="text-gray-600 max-w-3xl">
+              <p className="text-[#8186B4] max-w-3xl">
                 Select the type of report you need to gain valuable insights into
                 labor market trends, competitive analysis, and workforce strategies.
               </p>
@@ -79,15 +79,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="mt-8">
-                <Button 
-                  onClick={() => setActiveSection("schedule")}
-                  className="flex items-center gap-2 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white"
-                >
-                  <Calendar className="h-4 w-4" />
-                  Schedule a Consultation
-                </Button>
-              </div>
+              {/* Schedule consultation button hidden as requested */}
             </section>
           </>
         )}
