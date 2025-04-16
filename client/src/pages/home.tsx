@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ReportTypeCard from "@/components/report-type-card";
@@ -7,7 +8,7 @@ import ConsultingReports from "@/components/consulting-reports";
 import ScheduleCall from "@/components/schedule-call";
 import StrategicSourcingDetail from "@/components/strategic-sourcing-detail";
 import { Button } from "@/components/ui/button";
-import { Clock } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 
 type Section = "selection" | "workforce" | "consulting" | "schedule" | "strategic-sourcing-detail";
 
@@ -15,6 +16,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<Section>("selection");
   const [selectedReportType, setSelectedReportType] = useState<string | null>(null);
   const [selectedReportVariant, setSelectedReportVariant] = useState<string | null>(null);
+  const [_, setLocation] = useLocation();
 
   // Set up event listener for navigation from components
   useEffect(() => {
@@ -53,6 +55,20 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Back button for Market Research flow */}
+        {window.location.pathname === "/market-research/request" && (
+          <div className="mb-6">
+            <Button
+              variant="ghost"
+              className="inline-flex items-center text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20"
+              onClick={() => setLocation("/market-research")}
+            >
+              <ArrowLeft className="h-5 w-5 mr-1" />
+              Back to Market Research
+            </Button>
+          </div>
+        )}
+      
         {/* Intro Section */}
         {activeSection === "selection" && (
           <>
