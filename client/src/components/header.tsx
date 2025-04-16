@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ClipboardList } from "lucide-react";
+import tnLogo from "@assets/TN.png";
 
 export default function Header() {
   return (
@@ -7,16 +7,19 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <ClipboardList className="h-8 w-8 text-primary" />
-            <h1 className="ml-2 text-lg font-bold text-gray-900">
-              Labor Market Research Portal
-            </h1>
+            <a href="/" className="flex items-center">
+              <img 
+                src={tnLogo} 
+                alt="TalentNeuron Logo" 
+                className="h-12" 
+              />
+            </a>
           </div>
           <div>
-            <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+            <Button variant="ghost" className="text-[#8186B4] hover:text-[#4600FF] hover:bg-[#CCCFFF]/20">
               Help
             </Button>
-            <Button className="ml-3">Sign In</Button>
+            <Button className="ml-3 bg-[#4600FF] hover:bg-[#4600FF]/90 text-white">Sign In</Button>
           </div>
         </div>
       </div>
