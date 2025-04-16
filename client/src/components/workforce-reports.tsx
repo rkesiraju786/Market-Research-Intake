@@ -118,39 +118,6 @@ export default function WorkforceReports({
         </Button>
       </div>
 
-      {/* Schedule Call Option */}
-      <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 mb-6">
-        <div className="flex items-start">
-          <div className="flex-shrink-0">
-            <Calendar className="h-6 w-6 text-gray-500" />
-          </div>
-          <div className="ml-3">
-            <h3 className="text-lg font-medium text-gray-900">
-              Not sure which report fits your needs?
-            </h3>
-            <p className="mt-1 text-gray-500">
-              Book a call with a representative to discuss your specific requirements.
-            </p>
-            <Button
-              variant="outline"
-              className="mt-3"
-              onClick={() => {
-                // Use the useToast hook to show a message
-                toast({
-                  title: "Schedule Consultation",
-                  description: "Redirecting to scheduling page...",
-                });
-                
-                // You might want to handle this differently based on your navigation flow
-                // For example, navigate to the scheduling page
-              }}
-            >
-              Schedule a Consultation
-            </Button>
-          </div>
-        </div>
-      </div>
-
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Workforce Reports</h2>
         <p className="text-gray-600 mb-4">
@@ -220,120 +187,37 @@ export default function WorkforceReports({
         ))}
       </div>
 
-      <div className="bg-primary-50 rounded-lg border border-primary-200 p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Request a Standard Report</h3>
-        <p className="text-gray-600 mb-4">
-          Please provide the following information to request your selected report.
-        </p>
-
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="companyName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Company Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="contactName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Contact Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input type="email" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input type="tel" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="reportType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Report Type</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    value={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a report type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="placeholder" disabled>Select a report type</SelectItem>
-                      {standardReportTypes.map((report) => (
-                        <SelectItem key={report.id} value={report.id}>
-                          {report.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="requirements"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Specific Requirements or Notes</FormLabel>
-                  <FormControl>
-                    <Textarea rows={3} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="pt-4">
-              <Button type="submit" disabled={submitting}>
-                {submitting ? "Submitting..." : "Submit Request"}
-              </Button>
-            </div>
-          </form>
-        </Form>
+      {/* Schedule Call Option - Moved to bottom */}
+      <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 mt-8">
+        <div className="flex items-start">
+          <div className="flex-shrink-0">
+            <Calendar className="h-6 w-6 text-gray-500" />
+          </div>
+          <div className="ml-3">
+            <h3 className="text-lg font-medium text-gray-900">
+              Not sure which report fits your needs?
+            </h3>
+            <p className="mt-1 text-gray-500">
+              Book a call with a representative to discuss your specific requirements.
+            </p>
+            <Button
+              variant="outline"
+              className="mt-3"
+              onClick={() => {
+                // Use the useToast hook to show a message
+                toast({
+                  title: "Schedule Consultation",
+                  description: "Redirecting to scheduling page...",
+                });
+                
+                // You might want to handle this differently based on your navigation flow
+                // For example, navigate to the scheduling page
+              }}
+            >
+              Schedule a Consultation
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
