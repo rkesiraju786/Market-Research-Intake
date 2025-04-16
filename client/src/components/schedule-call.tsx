@@ -195,7 +195,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="businessNeed"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-md font-medium text-gray-900 mb-2">
+                      <FormLabel className="text-md font-medium text-[#130056] mb-2">
                         Please describe your business or talent need
                       </FormLabel>
                       <FormControl>
@@ -217,7 +217,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="supportNeeded"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-md font-medium text-gray-900 mb-2">
+                      <FormLabel className="text-md font-medium text-[#130056] mb-2">
                         What type of support are you seeking?
                       </FormLabel>
                       <Select
@@ -249,7 +249,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="keyQuestions"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-md font-medium text-gray-900 mb-2">
+                      <FormLabel className="text-md font-medium text-[#130056] mb-2">
                         What key questions would you like us to address?
                       </FormLabel>
                       <FormControl>
@@ -271,7 +271,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="decisionsOutcomes"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-md font-medium text-gray-900 mb-2">
+                      <FormLabel className="text-md font-medium text-[#130056] mb-2">
                         What decisions/outcomes will this inform?
                       </FormLabel>
                       <FormControl>
@@ -293,7 +293,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   name="timeline"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-md font-medium text-gray-900 mb-2">
+                      <FormLabel className="text-md font-medium text-[#130056] mb-2">
                         Is there a timeline that we will need to meet?
                       </FormLabel>
                       <FormControl>
@@ -386,13 +386,13 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                   </div>
                   <div className="p-4">
                     <div className="grid grid-cols-7 gap-2 mb-2">
-                      <div className="text-center text-sm font-medium text-gray-500">Sun</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Mon</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Tue</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Wed</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Thu</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Fri</div>
-                      <div className="text-center text-sm font-medium text-gray-500">Sat</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Sun</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Mon</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Tue</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Wed</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Thu</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Fri</div>
+                      <div className="text-center text-sm font-medium text-[#8186B4]">Sat</div>
                     </div>
                     <div className="grid grid-cols-7 gap-2">
                       {calendarDays.map((day, index) => {
@@ -411,9 +411,9 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                             className={cn(
                               "text-center py-2 rounded-md border",
                               day.isAvailable
-                                ? "bg-white border-gray-300 hover:border-primary-500 cursor-pointer"
+                                ? "bg-white border-[#CCCFFF] text-[#130056] hover:border-[#4600FF] hover:bg-[#CCCFFF]/10 cursor-pointer"
                                 : "opacity-50 cursor-not-allowed border-gray-200 bg-gray-50",
-                              isSelected && "bg-primary-50 border-primary-500"
+                              isSelected && "bg-[#CCCFFF]/30 border-[#4600FF] text-[#4600FF] font-medium"
                             )}
                             onClick={() => {
                               if (day.isAvailable) {
@@ -431,9 +431,9 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
 
                 {selectedDate && (
                   <div className="mt-4">
-                    <p className="text-gray-700 font-medium mb-3">
+                    <p className="text-[#130056] font-medium mb-3">
                       Available time slots for{" "}
-                      <span className="font-semibold">{formatDate(selectedDate)}</span>:
+                      <span className="font-semibold text-[#4600FF]">{formatDate(selectedDate)}</span>:
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {availableTimes.map((time) => (
@@ -442,8 +442,8 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                           type="button"
                           variant="outline"
                           className={cn(
-                            "py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-primary-50 hover:border-primary-500",
-                            selectedTime === time && "bg-primary-100 border-primary-500 text-primary-700"
+                            "py-2 px-3 border border-[#CCCFFF] rounded-md text-sm font-medium text-[#130056] hover:bg-[#CCCFFF]/10 hover:border-[#4600FF]",
+                            selectedTime === time && "bg-[#CCCFFF]/30 border-[#4600FF] text-[#4600FF]"
                           )}
                           onClick={() => handleTimeSelect(time)}
                         >
@@ -466,10 +466,11 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                 render={() => <FormMessage />}
               />
 
-              <div className="pt-4">
+              <div className="pt-6">
                 <Button 
                   type="submit" 
                   disabled={submitting}
+                  className="bg-[#4600FF] hover:bg-[#4600FF]/90 text-white font-medium px-6"
                 >
                   {submitting ? "Scheduling..." : "Schedule Consultation"}
                 </Button>
