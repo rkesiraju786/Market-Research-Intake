@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, CheckCircle, Clipboard, Clock, DollarSign, Download } from "lucide-react";
+import { ArrowLeft, Calendar, CheckCircle, Clipboard, Clock, DollarSign, Download } from "lucide-react";
 import { standardReportTypes } from "@/lib/utils";
 import ReportCard from "@/components/report-card";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -116,6 +116,39 @@ export default function WorkforceReports({
           <ArrowLeft className="h-5 w-5 mr-1" />
           Back to selection
         </Button>
+      </div>
+
+      {/* Schedule Call Option */}
+      <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 mb-6">
+        <div className="flex items-start">
+          <div className="flex-shrink-0">
+            <Calendar className="h-6 w-6 text-gray-500" />
+          </div>
+          <div className="ml-3">
+            <h3 className="text-lg font-medium text-gray-900">
+              Not sure which report fits your needs?
+            </h3>
+            <p className="mt-1 text-gray-500">
+              Book a call with a representative to discuss your specific requirements.
+            </p>
+            <Button
+              variant="outline"
+              className="mt-3"
+              onClick={() => {
+                // Use the useToast hook to show a message
+                toast({
+                  title: "Schedule Consultation",
+                  description: "Redirecting to scheduling page...",
+                });
+                
+                // You might want to handle this differently based on your navigation flow
+                // For example, navigate to the scheduling page
+              }}
+            >
+              Schedule a Consultation
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
