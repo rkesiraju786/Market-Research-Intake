@@ -397,7 +397,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                     <div className="grid grid-cols-7 gap-2">
                       {calendarDays.map((day, index) => {
                         if (day === null) {
-                          return <div key={`empty-${index}`}></div>;
+                          return <div key={`empty-${index}`} className="text-center py-2"></div>;
                         }
 
                         const isSelected = selectedDate && 
@@ -406,7 +406,8 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                           selectedDate.getFullYear() === day.date.getFullYear();
 
                         return (
-                          <div
+                          <button
+                            type="button"
                             key={`day-${day.date.getDate()}`}
                             className={cn(
                               "text-center py-2 rounded-md border",
@@ -420,9 +421,10 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                                 handleDateSelect(day.date);
                               }
                             }}
+                            disabled={!day.isAvailable}
                           >
                             {day.date.getDate()}
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
@@ -437,10 +439,9 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {availableTimes.map((time) => (
-                        <Button
+                        <button
                           key={time}
                           type="button"
-                          variant="outline"
                           className={cn(
                             "py-2 px-3 border border-[#CCCFFF] rounded-md text-sm font-medium text-[#130056] hover:bg-[#CCCFFF]/10 hover:border-[#4600FF]",
                             selectedTime === time && "bg-[#CCCFFF]/30 border-[#4600FF] text-[#4600FF]"
@@ -448,7 +449,7 @@ export default function ScheduleCall({ onBack }: ScheduleCallProps) {
                           onClick={() => handleTimeSelect(time)}
                         >
                           {time}
-                        </Button>
+                        </button>
                       ))}
                     </div>
                   </div>
