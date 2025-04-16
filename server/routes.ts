@@ -3,18 +3,8 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { insertWorkforceRequestSchema, insertConsultingRequestSchema, insertAppointmentSchema } from "@shared/schema";
-import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Serve the static HTML file directly at the root
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'client/index.html'));
-  });
-  
-  // Original static route
-  app.get('/static', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'client/static.html'));
-  });
   // Workforce Reports Request API
   app.post("/api/requests/workforce", async (req, res) => {
     try {

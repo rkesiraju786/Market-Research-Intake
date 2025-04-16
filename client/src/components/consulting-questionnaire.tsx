@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, Calendar, ChevronRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { 
@@ -12,10 +13,19 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select";
+import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AnimatedContainer } from "@/components/ui/animated-container";
 import { Spinner } from "@/components/ui/spinner";
 import { Pulse } from "@/components/ui/pulse";
 import { cn } from "@/lib/utils";
@@ -118,11 +128,18 @@ export default function ConsultingQuestionnaire({
     setInputMethod(prev => prev === "text" ? "choice" : "text");
   };
 
+  // Animation variants
+  const variants = {
+    enter: { opacity: 0, y: 20 },
+    center: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 }
+  };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-6">
+      <AnimatedContainer animation="fadeInDown" delay={0.1} className="mb-6">
         <Button
           variant="ghost"
           className="inline-flex items-center text-gray-600 hover:text-gray-900"
@@ -131,9 +148,9 @@ export default function ConsultingQuestionnaire({
           <ArrowLeft className="h-5 w-5 mr-1" />
           Back to selection
         </Button>
-      </div>
+      </AnimatedContainer>
 
-      <div>
+      <AnimatedContainer animation="fadeInUp" delay={0.2}>
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center">
@@ -146,39 +163,48 @@ export default function ConsultingQuestionnaire({
               Let's work together to understand your specific needs for this consulting project.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex justify-between mb-4">
-                {[...Array(data.deadline === "expedited" ? 5 : 4)].map((_, index) => (
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex justify-between mb-4">
+              {[...Array(data.deadline === "expedited" ? 5 : 4)].map((_, index) => (
+                <div 
+                  key={index} 
+                  className={`flex items-center ${index > 0 ? 'ml-2' : ''}`}
+                >
                   <div 
-                    key={index} 
-                    className={`flex items-center ${index > 0 ? 'ml-2' : ''}`}
+                    className={`rounded-full w-8 h-8 flex items-center justify-center ${
+                      index === currentStep 
+                        ? 'bg-primary text-white' 
+                        : index < currentStep 
+                          ? 'bg-primary-200 text-primary-800' 
+                          : 'bg-gray-200 text-gray-600'
+                    }`}
                   >
-                    <div 
-                      className={`rounded-full w-8 h-8 flex items-center justify-center ${
-                        index === currentStep 
-                          ? 'bg-primary text-white' 
-                          : index < currentStep 
-                            ? 'bg-primary-200 text-primary-800' 
-                            : 'bg-gray-200 text-gray-600'
-                      }`}
-                    >
-                      {index + 1}
-                    </div>
-                    {index < (data.deadline === "expedited" ? 4 : 3) && (
-                      <div 
-                        className={`h-1 w-16 ${
-                          index < currentStep ? 'bg-primary-200' : 'bg-gray-200'
-                        }`}
-                      />
-                    )}
+                    {index + 1}
                   </div>
-                ))}
-              </div>
+                  {index < (data.deadline === "expedited" ? 4 : 3) && (
+                    <div 
+                      className={`h-1 w-16 ${
+                        index < currentStep ? 'bg-primary-200' : 'bg-gray-200'
+                      }`}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
 
+            <AnimatePresence mode="wait">
               {/* Step 1: Problem Statement */}
               {currentStep === 0 && (
-                <div className="space-y-4">
+                <motion.div
+                  key="step1"
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  variants={variants}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <h3 className="text-lg font-medium">What problem are you trying to solve?</h3>
                     <p className="text-sm text-gray-500">
@@ -204,13 +230,18 @@ export default function ConsultingQuestionnaire({
                           value={data.problemStatement}
                           onChange={(e) => handleTextInputChange(e.target.value)}
                         />
-                        <Button 
-                          onClick={goToNextStep} 
-                          disabled={!data.problemStatement.trim()}
-                          className="mt-2"
+                        <motion.div
+                          whileTap={{ scale: 0.97 }}
+                          transition={{ duration: 0.1 }}
                         >
-                          Continue <ChevronRight className="h-4 w-4 ml-1" />
-                        </Button>
+                          <Button 
+                            onClick={goToNextStep} 
+                            disabled={!data.problemStatement.trim()}
+                            className="mt-2"
+                          >
+                            Continue <ChevronRight className="h-4 w-4 ml-1" />
+                          </Button>
+                        </motion.div>
                       </div>
                     ) : (
                       <div className="space-y-3">
@@ -220,52 +251,100 @@ export default function ConsultingQuestionnaire({
                           value={data.primaryPurpose}
                           onValueChange={handlePurposeSelect}
                         >
-                          <div className="flex items-center space-x-2">
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="attract-retain" id="attract-retain" />
                             <Label htmlFor="attract-retain">
                               Attract / Retain talent
                               {data.primaryPurpose === "attract-retain" && (
-                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
                               )}
                             </Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="location-competitor" id="location-competitor" />
                             <Label htmlFor="location-competitor">
                               Location Strategy / Competitor Analysis
                               {data.primaryPurpose === "location-competitor" && (
-                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
                               )}
                             </Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="employer-branding" id="employer-branding" />
                             <Label htmlFor="employer-branding">
                               Employer Branding
                               {data.primaryPurpose === "employer-branding" && (
-                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
                               )}
                             </Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center space-x-2"
+                            whileHover={{ x: 2 }}
+                            transition={{ duration: 0.2 }}
+                          >
                             <RadioGroupItem value="diversity" id="diversity" />
                             <Label htmlFor="diversity">
                               Diversity
                               {data.primaryPurpose === "diversity" && (
-                                <span className="ml-2 text-primary-600 text-sm">✓</span>
+                                <motion.span
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  className="ml-2 text-primary-600 text-sm"
+                                >
+                                  ✓
+                                </motion.span>
                               )}
                             </Label>
-                          </div>
+                          </motion.div>
                         </RadioGroup>
                       </div>
                     )}
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* Step 2: Talent Type */}
               {currentStep === 1 && (
-                <div className="space-y-4">
+                <motion.div
+                  key="step2"
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  variants={variants}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <h3 className="text-lg font-medium">What kind of talent are you looking for?</h3>
                     <p className="text-sm text-gray-500">
@@ -295,12 +374,20 @@ export default function ConsultingQuestionnaire({
                       </div>
                     </RadioGroup>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* Step 3: Deadline */}
               {currentStep === 2 && (
-                <div className="space-y-4">
+                <motion.div
+                  key="step3"
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  variants={variants}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <h3 className="text-lg font-medium">Do you have a deadline for this consulting project?</h3>
                     <p className="text-sm text-gray-500">
@@ -322,12 +409,20 @@ export default function ConsultingQuestionnaire({
                       </div>
                     </RadioGroup>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* Step 4: Date Selection (only for expedited) */}
               {currentStep === 3 && data.deadline === "expedited" && (
-                <div className="space-y-4">
+                <motion.div
+                  key="step4"
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  variants={variants}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <h3 className="text-lg font-medium">Select your deadline date</h3>
                     <p className="text-sm text-gray-500">
@@ -377,23 +472,28 @@ export default function ConsultingQuestionnaire({
                       </Button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
+            </AnimatePresence>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between border-t border-gray-100 pt-4">
+          {/* Schedule Call Option */}
+          <div className="flex items-start mt-4 border-t border-gray-100 pt-4 w-full">
+            <div className="flex-shrink-0">
+              <Calendar className="h-5 w-5 text-gray-500" />
             </div>
-          </CardContent>
-          <CardFooter className="flex justify-between border-t border-gray-100 pt-4">
-            {/* Schedule Call Option */}
-            <div className="flex items-start mt-4 border-t border-gray-100 pt-4 w-full">
-              <div className="flex-shrink-0">
-                <Calendar className="h-5 w-5 text-gray-500" />
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-gray-900">
-                  Need help determining your requirements?
-                </h3>
-                <p className="mt-1 text-xs text-gray-500">
-                  Schedule a consultation call with one of our experts.
-                </p>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-gray-900">
+                Need help determining your requirements?
+              </h3>
+              <p className="mt-1 text-xs text-gray-500">
+                Schedule a consultation call with one of our experts.
+              </p>
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.1 }}
+              >
                 <Button
                   variant="outline"
                   size="sm"
@@ -408,11 +508,12 @@ export default function ConsultingQuestionnaire({
                   <Clock className="h-3 w-3 mr-1" />
                   Schedule a Consultation
                 </Button>
-              </div>
+              </motion.div>
             </div>
-          </CardFooter>
-        </Card>
-      </div>
+          </div>
+        </CardFooter>
+      </Card>
+      </AnimatedContainer>
     </div>
   );
 }
