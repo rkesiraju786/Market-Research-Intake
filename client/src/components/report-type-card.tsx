@@ -67,7 +67,7 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
         <div className="mt-4 space-y-3">
           <div className="flex items-center text-sm text-gray-700">
             <Clock className="h-5 w-5 text-secondary-500 mr-2" />
-            Delivery Time: 4-6 weeks
+            Delivery Time: 2-6 weeks
           </div>
           <div className="flex items-center text-sm text-gray-700">
             <DollarSign className="h-5 w-5 text-secondary-500 mr-2" />
@@ -77,6 +77,16 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
             <Users className="h-5 w-5 text-secondary-500 mr-2" />
             Includes consultation with research experts
           </div>
+        </div>
+        <div className="mt-4 border-t pt-4">
+          <p className="text-sm text-gray-700">
+            Support from an expert to explore tailored insights and proven methodologies to empower your data-driven decision making, this includes:
+          </p>
+          <ul className="mt-2 text-sm text-gray-700 space-y-1 pl-5 list-disc">
+            <li>Scoping session to design strategic solutions to your unique challenges</li>
+            <li>Full data research project</li>
+            <li>Insights review session providing strategic advice</li>
+          </ul>
         </div>
       </div>
       <div className="px-6 pb-6">
