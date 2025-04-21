@@ -205,7 +205,7 @@ export default function StrategicSourcingDetailsForm({
   const addRole = () => {
     const currentRoles = form.getValues("roles");
     
-    // Check if we're at max capacity
+    // If we have 5 or more roles, show warning for additional credits
     if (currentRoles.length >= 5) {
       // Store the action in case user confirms
       setLastActionData({
@@ -216,6 +216,16 @@ export default function StrategicSourcingDetailsForm({
             { title: "", description: "", jobUrl: "", jobDescription: "" }
           ];
           form.setValue("roles", updatedRoles);
+          
+          // Add corresponding location if needed
+          const currentLocations = form.getValues("locations");
+          if (currentRoles.length > currentLocations.length) {
+            const updatedLocations = [
+              ...currentLocations,
+              { country: "", region: "", city: "" }
+            ];
+            form.setValue("locations", updatedLocations);
+          }
         }
       });
       
@@ -230,6 +240,16 @@ export default function StrategicSourcingDetailsForm({
       { title: "", description: "", jobUrl: "", jobDescription: "" }
     ];
     form.setValue("roles", updatedRoles);
+    
+    // Add corresponding location if needed
+    const currentLocations = form.getValues("locations");
+    if (updatedRoles.length > currentLocations.length) {
+      const updatedLocations = [
+        ...currentLocations,
+        { country: "", region: "", city: "" }
+      ];
+      form.setValue("locations", updatedLocations);
+    }
   };
 
   const removeRole = (index: number) => {
@@ -585,7 +605,7 @@ export default function StrategicSourcingDetailsForm({
               </div>
               
               {/* Add Role-Location Button */}
-              {roles.length < 5 ? (
+              <div className="flex flex-col space-y-3">
                 <Button 
                   type="button"
                   variant="outline" 
@@ -595,14 +615,23 @@ export default function StrategicSourcingDetailsForm({
                   <Plus className="h-4 w-4 mr-2" />
                   Add Another Role-Location Pair
                 </Button>
-              ) : (
-                <div className="bg-amber-50 border border-amber-200 rounded-md p-3 flex items-start">
-                  <span className="text-amber-600 mr-2">⚠️</span>
-                  <p className="text-amber-800 text-sm">
-                    You've reached the limit of 5 role-location pairs.
-                  </p>
-                </div>
-              )}
+                
+                {roles.length >= 5 && (
+                  <div className="bg-amber-50 border border-amber-200 rounded-md p-3">
+                    <div className="flex items-start">
+                      <span className="text-amber-600 mr-2">⚠️</span>
+                      <div>
+                        <p className="text-amber-800 text-sm">
+                          You've added {roles.length} role-location pairs. Adding more than 5 pairs will incur additional credits and may extend the delivery timeline.
+                        </p>
+                        <p className="text-amber-700 text-xs mt-1">
+                          Each additional pair costs 10 credits and may add 1-3 days to delivery.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               
               {/* Review Summary Section */}
               <div className="mt-8 pt-8 border-t border-[#CCCFFF]">
@@ -742,22 +771,39 @@ export default function StrategicSourcingDetailsForm({
           <AlertDialogHeader>
             <AlertDialogTitle>Additional Credits Required</AlertDialogTitle>
             <AlertDialogDescription>
-              You've reached the maximum number of {lastActionData?.type}s (5). 
-              Adding more will incur additional credits and may extend the delivery timeline.
+              <p className="mb-2">
+                You're adding additional {lastActionData?.type}-location pairs beyond the standard package.
+              </p>
               
-              <div className="mt-4 py-3 px-4 rounded-md bg-[#FFF9E5] border border-[#FFE082]">
-                <div className="flex">
-                  <div className="mr-3 text-[#FF9800]">⚠️</div>
-                  <div>
-                    <p className="text-sm font-medium text-[#130056]">
-                      Each additional {lastActionData?.type} adds:
-                    </p>
-                    <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside">
-                      <li>10 additional credits</li>
-                      <li>May extend delivery by 1-3 days</li>
-                    </ul>
+              <div className="py-3 px-4 rounded-md bg-[#F8F9FE] border border-[#CCCFFF] mb-3">
+                <div className="flex items-center mb-2">
+                  <div className="mr-2 text-[#4600FF]">
+                    <Badge className="h-6 w-6 rounded-full bg-[#4600FF] flex items-center justify-center p-0">
+                      <Check className="h-3 w-3 text-white" />
+                    </Badge>
                   </div>
+                  <p className="text-sm font-medium text-[#130056]">
+                    Standard package includes:
+                  </p>
                 </div>
+                <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
+                  <li>Up to 5 role-location pairs</li>
+                  <li>Standard 2-week delivery</li>
+                  <li>{variant === "plus" ? "75" : "50"} credits total</li>
+                </ul>
+              </div>
+              
+              <div className="py-3 px-4 rounded-md bg-[#FFF9E5] border border-[#FFE082]">
+                <div className="flex items-center mb-2">
+                  <div className="mr-2 text-[#FF9800]">⚠️</div>
+                  <p className="text-sm font-medium text-[#130056]">
+                    Each additional pair requires:
+                  </p>
+                </div>
+                <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
+                  <li>10 additional credits</li>
+                  <li>May extend delivery by 1-3 days</li>
+                </ul>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -769,7 +815,7 @@ export default function StrategicSourcingDetailsForm({
               onClick={handleConfirmExtraCredits}
               className="bg-[#4600FF] hover:bg-[#130056] text-white"
             >
-              Add Anyway
+              Add Additional Pair
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
