@@ -145,7 +145,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // For the Plus variant, we accept the roles and locations arrays directly
       // without strict validation since they have a dynamic structure
-      const { reportType, variant, roles, locations, additionalNotes, email } = req.body;
+      const { reportType, variant, roles, locations, additionalNotes } = req.body;
       
       // Create a simplified version for database storage
       const validatedData = insertStrategicSourcingRequestSchema.parse({
@@ -164,21 +164,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Save to database
       const request = await storage.createStrategicSourcingRequest(validatedData);
       
-      // Send confirmation email if an email address is provided
-      if (email) {
-        try {
-          // Format and send the email
-          const emailHtml = formatStrategicSourcingPlusConfirmation(roles, locations, additionalNotes);
-          await sendEmail(
-            email,
-            'Your Strategic Sourcing Plus Request Confirmation',
-            emailHtml
-          );
-        } catch (emailError) {
-          console.error("Failed to send confirmation email:", emailError);
-          // Continue with the response even if email fails
-        }
-      }
+      // We're not sending confirmation emails directly from here
+      // as the user's email is retrieved from the database
       
       res.status(201).json({ success: true, data: request });
     } catch (error: any) {

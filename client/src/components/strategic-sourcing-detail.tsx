@@ -69,7 +69,6 @@ export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'wo
         variant: "plus",
         roles: data.roles,
         locations: data.locations,
-        email: data.email, // Add email for sending confirmation
         additionalNotes: data.additionalNotes
       };
       

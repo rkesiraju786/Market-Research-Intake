@@ -73,7 +73,6 @@ const locationSchema = z.object({
 const formSchema = z.object({
   roles: z.array(roleSchema).min(1, { message: "At least one role is required" }),
   locations: z.array(locationSchema).min(1, { message: "At least one location is required" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
   additionalNotes: z.string().optional(),
 });
 
@@ -195,7 +194,6 @@ export default function StrategicSourcingDetailsForm({
     defaultValues: {
       roles: [{ title: "", description: "", jobUrl: "", jobDescription: "" }],
       locations: [{ country: "United States", region: "New York", city: "" }],
-      email: "",
       additionalNotes: "",
     },
   });
@@ -901,24 +899,7 @@ export default function StrategicSourcingDetailsForm({
                   </CardContent>
                 </Card>
                 
-                {/* Email */}
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-[#130056]">Email Address <span className="text-red-500">*</span></FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your email for confirmation"
-                          className="border-[#CCCFFF]"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
 
                 {/* Additional Notes */}
                 <FormField
