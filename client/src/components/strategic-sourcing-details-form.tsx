@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "wouter";
 import { 
   Form, 
   FormControl, 
@@ -760,13 +761,14 @@ export default function StrategicSourcingDetailsForm({
                   </div>
                   
                   <div className="mt-8">
-                    <Button 
-                      type="button"
-                      className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
-                      onClick={onBack}
-                    >
-                      View My Requests
-                    </Button>
+                    <Link href="/dashboard">
+                      <Button 
+                        type="button"
+                        className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
+                      >
+                        View My Requests
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
