@@ -12,7 +12,10 @@ import {
   type InsertConsultingRequest,
   appointments,
   type Appointment,
-  type InsertAppointment
+  type InsertAppointment,
+  strategicSourcingRequests,
+  type StrategicSourcingRequest,
+  type InsertStrategicSourcingRequest
 } from "@shared/schema";
 
 export interface IStorage {
@@ -30,6 +33,11 @@ export interface IStorage {
   createConsultingRequest(request: InsertConsultingRequest): Promise<ConsultingRequest>;
   getConsultingRequest(id: number): Promise<ConsultingRequest | undefined>;
   getAllConsultingRequests(): Promise<ConsultingRequest[]>;
+  
+  // Strategic Sourcing request methods
+  createStrategicSourcingRequest(request: InsertStrategicSourcingRequest): Promise<StrategicSourcingRequest>;
+  getStrategicSourcingRequest(id: number): Promise<StrategicSourcingRequest | undefined>;
+  getAllStrategicSourcingRequests(): Promise<StrategicSourcingRequest[]>;
   
   // Appointment methods
   createAppointment(appointment: InsertAppointment): Promise<Appointment>;
@@ -127,6 +135,30 @@ export class DatabaseStorage implements IStorage {
   
   async getAllAppointments(): Promise<Appointment[]> {
     return await db.select().from(appointments);
+  }
+  
+  // Strategic Sourcing request methods
+  async createStrategicSourcingRequest(insertRequest: InsertStrategicSourcingRequest): Promise<StrategicSourcingRequest> {
+    const [request] = await db
+      .insert(strategicSourcingRequests)
+      .values({ 
+        ...insertRequest,
+        createdAt: new Date() 
+      })
+      .returning();
+    return request;
+  }
+  
+  async getStrategicSourcingRequest(id: number): Promise<StrategicSourcingRequest | undefined> {
+    const [request] = await db
+      .select()
+      .from(strategicSourcingRequests)
+      .where(eq(strategicSourcingRequests.id, id));
+    return request || undefined;
+  }
+  
+  async getAllStrategicSourcingRequests(): Promise<StrategicSourcingRequest[]> {
+    return await db.select().from(strategicSourcingRequests);
   }
 }
 

@@ -89,3 +89,28 @@ export const insertAppointmentSchema = createInsertSchema(appointments).omit({
 
 export type InsertAppointment = z.infer<typeof insertAppointmentSchema>;
 export type Appointment = typeof appointments.$inferSelect;
+
+// Schema for strategic sourcing requests
+export const strategicSourcingRequests = pgTable("strategic_sourcing_requests", {
+  id: serial("id").primaryKey(),
+  reportType: text("report_type").notNull(), // "strategic-sourcing"
+  variant: text("variant").notNull(), // "basic" or "plus"
+  challenges: text("challenges").array().notNull(),
+  challengeDetails: text("challenge_details").notNull(),
+  audience: text("audience").array().notNull(),
+  audienceDetails: text("audience_details").notNull(),
+  timeline: text("timeline").notNull(), // "standard" or "expedited"
+  deadline: timestamp("deadline"),
+  deadlineReason: text("deadline_reason"),
+  additionalInsights: text("additional_insights").array().notNull(),
+  insightDetails: text("insight_details").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertStrategicSourcingRequestSchema = createInsertSchema(strategicSourcingRequests).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertStrategicSourcingRequest = z.infer<typeof insertStrategicSourcingRequestSchema>;
+export type StrategicSourcingRequest = typeof strategicSourcingRequests.$inferSelect;

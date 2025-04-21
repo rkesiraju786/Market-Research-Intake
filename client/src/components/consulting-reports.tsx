@@ -78,7 +78,14 @@ export default function ConsultingReports({ onBack }: ConsultingReportsProps) {
 
   const handleReportSelect = (id: string) => {
     setSelectedReportId(id);
-    setViewState(ConsultingViewState.QUESTIONNAIRE);
+    
+    // If Strategic Sourcing is selected, show the Strategic Sourcing detail view
+    if (id === "strategic-sourcing") {
+      setViewState(ConsultingViewState.STRATEGIC_SOURCING_DETAIL);
+    } else {
+      // For other consulting reports, show the standard questionnaire
+      setViewState(ConsultingViewState.QUESTIONNAIRE);
+    }
   };
 
   const handleQuestionnaireComplete = (data: ConsultingProjectData) => {
@@ -131,9 +138,31 @@ export default function ConsultingReports({ onBack }: ConsultingReportsProps) {
     }
   };
 
+  // Handle the submission of the strategic sourcing report
+  const handleStrategicSourcingSubmit = (reportType: string, variant: string) => {
+    // Here you can save the strategic sourcing request to the database
+    toast({
+      title: "Strategic Sourcing Request Submitted",
+      description: `Your ${variant === 'plus' ? 'Strategic Sourcing Plus' : 'Strategic Sourcing'} request has been submitted successfully.`,
+      variant: "default",
+    });
+    
+    // Reset and return to reports list
+    setViewState(ConsultingViewState.REPORTS_LIST);
+    setSelectedReportId(null);
+  };
+
   return (
     <section>
-      {/* Questionnaire View */}
+      {/* Strategic Sourcing Detail View */}
+      {viewState === ConsultingViewState.STRATEGIC_SOURCING_DETAIL && selectedReportId === "strategic-sourcing" && (
+        <StrategicSourcingDetail
+          onBack={handleQuestionnaireBack}
+          onSubmit={handleStrategicSourcingSubmit}
+        />
+      )}
+    
+      {/* Questionnaire View for other report types */}
       {viewState === ConsultingViewState.QUESTIONNAIRE && selectedReportId && (
         <ConsultingQuestionnaire
           onBack={handleQuestionnaireBack}
