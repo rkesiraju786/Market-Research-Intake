@@ -1,0 +1,60 @@
+# Labor Market Research Reports Platform - Version History
+
+This document tracks the UI design changes and improvements made to the Labor Market Research Reports Platform.
+
+## April 21, 2025
+
+### Dashboard Page and Status Dialog Implementation
+
+#### Dashboard Page
+- Created a new dashboard page to display all submitted report requests
+- Added a table layout with columns for report type, date created, requested by, and status
+- Implemented filtering and searching capabilities for finding specific requests
+- Added status indicators with color-coding for different stages (initiated, in progress, ready)
+- Created tabs to filter between different report types (workforce, strategic sourcing, consulting)
+- Added loading skeletons for better user experience during data fetching
+- Made the dashboard accessible via the "/dashboard" route
+- Enhanced the "View My Requests" button on confirmation screens to navigate to this dashboard
+
+#### Status Dialog
+- Implemented a detailed status dialog that appears when clicking on a report in the dashboard
+- Created a visual timeline showing all stages of the report creation process
+- Added color-coded indicators for completed and pending stages
+- Included estimated completion dates based on request status
+- Made the dialog background less intrusive with 40% opacity and subtle blur
+- Fixed accessibility by adding proper ARIA attributes
+- Enhanced readability with clean white background for the dialog content
+- Added "Current Status" and "Upcoming Step" indicators for better user orientation
+
+#### UI/UX Improvements
+- Used brand colors throughout the application (Electric Burple #4600FF, Neuron Navy #130056, etc.)
+- Implemented hover states for interactive elements
+- Created smooth transitions between pages using framer-motion
+- Made table rows clickable with subtle hover effects
+- Ensured proper spacing and padding for readability
+- Added subtle shadows and border radiuses for depth
+
+### Previous Features (Prior to April 21)
+
+#### Strategic Sourcing Form
+- Implemented a streamlined Strategic Sourcing form with unified role-location interface
+- Added support for more than 5 role-location pairs with warnings about additional costs
+- Created a submission confirmation screen with status information and "What happens next" details
+- Added progress indicator showing the current stage in the reporting process
+
+#### Navigation
+- Enhanced navigation between confirmation screen and dashboard
+- Added "View My Requests" button to easily navigate to the dashboard
+
+#### Form Validation and User Feedback
+- Implemented form validation with clear warnings about additional credits
+- Added notifications about extended delivery times for extra role-location pairs
+- Enhanced error messaging throughout the application
+
+## Planned Future Enhancements
+- Email notifications for report status changes
+- Downloadable PDF versions of reports
+- Integration with external calendar providers (Google Calendar, Outlook)
+- Enhanced filtering options in the dashboard
+- Mobile-responsive improvements for better small-screen experiences
+- User account management and preferences
