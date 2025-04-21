@@ -99,6 +99,7 @@ export default function Home() {
           <StrategicSourcingDetail 
             onBack={() => setActiveSection("workforce")}
             onSubmit={handleStrategicSourcingSubmit}
+            source="workforce"
           />
         )}
 

@@ -12,15 +12,16 @@ import StrategicSourcingQuestionnaire, { StrategicSourcingData } from "./strateg
 interface StrategicSourcingDetailProps {
   onBack: () => void;
   onSubmit: (reportType: string, variant: string) => void;
+  // Add a source parameter to distinguish between Workforce and Consulting
+  source?: 'workforce' | 'consulting';
 }
 
-export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicSourcingDetailProps) {
-  // Default to using "basic" variant automatically (we won't show variant selection)
+export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'workforce' }: StrategicSourcingDetailProps) {
   const [selectedVariant, setSelectedVariant] = useState<string>("basic");
   const [isPPTViewerOpen, setIsPPTViewerOpen] = useState(false);
   const [currentPPTVariant, setCurrentPPTVariant] = useState<string>("basic");
-  // Go directly to questionnaire without showing variant selection
-  const [showQuestionnaire, setShowQuestionnaire] = useState(true);
+  // Only skip variant selection if coming from consulting
+  const [showQuestionnaire, setShowQuestionnaire] = useState(source === 'consulting');
   const [questionnaireData, setQuestionnaireData] = useState<StrategicSourcingData | null>(null);
   const { toast } = useToast();
   
@@ -91,8 +92,13 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
   };
   
   const handleQuestionnaireBack = () => {
-    // Go back to the Consulting Reports list directly
-    onBack();
+    // For consulting flow, go back to the reports list
+    if (source === 'consulting') {
+      onBack();
+    } else {
+      // For workforce flow, go back to variant selection
+      setShowQuestionnaire(false);
+    }
   };
 
   if (showQuestionnaire) {

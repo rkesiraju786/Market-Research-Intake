@@ -160,6 +160,7 @@ export default function ConsultingReports({ onBack }: ConsultingReportsProps) {
         <StrategicSourcingDetail
           onBack={handleQuestionnaireBack}
           onSubmit={handleStrategicSourcingSubmit}
+          source="consulting"
         />
       )}
     
