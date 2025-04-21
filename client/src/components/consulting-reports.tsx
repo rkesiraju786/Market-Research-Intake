@@ -79,8 +79,9 @@ export default function ConsultingReports({ onBack }: ConsultingReportsProps) {
   const handleReportSelect = (id: string) => {
     setSelectedReportId(id);
     
-    // If Strategic Sourcing is selected, show the Strategic Sourcing detail view
+    // If Strategic Sourcing is selected, go directly to the questionnaire
     if (id === "strategic-sourcing") {
+      // We'll directly render the StrategicSourcingQuestionnaire component
       setViewState(ConsultingViewState.STRATEGIC_SOURCING_DETAIL);
     } else {
       // For other consulting reports, show the standard questionnaire

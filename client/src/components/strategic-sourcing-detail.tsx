@@ -15,10 +15,12 @@ interface StrategicSourcingDetailProps {
 }
 
 export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicSourcingDetailProps) {
-  const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
+  // Default to using "basic" variant automatically (we won't show variant selection)
+  const [selectedVariant, setSelectedVariant] = useState<string>("basic");
   const [isPPTViewerOpen, setIsPPTViewerOpen] = useState(false);
   const [currentPPTVariant, setCurrentPPTVariant] = useState<string>("basic");
-  const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  // Go directly to questionnaire without showing variant selection
+  const [showQuestionnaire, setShowQuestionnaire] = useState(true);
   const [questionnaireData, setQuestionnaireData] = useState<StrategicSourcingData | null>(null);
   const { toast } = useToast();
   
@@ -29,8 +31,10 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
     return <div>Report details not found</div>;
   }
 
+  // We need these for API submission
   const { basic, plus } = reportDetails.variants;
 
+  // These functions are kept but will not be used directly since we're skipping the variant selection view
   const handleViewExample = (variant: string) => {
     setCurrentPPTVariant(variant);
     setIsPPTViewerOpen(true);
@@ -87,7 +91,8 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
   };
   
   const handleQuestionnaireBack = () => {
-    setShowQuestionnaire(false);
+    // Go back to the Consulting Reports list directly
+    onBack();
   };
 
   if (showQuestionnaire) {
