@@ -715,51 +715,96 @@ export default function StrategicSourcingDetailsForm({
 
           {/* Confirmation Step */}
           {currentStep === FormStep.CONFIRMATION && (
-            <AnimatedContainer animation="fadeIn" className="text-center py-8">
-              <div className="rounded-full bg-[#E9ECFF] w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                <Check className="h-10 w-10 text-[#4600FF]" />
+            <AnimatedContainer animation="fadeIn" className="py-8 max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center">
+              <div className="md:w-7/12 text-left mb-8 md:mb-0 md:pr-10">
+                <h2 className="text-3xl font-bold text-[#130056] mb-2">
+                  Request Submitted!
+                </h2>
+                <h3 className="text-2xl font-bold text-[#130056] mb-6">
+                  Your Report is Being Processed
+                </h3>
+                
+                <div className="text-[#8186B4] mb-8">
+                  <p className="mb-4">
+                    Thank you for submitting your report request. Our team is now reviewing your request 
+                    and will begin processing it shortly.
+                  </p>
+                  
+                  <h4 className="text-lg font-semibold text-[#130056] mb-3">What happens next?</h4>
+                  
+                  <ul className="space-y-2">
+                    <li>Your request is in the queue for analysis</li>
+                    <li>Once processing is complete, you'll receive a notification</li>
+                    <li>Reports are typically available within {roles.length > 3 ? "15" : "14"} business days</li>
+                  </ul>
+                  
+                  <div className="flex items-center mt-6">
+                    <div className="text-[#4600FF] mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 8V21a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8"></path>
+                        <path d="M10 12v3"></path>
+                        <path d="M14 12v3"></path>
+                        <path d="M3 4h18"></path>
+                        <path d="M8 4v4a2 2 0 0 1-2 2"></path>
+                        <path d="M16 4v4a2 2 0 0 0 2 2"></path>
+                      </svg>
+                    </div>
+                    <p className="text-[#130056] font-medium">
+                      You will receive an email once your report is ready!
+                    </p>
+                  </div>
+                  
+                  <div className="mt-8">
+                    <Button 
+                      type="button"
+                      className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
+                      onClick={onBack}
+                    >
+                      View My Requests
+                    </Button>
+                  </div>
+                </div>
               </div>
               
-              <h3 className="text-2xl font-bold text-[#130056] mb-3">
-                Request Submitted Successfully
-              </h3>
-              
-              <p className="text-[#8186B4] mb-6 max-w-xl mx-auto">
-                Your Strategic Sourcing {variant === "plus" ? "Plus" : ""} request has been submitted. 
-                You will receive a confirmation email shortly with details and next steps.
-              </p>
-              
-              <div className="p-6 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF] max-w-md mx-auto mb-8">
-                <div className="flex justify-between mb-4">
-                  <span className="text-[#8186B4]">Request Type:</span>
-                  <span className="font-medium text-[#130056]">Strategic Sourcing {variant === "plus" ? "Plus" : ""}</span>
-                </div>
-                <div className="flex justify-between mb-4">
-                  <span className="text-[#8186B4]">Role-Location Pairs:</span>
-                  <span className="font-medium text-[#130056]">{roles.length}</span>
-                </div>
-                <div className="flex justify-between mb-4">
-                  <span className="text-[#8186B4]">Credits:</span>
-                  <span className="font-medium text-[#130056]">
-                    {variant === "plus" ? "75" : "50"} 
-                    {roles.length > 3 ? ` + ${(roles.length - 3) * 10} additional` : ""}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#8186B4]">Expected Delivery:</span>
-                  <span className="font-medium text-[#130056]">
-                    2 weeks {roles.length > 3 ? "+ 1-3 days" : ""}
-                  </span>
+              <div className="md:w-5/12 relative">
+                <div className="relative">
+                  {/* Circular progress indicator */}
+                  <div className="w-72 h-72 rounded-full bg-[#E9ECFF] mx-auto relative">
+                    {/* Blue arc overlay */}
+                    <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100">
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="45" 
+                        fill="none" 
+                        stroke="#4600FF" 
+                        strokeWidth="4" 
+                        strokeDasharray="283" 
+                        strokeDashoffset="70" 
+                        className="transform -rotate-90 origin-center" 
+                      />
+                    </svg>
+                    
+                    {/* Document icon with checkmark */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="relative">
+                        <svg width="100" height="130" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 0C1.34315 0 0 1.34315 0 3V27C0 28.6569 1.34315 30 3 30H21C22.6569 30 24 28.6569 24 27V8L16 0H3Z" fill="#4600FF"/>
+                          <path d="M6 13H18M6 17H18M6 21H14" stroke="white" strokeWidth="1.5"/>
+                          <path d="M16 0V5C16 6.65685 17.3431 8 19 8H24L16 0Z" fill="#5414FF"/>
+                        </svg>
+                        
+                        {/* Checkmark badge */}
+                        <div className="absolute bottom-0 right-0 w-10 h-10 rounded-full bg-[#16082F] flex items-center justify-center">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              <Button 
-                type="button"
-                className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
-                onClick={onBack}
-              >
-                Return to Dashboard
-              </Button>
             </AnimatedContainer>
           )}
         </form>
@@ -770,40 +815,42 @@ export default function StrategicSourcingDetailsForm({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Additional Credits Required</AlertDialogTitle>
-            <AlertDialogDescription>
-              <p className="mb-2">
-                You're adding additional {lastActionData?.type}-location pairs beyond the standard package.
-              </p>
-              
-              <div className="py-3 px-4 rounded-md bg-[#F8F9FE] border border-[#CCCFFF] mb-3">
-                <div className="flex items-center mb-2">
-                  <div className="mr-2 text-[#4600FF]">
-                    <Badge className="h-6 w-6 rounded-full bg-[#4600FF] flex items-center justify-center p-0">
-                      <Check className="h-3 w-3 text-white" />
-                    </Badge>
+            <AlertDialogDescription asChild>
+              <div>
+                <div className="mb-2">
+                  You're adding additional {lastActionData?.type}-location pairs beyond the standard package.
+                </div>
+                
+                <div className="py-3 px-4 rounded-md bg-[#F8F9FE] border border-[#CCCFFF] mb-3">
+                  <div className="flex items-center mb-2">
+                    <div className="mr-2 text-[#4600FF]">
+                      <span className="inline-flex h-6 w-6 rounded-full bg-[#4600FF] items-center justify-center">
+                        <Check className="h-3 w-3 text-white" />
+                      </span>
+                    </div>
+                    <div className="text-sm font-medium text-[#130056]">
+                      Standard package includes:
+                    </div>
                   </div>
-                  <p className="text-sm font-medium text-[#130056]">
-                    Standard package includes:
-                  </p>
+                  <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
+                    <li>Up to 5 role-location pairs</li>
+                    <li>Standard 2-week delivery</li>
+                    <li>{variant === "plus" ? "75" : "50"} credits total</li>
+                  </ul>
                 </div>
-                <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
-                  <li>Up to 5 role-location pairs</li>
-                  <li>Standard 2-week delivery</li>
-                  <li>{variant === "plus" ? "75" : "50"} credits total</li>
-                </ul>
-              </div>
-              
-              <div className="py-3 px-4 rounded-md bg-[#FFF9E5] border border-[#FFE082]">
-                <div className="flex items-center mb-2">
-                  <div className="mr-2 text-[#FF9800]">⚠️</div>
-                  <p className="text-sm font-medium text-[#130056]">
-                    Each additional pair requires:
-                  </p>
+                
+                <div className="py-3 px-4 rounded-md bg-[#FFF9E5] border border-[#FFE082]">
+                  <div className="flex items-center mb-2">
+                    <div className="mr-2 text-[#FF9800]">⚠️</div>
+                    <div className="text-sm font-medium text-[#130056]">
+                      Each additional pair requires:
+                    </div>
+                  </div>
+                  <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
+                    <li>10 additional credits</li>
+                    <li>May extend delivery by 1-3 days</li>
+                  </ul>
                 </div>
-                <ul className="mt-1 text-sm text-[#8186B4] list-disc list-inside pl-4">
-                  <li>10 additional credits</li>
-                  <li>May extend delivery by 1-3 days</li>
-                </ul>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
