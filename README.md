@@ -128,4 +128,4 @@ The application uses a consistent design language with the following brand color
 
 ## Keywords and SEO
 
-talent acquisition, workforce analytics, labor market intelligence, strategic sourcing, talent market research, HR technology, workforce planning, talent pool analysis, compensation benchmarking, skills analysis, talent supply and demand, recruitment strategy, hiring analytics, talent data, HR dashboard, workforce intelligence platform
+talent acquisition, workforce analytics, labor market intelligence, strategic sourcing, talent market research, HR technology, workforce planning, talent pool analysis, compensation benchmarking, skills analysis, talent supply and demand, recruitment strategy, hiring analytics, talent data, HR dashboard, workforce intelligence platform, Intake Forms, Research Reports, MarketIntel Reports
