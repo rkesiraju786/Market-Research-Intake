@@ -41,6 +41,7 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -438,40 +439,58 @@ export default function StrategicSourcingDetailsForm({
       {/* Form */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmitForm)} className="space-y-8">
-          {/* Roles Step */}
+          {/* Roles and Locations Step */}
           {currentStep === FormStep.ROLES && (
             <AnimatedContainer animation="fadeIn" className="space-y-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-purple-800">
                     <span className="text-[#4600FF] mr-2">✨</span>
-                    Let's fill your report with the role details!
+                    Define your role-location pairs
                   </h3>
                   <p className="text-sm text-[#8186B4] mt-1">
-                    Add details about the roles and locations for your sourcing insights. You can only add up to 5 Roles and Locations.
+                    For each role, specify the location where you want to source talent. Each pair will be analyzed together.
                   </p>
                 </div>
               </div>
               
-              <div className="border border-[#CCCFFF] rounded-lg overflow-hidden">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-[#F8F9FE]">
-                      <th className="text-left p-4 text-sm font-medium text-[#130056] border-b border-[#CCCFFF] w-[30%]">Role</th>
-                      <th className="text-left p-4 text-sm font-medium text-[#130056] border-b border-[#CCCFFF] w-[30%]">Location</th>
-                      <th className="text-left p-4 text-sm font-medium text-[#130056] border-b border-[#CCCFFF] w-[35%]">Job Description</th>
-                      <th className="text-left p-4 text-sm font-medium text-[#130056] border-b border-[#CCCFFF] w-[5%]"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {roles.map((role, index) => (
-                      <tr key={index} className="border-b border-[#CCCFFF] last:border-b-0">
-                        <td className="p-4 align-top">
+              <div>
+                {roles.map((role, index) => (
+                  <Card key={index} className="mb-6 border border-[#CCCFFF] shadow-sm">
+                    <CardHeader className="pb-2 flex flex-row items-center justify-between">
+                      <div className="flex items-center">
+                        <Badge variant="outline" className="bg-[#4600FF] text-white mr-2">
+                          {index + 1}
+                        </Badge>
+                        <CardTitle className="text-lg text-[#130056]">Role-Location Pair</CardTitle>
+                      </div>
+                      {roles.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="text-[#FF4219] hover:text-[#FF4219] hover:bg-red-50"
+                          onClick={() => removeRole(index)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </CardHeader>
+                    <CardContent className="space-y-4 pt-3">
+                      <div className="flex flex-col md:flex-row gap-4">
+                        {/* Role Information */}
+                        <div className="flex-1 space-y-3">
+                          <div className="flex items-center mb-1">
+                            <UserRound className="h-4 w-4 mr-1 text-[#4600FF]" />
+                            <FormLabel className="text-[#130056] mb-0">Role Details</FormLabel>
+                          </div>
+                          
                           <FormField
                             control={form.control}
                             name={`roles.${index}.title`}
                             render={({ field }) => (
                               <FormItem>
+                                <FormLabel className="text-[#130056] text-sm">Job Title <span className="text-red-500">*</span></FormLabel>
                                 <FormControl>
                                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <SelectTrigger className="border-[#CCCFFF] bg-white">
@@ -490,120 +509,8 @@ export default function StrategicSourcingDetailsForm({
                               </FormItem>
                             )}
                           />
-                        </td>
-                        <td className="p-4 align-top">
-                          <div className="flex flex-col gap-2">
-                            <div className="relative">
-                              <FormField
-                                control={form.control}
-                                name={`locations.${index}.country`}
-                                render={({ field }) => (
-                                  <FormItem className="mb-1">
-                                    <div className="flex items-center gap-1">
-                                      <FormControl>
-                                        <Select
-                                          onValueChange={(value) => {
-                                            field.onChange(value);
-                                            form.setValue(`locations.${index}.region`, "");
-                                          }}
-                                          value={field.value}
-                                        >
-                                          <SelectTrigger className="border-[#CCCFFF] bg-white h-9 text-sm rounded-md px-2">
-                                            <SelectValue placeholder="Country" />
-                                          </SelectTrigger>
-                                          <SelectContent>
-                                            {availableCountries.map((country) => (
-                                              <SelectItem key={country} value={country}>
-                                                {country}
-                                              </SelectItem>
-                                            ))}
-                                          </SelectContent>
-                                        </Select>
-                                      </FormControl>
-                                      <span className="text-xs text-gray-500">Country</span>
-                                      {field.value && (
-                                        <X 
-                                          className="h-3.5 w-3.5 cursor-pointer text-gray-500 hover:text-gray-700"
-                                          onClick={() => form.setValue(`locations.${index}.country`, "")}
-                                        />
-                                      )}
-                                    </div>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                            
-                            <div className="relative">
-                              <FormField
-                                control={form.control}
-                                name={`locations.${index}.region`}
-                                render={({ field }) => (
-                                  <FormItem className="mb-1">
-                                    <div className="flex items-center gap-1">
-                                      <FormControl>
-                                        <Select 
-                                          onValueChange={field.onChange} 
-                                          value={field.value}
-                                          disabled={!form.getValues(`locations.${index}.country`)}
-                                        >
-                                          <SelectTrigger className="border-[#CCCFFF] bg-white h-9 text-sm rounded-md px-2">
-                                            <SelectValue placeholder="State/Region" />
-                                          </SelectTrigger>
-                                          <SelectContent>
-                                            {form.getValues(`locations.${index}.country`) &&
-                                              regionsByCountry[form.getValues(`locations.${index}.country`)]?.map((region) => (
-                                                <SelectItem key={region} value={region}>
-                                                  {region}
-                                                </SelectItem>
-                                              ))}
-                                          </SelectContent>
-                                        </Select>
-                                      </FormControl>
-                                      <span className="text-xs text-gray-500">State</span>
-                                      {field.value && (
-                                        <X 
-                                          className="h-3.5 w-3.5 cursor-pointer text-gray-500 hover:text-gray-700"
-                                          onClick={() => form.setValue(`locations.${index}.region`, "")}
-                                        />
-                                      )}
-                                    </div>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                            
-                            {index < locations.length - 1 ? (
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                className="text-[#4600FF] border-dashed border-[#CCCFFF] bg-white h-7 w-7 p-0 rounded-full self-center"
-                              >
-                                +{locations.length - index - 1}
-                              </Button>
-                            ) : locations.length < 5 ? (
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                className="text-[#4600FF] border-dashed border-[#CCCFFF] bg-white mt-1 self-start"
-                                onClick={addLocation}
-                              >
-                                <Plus className="h-3.5 w-3.5 mr-1" />
-                                Add Location
-                              </Button>
-                            ) : (
-                              <p className="text-amber-600 text-xs flex items-center mt-1">
-                                <span className="bg-amber-100 p-1 rounded-full mr-1">⚠️</span>
-                                You've reached the limit of 5 locations.
-                              </p>
-                            )}
-                          </div>
-                        </td>
-                        <td className="p-4 align-top">
-                          <div className="flex flex-col items-center justify-center bg-gray-50 border border-[#CCCFFF] rounded-md p-4 h-24">
+                          
+                          <div className="flex flex-col items-center justify-center bg-gray-50 border border-[#CCCFFF] rounded-md p-4 mt-2">
                             <Button
                               type="button"
                               variant="outline"
@@ -611,48 +518,119 @@ export default function StrategicSourcingDetailsForm({
                               className="text-[#4600FF] border-dashed border-[#CCCFFF] bg-white"
                             >
                               <FileText className="h-4 w-4 mr-2" />
-                              Add File or Add Link
+                              Add Job Description
                             </Button>
-                            <p className="text-xs text-gray-500 mt-2">Supports PDF, DOC, DOCX files</p>
+                            <p className="text-xs text-gray-500 mt-2">Upload a file or add a URL</p>
                           </div>
-                        </td>
-                        <td className="p-4 text-center align-top">
-                          {roles.length > 1 && (
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              className="text-gray-400 hover:text-gray-600 rounded-full p-1 h-auto"
-                              onClick={() => removeRole(index)}
-                            >
-                              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.5 4.5L4.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                                <path d="M4.5 4.5L13.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              </svg>
-                            </Button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        </div>
+                        
+                        {/* Location Information */}
+                        <div className="flex-1 space-y-3">
+                          <div className="flex items-center mb-1">
+                            <MapPin className="h-4 w-4 mr-1 text-[#4600FF]" />
+                            <FormLabel className="text-[#130056] mb-0">Location Details</FormLabel>
+                          </div>
+                          
+                          <FormField
+                            control={form.control}
+                            name={`locations.${index}.country`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-[#130056] text-sm">Country <span className="text-red-500">*</span></FormLabel>
+                                <FormControl>
+                                  <Select
+                                    onValueChange={(value) => {
+                                      field.onChange(value);
+                                      form.setValue(`locations.${index}.region`, "");
+                                    }}
+                                    value={field.value}
+                                  >
+                                    <SelectTrigger className="border-[#CCCFFF] bg-white">
+                                      <SelectValue placeholder="Select country" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {availableCountries.map((country) => (
+                                        <SelectItem key={country} value={country}>
+                                          {country}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={form.control}
+                            name={`locations.${index}.region`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-[#130056] text-sm">State/Region <span className="text-red-500">*</span></FormLabel>
+                                <FormControl>
+                                  <Select 
+                                    onValueChange={field.onChange} 
+                                    value={field.value}
+                                    disabled={!form.getValues(`locations.${index}.country`)}
+                                  >
+                                    <SelectTrigger className="border-[#CCCFFF] bg-white">
+                                      <SelectValue placeholder="Select state/region" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {form.getValues(`locations.${index}.country`) &&
+                                        regionsByCountry[form.getValues(`locations.${index}.country`)]?.map((region) => (
+                                          <SelectItem key={region} value={region}>
+                                            {region}
+                                          </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                  </Select>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={form.control}
+                            name={`locations.${index}.city`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-[#130056] text-sm">City/MSA (Optional)</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter city or metropolitan area"
+                                    className="border-[#CCCFFF]"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
               
               {roles.length < 5 ? (
                 <Button 
                   type="button"
                   variant="outline" 
-                  className="text-[#4600FF] border-[#4600FF] mt-2"
+                  className="text-[#4600FF] border-[#4600FF] border-dashed"
                   onClick={addRole}
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Role
+                  Add Another Role-Location Pair
                 </Button>
               ) : (
-                <div className="bg-amber-50 border border-amber-200 rounded-md p-3 flex items-start mt-2">
+                <div className="bg-amber-50 border border-amber-200 rounded-md p-3 flex items-start">
                   <span className="text-amber-600 mr-2">⚠️</span>
                   <p className="text-amber-800 text-sm">
-                    You've reached the limit of 5 Roles and 5 Locations.
+                    You've reached the limit of 5 role-location pairs.
                   </p>
                 </div>
               )}
@@ -663,7 +641,7 @@ export default function StrategicSourcingDetailsForm({
                   className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
                   onClick={goToNextStep}
                 >
-                  Continue
+                  Continue to Review
                 </Button>
               </div>
             </AnimatedContainer>
@@ -819,82 +797,83 @@ export default function StrategicSourcingDetailsForm({
                 <p className="text-[#8186B4]">Please review all details before submitting.</p>
               </div>
               
-              <div className="space-y-8">
-                {/* Roles Review */}
+              <div className="space-y-4">
+                {/* Combined Role-Location Pairs */}
                 <Card className="border border-[#CCCFFF]">
                   <CardHeader className="pb-2">
                     <div className="flex items-center">
                       <UserRound className="h-5 w-5 mr-2 text-[#4600FF]" />
-                      <CardTitle className="text-lg text-[#130056]">Roles</CardTitle>
+                      <CardTitle className="text-lg text-[#130056]">Role & Location Pairs</CardTitle>
                     </div>
+                    <CardDescription>
+                      Each role and its corresponding location are shown together
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {roles.map((role, index) => (
-                        <div key={index} className="p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
-                          <div className="flex justify-between items-start">
-                            <h4 className="font-medium text-[#130056]">{role.title || "Untitled Role"}</h4>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              className="text-[#4600FF] p-1 h-auto"
-                              onClick={() => {
-                                setCurrentStep(FormStep.ROLES);
-                              }}
-                            >
-                              Edit
-                            </Button>
-                          </div>
-                          {role.description && (
-                            <p className="mt-1 text-sm text-[#8186B4]">{role.description}</p>
-                          )}
-                          {(role.jobUrl || role.jobDescription) && (
-                            <div className="mt-2 text-xs text-[#8186B4]">
-                              {role.jobUrl && <p>Job URL: {role.jobUrl}</p>}
-                              {role.jobDescription && (
-                                <p className="truncate">Job Description: {role.jobDescription.substring(0, 50)}...</p>
-                              )}
+                      {roles.map((role, index) => {
+                        // Get the corresponding location for this role
+                        const location = locations[index < locations.length ? index : locations.length - 1];
+                        
+                        return (
+                          <div key={index} className="p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="flex">
+                                <Badge variant="outline" className="bg-[#4600FF] text-white mr-2">
+                                  {index + 1}
+                                </Badge>
+                                <h4 className="font-medium text-[#130056]">{role.title || "Untitled Role"}</h4>
+                              </div>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className="text-[#4600FF] p-1 h-auto"
+                                onClick={() => {
+                                  setCurrentStep(FormStep.ROLES);
+                                  setSelectedRoleIndex(index);
+                                }}
+                              >
+                                Edit
+                              </Button>
                             </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                {/* Locations Review */}
-                <Card className="border border-[#CCCFFF]">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center">
-                      <MapPin className="h-5 w-5 mr-2 text-[#4600FF]" />
-                      <CardTitle className="text-lg text-[#130056]">Locations</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {locations.map((location, index) => (
-                        <div key={index} className="p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
-                          <div className="flex justify-between items-start">
-                            <h4 className="font-medium text-[#130056]">
-                              {location.country && location.region ? 
-                                `${location.city ? location.city + ', ' : ''}${location.region}, ${location.country}` : 
-                                "Incomplete Location"}
-                            </h4>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              className="text-[#4600FF] p-1 h-auto"
-                              onClick={() => {
-                                setCurrentStep(FormStep.LOCATIONS);
-                              }}
-                            >
-                              Edit
-                            </Button>
+                            
+                            <div className="flex flex-col md:flex-row gap-4">
+                              {/* Role Information */}
+                              <div className="flex-1 rounded-md border border-[#CCCFFF] p-3">
+                                <h5 className="font-medium text-sm text-[#130056] mb-1 flex items-center">
+                                  <UserRound className="h-4 w-4 mr-1 text-[#4600FF]" />
+                                  Role Details
+                                </h5>
+                                {role.description && (
+                                  <p className="mt-1 text-sm text-[#8186B4]">{role.description}</p>
+                                )}
+                                {(role.jobUrl || role.jobDescription) && (
+                                  <div className="mt-2 text-xs text-[#8186B4]">
+                                    {role.jobUrl && <p>Job URL: {role.jobUrl}</p>}
+                                    {role.jobDescription && (
+                                      <p className="truncate">Job Description: {role.jobDescription.substring(0, 50)}...</p>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                              
+                              {/* Location Information */}
+                              <div className="flex-1 rounded-md border border-[#CCCFFF] p-3">
+                                <h5 className="font-medium text-sm text-[#130056] mb-1 flex items-center">
+                                  <MapPin className="h-4 w-4 mr-1 text-[#4600FF]" />
+                                  Location
+                                </h5>
+                                <p className="text-sm text-[#8186B4]">
+                                  {location.country && location.region ? 
+                                    `${location.city ? location.city + ', ' : ''}${location.region}, ${location.country}` : 
+                                    "Incomplete Location"}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   </CardContent>
                 </Card>
