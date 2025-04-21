@@ -3,6 +3,7 @@ import {
   DialogContent, 
   DialogHeader, 
   DialogTitle, 
+  DialogDescription,
   DialogClose
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -113,11 +114,14 @@ export default function RequestStatusDialog({ isOpen, onClose, request }: Reques
   
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-2xl bg-white">
         <DialogHeader className="flex items-center justify-between flex-row">
           <DialogTitle className="text-xl text-[#130056]">
             {reportTitle} Progress
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            Track the progress of your report request
+          </DialogDescription>
           <DialogClose asChild>
             <Button variant="ghost" className="h-8 w-8 p-0 text-[#8186B4]">
               <X className="h-5 w-5" />
