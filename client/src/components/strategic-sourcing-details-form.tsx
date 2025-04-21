@@ -172,10 +172,8 @@ interface StrategicSourcingDetailsFormProps {
 }
 
 enum FormStep {
-  ROLES = 0,
-  LOCATIONS = 1,
-  REVIEW = 2,
-  CONFIRMATION = 3
+  EDIT = 0,
+  CONFIRMATION = 1
 }
 
 export default function StrategicSourcingDetailsForm({ 
@@ -183,7 +181,7 @@ export default function StrategicSourcingDetailsForm({
   onSubmit,
   variant
 }: StrategicSourcingDetailsFormProps) {
-  const [currentStep, setCurrentStep] = useState<FormStep>(FormStep.ROLES);
+  const [currentStep, setCurrentStep] = useState<FormStep>(FormStep.EDIT);
   const [showExtraCreditsWarning, setShowExtraCreditsWarning] = useState(false);
   const [lastActionData, setLastActionData] = useState<{ type: 'role' | 'location', action: () => void } | null>(null);
   const { toast } = useToast();
@@ -295,74 +293,51 @@ export default function StrategicSourcingDetailsForm({
     form.setValue("locations", updatedLocations);
   };
 
-  // Navigation between steps
-  const goToNextStep = () => {
-    if (currentStep === FormStep.ROLES) {
-      // Validate roles before proceeding
-      const roleFields = form.getValues("roles");
-      let isValid = true;
-      
-      for (let i = 0; i < roleFields.length; i++) {
-        if (!roleFields[i].title) {
-          form.setError(`roles.${i}.title` as any, {
-            type: "manual",
-            message: "Role title is required"
-          });
-          isValid = false;
-        }
-      }
-      
-      if (!isValid) {
-        toast({
-          title: "Validation Error",
-          description: "Please fill in all required role fields.",
-          variant: "destructive",
+  // Validate the form before submitting
+  const validateForm = (): boolean => {
+    // Validate roles and locations
+    const roleFields = form.getValues("roles");
+    const locationFields = form.getValues("locations");
+    let isValid = true;
+    
+    // Validate roles
+    for (let i = 0; i < roleFields.length; i++) {
+      if (!roleFields[i].title) {
+        form.setError(`roles.${i}.title` as any, {
+          type: "manual",
+          message: "Role title is required"
         });
-        return;
+        isValid = false;
       }
-      
-      setCurrentStep(FormStep.LOCATIONS);
-    } else if (currentStep === FormStep.LOCATIONS) {
-      // Validate locations before proceeding
-      const locationFields = form.getValues("locations");
-      let isValid = true;
-      
-      for (let i = 0; i < locationFields.length; i++) {
-        if (!locationFields[i].country) {
-          form.setError(`locations.${i}.country` as any, {
-            type: "manual",
-            message: "Country is required"
-          });
-          isValid = false;
-        }
-        if (!locationFields[i].region) {
-          form.setError(`locations.${i}.region` as any, {
-            type: "manual",
-            message: "Region is required"
-          });
-          isValid = false;
-        }
-      }
-      
-      if (!isValid) {
-        toast({
-          title: "Validation Error",
-          description: "Please fill in all required location fields.",
-          variant: "destructive",
+    }
+    
+    // Validate locations
+    for (let i = 0; i < locationFields.length; i++) {
+      if (!locationFields[i].country) {
+        form.setError(`locations.${i}.country` as any, {
+          type: "manual",
+          message: "Country is required"
         });
-        return;
+        isValid = false;
       }
-      
-      setCurrentStep(FormStep.REVIEW);
+      if (!locationFields[i].region) {
+        form.setError(`locations.${i}.region` as any, {
+          type: "manual",
+          message: "Region is required"
+        });
+        isValid = false;
+      }
     }
-  };
-
-  const goToPreviousStep = () => {
-    if (currentStep === FormStep.LOCATIONS) {
-      setCurrentStep(FormStep.ROLES);
-    } else if (currentStep === FormStep.REVIEW) {
-      setCurrentStep(FormStep.LOCATIONS);
+    
+    if (!isValid) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
     }
+    
+    return isValid;
   };
 
   const handleConfirmExtraCredits = () => {
@@ -394,7 +369,7 @@ export default function StrategicSourcingDetailsForm({
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
-      {/* Header with current step indicator */}
+      {/* Header */}
       <div className="mb-8">
         <Button
           variant="ghost"
@@ -411,37 +386,29 @@ export default function StrategicSourcingDetailsForm({
         
         <div className="flex items-center space-x-2 mt-4">
           <div className={`rounded-full w-8 h-8 flex items-center justify-center text-white text-sm
-            ${currentStep >= FormStep.ROLES ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}>
-            {currentStep > FormStep.ROLES ? <Check className="h-4 w-4" /> : "1"}
+            ${currentStep >= FormStep.EDIT ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}>
+            {currentStep > FormStep.EDIT ? <Check className="h-4 w-4" /> : "1"}
           </div>
-          <div className={`h-1 w-12 ${currentStep > FormStep.ROLES ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}></div>
+          <div className={`h-1 w-12 ${currentStep > FormStep.EDIT ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}></div>
           
           <div className={`rounded-full w-8 h-8 flex items-center justify-center text-white text-sm
-            ${currentStep >= FormStep.LOCATIONS ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}>
-            {currentStep > FormStep.LOCATIONS ? <Check className="h-4 w-4" /> : "2"}
-          </div>
-          <div className={`h-1 w-12 ${currentStep > FormStep.LOCATIONS ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}></div>
-          
-          <div className={`rounded-full w-8 h-8 flex items-center justify-center text-white text-sm
-            ${currentStep >= FormStep.REVIEW ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}>
-            {currentStep > FormStep.REVIEW ? <Check className="h-4 w-4" /> : "3"}
+            ${currentStep >= FormStep.CONFIRMATION ? 'bg-[#4600FF]' : 'bg-[#CCCFFF]'}`}>
+            {currentStep > FormStep.CONFIRMATION ? <Check className="h-4 w-4" /> : "2"}
           </div>
         </div>
         
         <p className="text-[#8186B4] mt-2">
-          {currentStep === FormStep.ROLES && "Step 1: Define Roles"}
-          {currentStep === FormStep.LOCATIONS && "Step 2: Select Locations"}
-          {currentStep === FormStep.REVIEW && "Step 3: Review Information"}
-          {currentStep === FormStep.CONFIRMATION && "Request Submitted"}
+          {currentStep === FormStep.EDIT && "Step 1: Define Role-Location Pairs"}
+          {currentStep === FormStep.CONFIRMATION && "Step 2: Request Submitted"}
         </p>
       </div>
 
       {/* Form */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmitForm)} className="space-y-8">
-          {/* Roles and Locations Step */}
-          {currentStep === FormStep.ROLES && (
-            <AnimatedContainer animation="fadeIn" className="space-y-6">
+          {/* Edit Step - Combined Role-Location Pairs and Review */}
+          {currentStep === FormStep.EDIT && (
+            <AnimatedContainer animation="fadeIn" className="space-y-8">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-semibold text-purple-800">
@@ -454,6 +421,7 @@ export default function StrategicSourcingDetailsForm({
                 </div>
               </div>
               
+              {/* Role-Location Pairs */}
               <div>
                 {roles.map((role, index) => (
                   <Card key={index} className="mb-6 border border-[#CCCFFF] shadow-sm">
@@ -616,6 +584,7 @@ export default function StrategicSourcingDetailsForm({
                 ))}
               </div>
               
+              {/* Add Role-Location Button */}
               {roles.length < 5 ? (
                 <Button 
                   type="button"
@@ -635,251 +604,40 @@ export default function StrategicSourcingDetailsForm({
                 </div>
               )}
               
-              <div className="flex justify-end mt-6">
-                <Button 
-                  type="button"
-                  className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
-                  onClick={goToNextStep}
-                >
-                  Continue to Review
-                </Button>
-              </div>
-            </AnimatedContainer>
-          )}
-
-          {/* Locations Step */}
-          {currentStep === FormStep.LOCATIONS && (
-            <AnimatedContainer animation="fadeIn" className="space-y-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-[#130056]">Select Locations</h3>
-                <Button 
-                  type="button"
-                  variant="outline" 
-                  className="ml-auto text-[#4600FF] border-[#4600FF]"
-                  onClick={addLocation}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Location
-                </Button>
-              </div>
-              
-              <div className="space-y-8">
-                {locations.map((location, index) => (
-                  <Card key={index} className="border border-[#CCCFFF]">
-                    <CardHeader className="pb-2 flex flex-row items-center justify-between">
-                      <div>
-                        <CardTitle className="text-lg text-[#130056]">Location {index + 1}</CardTitle>
-                        <CardDescription>Define the geographic location</CardDescription>
-                      </div>
-                      {locations.length > 1 && (
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="text-[#FF4219] hover:text-[#FF4219] hover:bg-red-50"
-                          onClick={() => removeLocation(index)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <FormField
-                        control={form.control}
-                        name={`locations.${index}.country`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-[#130056]">Country *</FormLabel>
-                            <Select 
-                              onValueChange={(value) => {
-                                field.onChange(value);
-                                // Reset region when country changes
-                                form.setValue(`locations.${index}.region`, "");
-                              }} 
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger className="border-[#CCCFFF]">
-                                  <SelectValue placeholder="Select a country" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {availableCountries.map((country) => (
-                                  <SelectItem key={country} value={country}>
-                                    {country}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name={`locations.${index}.region`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-[#130056]">State/Region *</FormLabel>
-                            <Select 
-                              onValueChange={field.onChange} 
-                              defaultValue={field.value}
-                              disabled={!form.getValues(`locations.${index}.country`)}
-                            >
-                              <FormControl>
-                                <SelectTrigger className="border-[#CCCFFF]">
-                                  <SelectValue placeholder="Select a state/region" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {form.getValues(`locations.${index}.country`) &&
-                                  regionsByCountry[form.getValues(`locations.${index}.country`)]?.map((region) => (
-                                    <SelectItem key={region} value={region}>
-                                      {region}
-                                    </SelectItem>
-                                  ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name={`locations.${index}.city`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-[#130056]">City/MSA (Optional)</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter city or metropolitan area"
-                                className="border-[#CCCFFF]"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              
-              <div className="flex justify-between mt-6">
-                <Button 
-                  type="button"
-                  variant="outline"
-                  className="border-[#4600FF] text-[#4600FF] rounded-full px-8"
-                  onClick={goToPreviousStep}
-                >
-                  Back
-                </Button>
+              {/* Review Summary Section */}
+              <div className="mt-8 pt-8 border-t border-[#CCCFFF]">
+                <h3 className="text-xl font-semibold text-[#130056] mb-4">Review and Submit</h3>
                 
-                <Button 
-                  type="button"
-                  className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
-                  onClick={goToNextStep}
-                >
-                  Continue
-                </Button>
-              </div>
-            </AnimatedContainer>
-          )}
-
-          {/* Review Step */}
-          {currentStep === FormStep.REVIEW && (
-            <AnimatedContainer animation="fadeIn" className="space-y-6">
-              <div className="mb-4">
-                <h3 className="text-xl font-semibold text-[#130056]">Review Your Information</h3>
-                <p className="text-[#8186B4]">Please review all details before submitting.</p>
-              </div>
-              
-              <div className="space-y-4">
-                {/* Combined Role-Location Pairs */}
-                <Card className="border border-[#CCCFFF]">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center">
-                      <UserRound className="h-5 w-5 mr-2 text-[#4600FF]" />
-                      <CardTitle className="text-lg text-[#130056]">Role & Location Pairs</CardTitle>
+                <div className="p-6 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF] mb-6">
+                  <div className="flex items-center mb-4">
+                    <UserRound className="h-5 w-5 mr-2 text-[#4600FF]" />
+                    <h4 className="font-medium text-[#130056]">Request Summary</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-[#8186B4]">Report Type:</span>
+                      <span className="font-medium text-[#130056]">Strategic Sourcing {variant === "plus" ? "Plus" : ""}</span>
                     </div>
-                    <CardDescription>
-                      Each role and its corresponding location are shown together
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {roles.map((role, index) => {
-                        // Get the corresponding location for this role
-                        const location = locations[index < locations.length ? index : locations.length - 1];
-                        
-                        return (
-                          <div key={index} className="p-4 bg-[#F8F9FE] rounded-lg border border-[#CCCFFF]">
-                            <div className="flex justify-between items-start mb-3">
-                              <div className="flex">
-                                <Badge variant="outline" className="bg-[#4600FF] text-white mr-2">
-                                  {index + 1}
-                                </Badge>
-                                <h4 className="font-medium text-[#130056]">{role.title || "Untitled Role"}</h4>
-                              </div>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="text-[#4600FF] p-1 h-auto"
-                                onClick={() => {
-                                  setCurrentStep(FormStep.ROLES);
-                                  setSelectedRoleIndex(index);
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </div>
-                            
-                            <div className="flex flex-col md:flex-row gap-4">
-                              {/* Role Information */}
-                              <div className="flex-1 rounded-md border border-[#CCCFFF] p-3">
-                                <h5 className="font-medium text-sm text-[#130056] mb-1 flex items-center">
-                                  <UserRound className="h-4 w-4 mr-1 text-[#4600FF]" />
-                                  Role Details
-                                </h5>
-                                {role.description && (
-                                  <p className="mt-1 text-sm text-[#8186B4]">{role.description}</p>
-                                )}
-                                {(role.jobUrl || role.jobDescription) && (
-                                  <div className="mt-2 text-xs text-[#8186B4]">
-                                    {role.jobUrl && <p>Job URL: {role.jobUrl}</p>}
-                                    {role.jobDescription && (
-                                      <p className="truncate">Job Description: {role.jobDescription.substring(0, 50)}...</p>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                              
-                              {/* Location Information */}
-                              <div className="flex-1 rounded-md border border-[#CCCFFF] p-3">
-                                <h5 className="font-medium text-sm text-[#130056] mb-1 flex items-center">
-                                  <MapPin className="h-4 w-4 mr-1 text-[#4600FF]" />
-                                  Location
-                                </h5>
-                                <p className="text-sm text-[#8186B4]">
-                                  {location.country && location.region ? 
-                                    `${location.city ? location.city + ', ' : ''}${location.region}, ${location.country}` : 
-                                    "Incomplete Location"}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })}
+                    <div className="flex justify-between">
+                      <span className="text-[#8186B4]">Role-Location Pairs:</span>
+                      <span className="font-medium text-[#130056]">{roles.length}</span>
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="flex justify-between">
+                      <span className="text-[#8186B4]">Expected Delivery:</span>
+                      <span className="font-medium text-[#130056]">
+                        2 weeks {roles.length > 3 ? "+ 1-3 days" : ""}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#8186B4]">Credits:</span>
+                      <span className="font-medium text-[#130056]">
+                        {variant === "plus" ? "75" : "50"} 
+                        {roles.length > 3 ? ` + ${(roles.length - 3) * 10} additional` : ""}
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 
-
-
                 {/* Additional Notes */}
                 <FormField
                   control={form.control}
@@ -901,21 +659,26 @@ export default function StrategicSourcingDetailsForm({
                 />
               </div>
               
-              <div className="flex justify-between mt-6">
+              <div className="flex justify-end mt-6">
                 <Button 
                   type="button"
                   variant="outline"
-                  className="border-[#4600FF] text-[#4600FF] rounded-full px-8"
-                  onClick={goToPreviousStep}
+                  className="border-[#4600FF] text-[#4600FF] rounded-full px-8 mr-4"
+                  onClick={onBack}
                 >
-                  Back
+                  Cancel
                 </Button>
                 
                 <Button 
                   type="submit"
                   className="bg-[#4600FF] hover:bg-[#130056] rounded-full px-8"
+                  onClick={() => {
+                    if (!validateForm()) {
+                      return;
+                    }
+                  }}
                 >
-                  Submit
+                  Submit Request
                 </Button>
               </div>
             </AnimatedContainer>
@@ -943,16 +706,21 @@ export default function StrategicSourcingDetailsForm({
                   <span className="font-medium text-[#130056]">Strategic Sourcing {variant === "plus" ? "Plus" : ""}</span>
                 </div>
                 <div className="flex justify-between mb-4">
-                  <span className="text-[#8186B4]">Roles:</span>
+                  <span className="text-[#8186B4]">Role-Location Pairs:</span>
                   <span className="font-medium text-[#130056]">{roles.length}</span>
                 </div>
                 <div className="flex justify-between mb-4">
-                  <span className="text-[#8186B4]">Locations:</span>
-                  <span className="font-medium text-[#130056]">{locations.length}</span>
+                  <span className="text-[#8186B4]">Credits:</span>
+                  <span className="font-medium text-[#130056]">
+                    {variant === "plus" ? "75" : "50"} 
+                    {roles.length > 3 ? ` + ${(roles.length - 3) * 10} additional` : ""}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#8186B4]">Expected Delivery:</span>
-                  <span className="font-medium text-[#130056]">2 weeks</span>
+                  <span className="font-medium text-[#130056]">
+                    2 weeks {roles.length > 3 ? "+ 1-3 days" : ""}
+                  </span>
                 </div>
               </div>
               
