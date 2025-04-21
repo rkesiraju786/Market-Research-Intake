@@ -9,9 +9,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageTransition } from "@/components/ui/page-transition";
 import { formatDate } from "@/lib/utils";
+import RequestStatusDialog from "@/components/request-status-dialog";
 
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRequest, setSelectedRequest] = useState<any>(null);
+  const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
   
   // Define the response type
   interface ApiResponse<T> {
@@ -123,6 +126,12 @@ export default function Dashboard() {
     }
   }
   
+  // Open the status dialog when a user clicks on a report row
+  const openStatusDialog = (request: any) => {
+    setSelectedRequest(request);
+    setIsStatusDialogOpen(true);
+  };
+  
   return (
     <PageTransition>
       <div className="container mx-auto max-w-6xl py-8">
@@ -198,7 +207,11 @@ export default function Dashboard() {
                         ))
                       ) : sortedRequests.length > 0 ? (
                         sortedRequests.map((request, index) => (
-                          <tr key={index} className="border-t border-[#CCCFFF]">
+                          <tr 
+                            key={index} 
+                            className="border-t border-[#CCCFFF] cursor-pointer hover:bg-[#F8F9FE]"
+                            onClick={() => openStatusDialog(request)}
+                          >
                             <td className="py-4 px-4 font-medium text-[#130056]">
                               {request.roles?.[0]?.title || request.type}
                             </td>
@@ -214,7 +227,7 @@ export default function Dashboard() {
                                 <span className="text-[#130056]">{request.status}</span>
                               </div>
                             </td>
-                            <td className="py-4 px-4">
+                            <td className="py-4 px-4" onClick={(e) => e.stopPropagation()}>
                               <Button variant="ghost" size="sm" className="text-[#8186B4] h-8 w-8 p-0">
                                 <MoreHorizontal className="h-5 w-5" />
                               </Button>
@@ -249,6 +262,15 @@ export default function Dashboard() {
           </Tabs>
         </AnimatedContainer>
       </div>
+
+      {/* Status Dialog */}
+      {selectedRequest && (
+        <RequestStatusDialog 
+          isOpen={isStatusDialogOpen}
+          onClose={() => setIsStatusDialogOpen(false)}
+          request={selectedRequest}
+        />
+      )}
     </PageTransition>
   );
 }
