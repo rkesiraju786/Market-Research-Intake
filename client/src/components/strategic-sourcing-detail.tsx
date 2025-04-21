@@ -81,8 +81,9 @@ export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'wo
         variant: "default",
       });
       
-      // Finally call the onSubmit prop to continue the flow
-      onSubmit("strategic-sourcing", "plus");
+      // No longer redirect - StrategicSourcingDetailsForm will handle the confirmation internally
+      // Don't call onSubmit here to keep the user on the confirmation screen
+      // onSubmit("strategic-sourcing", "plus");
     } catch (error) {
       console.error("Error submitting strategic sourcing plus request:", error);
       toast({

@@ -382,9 +382,14 @@ export default function StrategicSourcingDetailsForm({
     setLastActionData(null);
   };
 
-  const handleSubmitForm = (data: z.infer<typeof formSchema>) => {
-    onSubmit(data);
+  const handleSubmitForm = async (data: z.infer<typeof formSchema>) => {
+    // Call the parent component's onSubmit, but don't navigate away after submission
+    await onSubmit(data);
+    
+    // Move to confirmation step within this component
     setCurrentStep(FormStep.CONFIRMATION);
+    
+    // No redirect - stay on this screen
   };
 
   return (
