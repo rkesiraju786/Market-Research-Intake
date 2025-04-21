@@ -42,6 +42,16 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
               Self-service portal for viewing, downloading, and sharing
             </div>
           </div>
+        <div className="mt-4 border-t pt-4">
+          <p className="text-sm text-gray-700">
+            Access comprehensive labor market insights through our self-service platform, which includes:
+          </p>
+          <ul className="mt-2 text-sm text-gray-700 space-y-1 pl-5 list-disc">
+            <li>Standardized reports with up-to-date talent market analysis</li>
+            <li>Intuitive download options for presentations and sharing</li>
+            <li>On-demand access to workforce data and benchmarks</li>
+          </ul>
+        </div>
         </div>
         <div className="px-6 pb-6">
           <Button variant="outline" className="w-full bg-primary-50 text-primary-600 border-primary-200 hover:bg-primary-100">
