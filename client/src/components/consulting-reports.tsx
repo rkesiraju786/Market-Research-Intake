@@ -13,6 +13,8 @@ import { apiRequest } from "@/lib/queryClient";
 import ReportCard from "@/components/report-card";
 import { standardReportTypes } from "@/lib/utils";
 import ConsultingQuestionnaire, { ConsultingProjectData } from "@/components/consulting-questionnaire";
+import StrategicSourcingQuestionnaire, { StrategicSourcingData } from "@/components/strategic-sourcing-questionnaire";
+import StrategicSourcingDetail from "@/components/strategic-sourcing-detail";
 
 interface ConsultingReportsProps {
   onBack: () => void;
@@ -21,7 +23,8 @@ interface ConsultingReportsProps {
 enum ConsultingViewState {
   REPORTS_LIST,
   QUESTIONNAIRE,
-  DETAILED_FORM
+  DETAILED_FORM,
+  STRATEGIC_SOURCING_DETAIL
 }
 
 const formSchema = z.object({
