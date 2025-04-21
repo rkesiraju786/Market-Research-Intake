@@ -17,8 +17,8 @@ interface ReportTypeCardProps {
 export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
   if (type === "workforce") {
     return (
-      <div className="bg-white rounded-lg shadow-md overflow-hidden border-2 border-transparent hover:border-primary transition-all cursor-pointer" onClick={onClick}>
-        <div className="p-6">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden border-2 border-transparent hover:border-primary transition-all cursor-pointer flex flex-col h-full" onClick={onClick}>
+        <div className="p-6 flex-grow">
           <div className="flex items-start">
             <div className="flex-shrink-0 bg-primary-100 rounded-md p-3">
               <BarChart2 className="h-6 w-6 text-primary-600" />
@@ -42,18 +42,18 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
               Self-service portal for viewing, downloading, and sharing
             </div>
           </div>
-        <div className="mt-4 border-t pt-4">
-          <p className="text-sm text-gray-700">
-            Access comprehensive labor market insights through our self-service platform, which includes:
-          </p>
-          <ul className="mt-2 text-sm text-gray-700 space-y-1 pl-5 list-disc">
-            <li>Standardized reports with up-to-date talent market analysis</li>
-            <li>Intuitive download options for presentations and sharing</li>
-            <li>On-demand access to workforce data and benchmarks</li>
-          </ul>
+          <div className="mt-4 border-t pt-4">
+            <p className="text-sm text-gray-700">
+              Access comprehensive labor market insights through our self-service platform, which includes:
+            </p>
+            <ul className="mt-2 text-sm text-gray-700 space-y-1 pl-5 list-disc">
+              <li>Standardized reports with up-to-date talent market analysis</li>
+              <li>Intuitive download options for presentations and sharing</li>
+              <li>On-demand access to workforce data and benchmarks</li>
+            </ul>
+          </div>
         </div>
-        </div>
-        <div className="px-6 pb-6">
+        <div className="px-6 pb-6 mt-auto">
           <Button variant="outline" className="w-full bg-primary-50 text-primary-600 border-primary-200 hover:bg-primary-100">
             Select Workforce Reports
           </Button>
@@ -63,8 +63,8 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border-2 border-transparent hover:border-primary transition-all cursor-pointer" onClick={onClick}>
-      <div className="p-6">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden border-2 border-transparent hover:border-primary transition-all cursor-pointer flex flex-col h-full" onClick={onClick}>
+      <div className="p-6 flex-grow">
         <div className="flex items-start">
           <div className="flex-shrink-0 bg-secondary-100 rounded-md p-3">
             <Lightbulb className="h-6 w-6 text-secondary-600" />
@@ -99,7 +99,7 @@ export default function ReportTypeCard({ type, onClick }: ReportTypeCardProps) {
           </ul>
         </div>
       </div>
-      <div className="px-6 pb-6">
+      <div className="px-6 pb-6 mt-auto">
         <Button variant="outline" className="w-full bg-secondary-50 text-secondary-600 border-secondary-200 hover:bg-secondary-100">
           Select Consulting Projects
         </Button>
