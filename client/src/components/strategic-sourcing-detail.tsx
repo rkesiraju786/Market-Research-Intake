@@ -8,6 +8,7 @@ import { apiRequest } from "@/lib/queryClient";
 import PPTViewer from "@/components/ppt-viewer";
 import { AnimatedContainer } from "@/components/ui/animated-container";
 import StrategicSourcingQuestionnaire, { StrategicSourcingData } from "./strategic-sourcing-questionnaire";
+import StrategicSourcingDetailsForm from "./strategic-sourcing-details-form";
 
 interface StrategicSourcingDetailProps {
   onBack: () => void;
@@ -22,6 +23,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'wo
   const [currentPPTVariant, setCurrentPPTVariant] = useState<string>("basic");
   // Only skip variant selection if coming from consulting
   const [showQuestionnaire, setShowQuestionnaire] = useState(source === 'consulting');
+  const [showDetailsForm, setShowDetailsForm] = useState(false);
   const [questionnaireData, setQuestionnaireData] = useState<StrategicSourcingData | null>(null);
   const { toast } = useToast();
   
@@ -48,7 +50,47 @@ export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'wo
 
   const handleSelectReport = (variant: string) => {
     setSelectedVariant(variant);
-    setShowQuestionnaire(true);
+    
+    // For the Plus variant from Workforce Reports, show the detailed form
+    if (variant === "plus" && source === "workforce") {
+      setShowDetailsForm(true);
+    } else {
+      // For Basic variant or coming from Consulting, show the questionnaire
+      setShowQuestionnaire(true);
+    }
+  };
+  
+  // Method to handle the detailed form submission
+  const handleDetailsFormSubmit = async (data: any) => {
+    try {
+      // Save the strategic sourcing request to the database
+      const requestData = {
+        reportType: "strategic-sourcing",
+        variant: "plus",
+        roles: data.roles,
+        locations: data.locations,
+        additionalNotes: data.additionalNotes
+      };
+      
+      // Call the API to save the request
+      await apiRequest("POST", "/api/requests/strategic-sourcing-plus", requestData);
+      
+      toast({
+        title: "Request Submitted",
+        description: "Your Strategic Sourcing Plus request has been submitted successfully.",
+        variant: "default",
+      });
+      
+      // Finally call the onSubmit prop to continue the flow
+      onSubmit("strategic-sourcing", "plus");
+    } catch (error) {
+      console.error("Error submitting strategic sourcing plus request:", error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your request. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   const handleQuestionnaireComplete = async (data: StrategicSourcingData) => {
@@ -100,7 +142,24 @@ export default function StrategicSourcingDetail({ onBack, onSubmit, source = 'wo
       setShowQuestionnaire(false);
     }
   };
+  
+  const handleDetailsFormBack = () => {
+    // Go back to the variant selection
+    setShowDetailsForm(false);
+  };
 
+  // If the detailed form for Plus variant should be shown
+  if (showDetailsForm) {
+    return (
+      <StrategicSourcingDetailsForm
+        onBack={handleDetailsFormBack}
+        onSubmit={handleDetailsFormSubmit}
+        variant={selectedVariant}
+      />
+    );
+  }
+
+  // If the questionnaire should be shown
   if (showQuestionnaire) {
     return (
       <StrategicSourcingQuestionnaire 
