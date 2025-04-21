@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import PPTViewer from "@/components/ppt-viewer";
 import { AnimatedContainer } from "@/components/ui/animated-container";
+import StrategicSourcingQuestionnaire, { StrategicSourcingData } from "./strategic-sourcing-questionnaire";
 
 interface StrategicSourcingDetailProps {
   onBack: () => void;
@@ -17,6 +18,8 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
   const [isPPTViewerOpen, setIsPPTViewerOpen] = useState(false);
   const [currentPPTVariant, setCurrentPPTVariant] = useState<string>("basic");
+  const [showQuestionnaire, setShowQuestionnaire] = useState(false);
+  const [questionnaireData, setQuestionnaireData] = useState<StrategicSourcingData | null>(null);
   const { toast } = useToast();
   
   // Get the strategic sourcing report details
@@ -40,8 +43,44 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
 
   const handleSelectReport = (variant: string) => {
     setSelectedVariant(variant);
-    onSubmit("strategic-sourcing", variant);
+    setShowQuestionnaire(true);
   };
+  
+  const handleQuestionnaireComplete = (data: StrategicSourcingData) => {
+    setQuestionnaireData(data);
+    
+    // Save the questionnaire data to database and proceed
+    try {
+      // Here you would typically save the data to the database
+      toast({
+        title: "Request Submitted",
+        description: "Your Strategic Sourcing request has been submitted successfully.",
+        variant: "default",
+      });
+      
+      // Finally call the onSubmit prop to continue the flow
+      onSubmit("strategic-sourcing", selectedVariant || "basic");
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your request. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+  
+  const handleQuestionnaireBack = () => {
+    setShowQuestionnaire(false);
+  };
+
+  if (showQuestionnaire) {
+    return (
+      <StrategicSourcingQuestionnaire 
+        onBack={handleQuestionnaireBack}
+        onComplete={handleQuestionnaireComplete}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -71,7 +110,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* We're using grid cells with equal heights, and specific styling to ensure alignment */}
+            {/* Basic Version Card */}
             <div className="flex flex-col h-full">
               <Card className={`border-2 flex flex-col h-full shadow-md transition-all duration-300 ${selectedVariant === "basic" ? "border-[#4600FF] ring-2 ring-[#CCCFFF]" : "border-[#CCCFFF]"}`}>
                 <CardHeader className="pb-3">
@@ -296,7 +335,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
                     </div>
                   </div>
                 </CardContent>
-                {/* Using mt-auto to push the footer to the bottom and ensure alignment with the other card */}
+                {/* Using mt-auto to push the footer to the bottom */}
                 <CardFooter className="flex flex-col space-y-2 mt-auto pt-4 border-t">
                   <Button 
                     variant="outline" 
