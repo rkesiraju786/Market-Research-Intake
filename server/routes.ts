@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
-import { insertWorkforceRequestSchema, insertConsultingRequestSchema, insertAppointmentSchema } from "@shared/schema";
+import { insertWorkforceRequestSchema, insertConsultingRequestSchema, insertAppointmentSchema, insertStrategicSourcingRequestSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Workforce Reports Request API
@@ -112,6 +112,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to get appointments" 
+      });
+    }
+  });
+
+  // Strategic Sourcing Request API
+  app.post("/api/requests/strategic-sourcing", async (req, res) => {
+    try {
+      const validatedData = insertStrategicSourcingRequestSchema.parse(req.body);
+      const request = await storage.createStrategicSourcingRequest(validatedData);
+      res.status(201).json({ success: true, data: request });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Validation failed", 
+          errors: error.errors 
+        });
+      } else {
+        console.error("Error creating strategic sourcing request:", error);
+        res.status(500).json({ 
+          success: false, 
+          message: "Failed to create strategic sourcing request" 
+        });
+      }
+    }
+  });
+
+  // Get all strategic sourcing requests
+  app.get("/api/requests/strategic-sourcing", async (req, res) => {
+    try {
+      const requests = await storage.getAllStrategicSourcingRequests();
+      res.json({ success: true, data: requests });
+    } catch (error) {
+      console.error("Error getting strategic sourcing requests:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to get strategic sourcing requests" 
       });
     }
   });

@@ -46,12 +46,28 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
     setShowQuestionnaire(true);
   };
   
-  const handleQuestionnaireComplete = (data: StrategicSourcingData) => {
+  const handleQuestionnaireComplete = async (data: StrategicSourcingData) => {
     setQuestionnaireData(data);
     
-    // Save the questionnaire data to database and proceed
     try {
-      // Here you would typically save the data to the database
+      // Save the strategic sourcing request to the database
+      const requestData = {
+        reportType: "strategic-sourcing",
+        variant: selectedVariant || "basic",
+        challenges: data.challenges,
+        challengeDetails: data.challengeDetails,
+        audience: data.audience,
+        audienceDetails: data.audienceDetails,
+        timeline: data.timeline,
+        deadline: data.deadline,
+        deadlineReason: data.deadlineReason,
+        additionalInsights: data.additionalInsights,
+        insightDetails: data.insightDetails
+      };
+      
+      // Call the API to save the request
+      await apiRequest("POST", "/api/requests/strategic-sourcing", requestData);
+      
       toast({
         title: "Request Submitted",
         description: "Your Strategic Sourcing request has been submitted successfully.",
@@ -61,6 +77,7 @@ export default function StrategicSourcingDetail({ onBack, onSubmit }: StrategicS
       // Finally call the onSubmit prop to continue the flow
       onSubmit("strategic-sourcing", selectedVariant || "basic");
     } catch (error) {
+      console.error("Error submitting strategic sourcing request:", error);
       toast({
         title: "Submission Failed",
         description: "There was an error submitting your request. Please try again.",
