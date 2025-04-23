@@ -24,8 +24,8 @@ The platform includes a scheduling feature for consultations, database storage f
 - **Strategic Sourcing Reports**: Comprehensive questionnaires for talent acquisition, workforce challenges, audience analysis, and timeline expectations
 - **Advanced Role-Location Analysis**: Detailed mapping of talent requirements across multiple geographies
 - **Database Integration**: Secure PostgreSQL storage for all form submissions and client data
-- **Report Variant Selection**: Basic and Plus options with transparent pricing and feature comparison
-- **Talent Market Insight Consultation**: Calendar-based scheduling system for expert consultation sessions
+- **Report Variant Selection**: Basic and Plus options with transparent pricing and feature comparison.
+- **Talent Market Insight Consultation**: Calendar-based scheduling system for expert consultation sessions.
 
 ## Technical Details
 
