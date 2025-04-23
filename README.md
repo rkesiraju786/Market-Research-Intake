@@ -120,7 +120,7 @@ The application uses a consistent design language with the following brand color
 - Inform leadership about talent landscape challenges and opportunities
 - Analyze competitor talent strategies and movements
 
-### For Organizational Development Teams
+#### For Organizational Development Teams
 - Design upskilling initiatives based on skill gap analysis
 - Create career pathways aligned with market trends
 - Support diversity and inclusion strategies with demographic insights
