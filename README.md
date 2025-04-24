@@ -56,7 +56,7 @@ The platform includes a scheduling feature for consultations, database storage f
 4. User completes the detailed form with role-location pairs, challenge descriptions, and timeline requirements
 5. User receives a confirmation with request status and next steps information
 
-#### Consulting Projects Flow
+### Consulting Projects Flow
 1. User selects "Consulting Projects" from main page
 2. User browses available talent consulting services with project descriptions
 3. For Strategic Sourcing projects, user completes an intuitive conversational questionnaire
