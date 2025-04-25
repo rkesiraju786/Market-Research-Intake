@@ -27,7 +27,7 @@ The platform includes a scheduling feature for consultations, database storage f
 - **Report Variant Selection**: Basic and Plus options with transparent pricing and feature comparison.
 - **Talent Market Insight Consultation**: Calendar-based scheduling system for expert consultation sessions.
 
-## Technical Details
+### Technical Details
 
 ### Tech Stack
 - **Frontend**: React/TypeScript with Framer Motion animations
